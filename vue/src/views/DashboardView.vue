@@ -1,20 +1,25 @@
 <template>
     <div>
-        <h1>Hello</h1>
+        <h1>I am the dashboard</h1>
         <list-shifts v-bind:shift="shift"/> <h1>I exist</h1>
+
     </div>
+    
 
     <div> 
-    <!-- <li v-bind="shift" v-for="item in shift" v-bind:key="item"  >{{ shift}}</li> -->
+        <cover-form/>
     </div>
 
 </template>
 <script>
 import ListShifts from '../components/ListShifts.vue';
+import CoverForm from '../components/CoverForm.vue';
+
 
 export default{
     components: {
-        ListShifts
+        ListShifts,
+        CoverForm
     },
     data(){
         return {

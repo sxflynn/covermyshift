@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1> I am the list </h1>
   <li v-bind="shift" v-for="item in shift" v-bind:key="item"  >{{ shift}}</li>
 </div>
 </template>
