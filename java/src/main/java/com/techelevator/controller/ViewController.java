@@ -20,11 +20,7 @@ public class ViewController {
 
     @RequestMapping(path = API_BASE_SHIFT_URL + "/uncovered", method = RequestMethod.GET)
     public Shift getAllUncoveredShifts(){
-        Shift uncoveredShift = new Shift();
-        uncoveredShift.setCovered(false);
-        uncoveredShift.setShiftDate(LocalDate.parse("2023-12-01"));
-        uncoveredShift.setShiftOwnerId(1);
-        uncoveredShift.setCompanyId(1);
+        Shift uncoveredShift = new Shift(false,1,null,LocalDate.parse("2023-12-01"),1);
         return uncoveredShift;
     }
 

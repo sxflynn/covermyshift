@@ -2,19 +2,21 @@ package com.techelevator.model;
 
 import java.time.LocalDate;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Shift {
 
     //TODO should this be true?
-    boolean isCovered = true;
+    boolean isCovered;
 
     int shiftOwnerId;
-    int shiftVolunteerId;
+    Integer shiftVolunteerId;
     LocalDate shiftDate;
 
     int companyId;
 
-    public Shift(boolean isCovered, int shiftOwnerId, int shiftVolunteerId, LocalDate shiftDate, int companyId) {
+    public Shift(boolean isCovered, int shiftOwnerId, Integer shiftVolunteerId, LocalDate shiftDate, int companyId) {
         this.isCovered = isCovered;
         this.shiftOwnerId = shiftOwnerId;
         this.shiftVolunteerId = shiftVolunteerId;
@@ -42,11 +44,11 @@ public class Shift {
         this.shiftOwnerId = shiftOwnerId;
     }
 
-    public int getShiftVolunteerId() {
+    public Integer getShiftVolunteerId() {
         return shiftVolunteerId;
     }
 
-    public void setShiftVolunteerId(int shiftVolunteerId) {
+    public void setShiftVolunteerId(Integer shiftVolunteerId) {
         this.shiftVolunteerId = shiftVolunteerId;
     }
 
