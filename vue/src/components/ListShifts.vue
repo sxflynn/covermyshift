@@ -1,5 +1,16 @@
 <template>
-    <div></div>
+  <div>
+  <li v-bind="shift" v-for="item in shift" v-bind:key="item"  >{{ shift}}</li>
+</div>
 </template>
-<script></script>
-<style></style>
+
+<script>
+export default {
+    props: ['shift']
+
+}
+</script>
+
+<style>
+
+</style>

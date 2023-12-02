@@ -1,26 +1,41 @@
 <template>
-    <div></div>
-<!-- 
-    Contains components: CoverForm, ListShifts -->
+    <div>
+        <h1>Hello</h1>
+        <list-shifts v-bind:shift="shift"/> <h1>I exist</h1>
+    </div>
 
-    <!-- Fake JSON -->
-const shift = {
+    <div> 
+    <!-- <li v-bind="shift" v-for="item in shift" v-bind:key="item"  >{{ shift}}</li> -->
+    </div>
+
+</template>
+<script>
+import ListShifts from '../components/ListShifts.vue';
+
+export default{
+    components: {
+        ListShifts
+    },
+    data(){
+        return {
+        test: [],
+    shift: {
     isCovered : true,
     shiftOwnerId : 1,
     shiftVolunteerId : null,
     shiftDate : "2023-12-01",
     companyId : 1
-}
+},
 
-const employee = {
+    employee: {
     employeeId : 1,
     employeeName : "Steve",
     username : "user",
     email : "user@user.com",
     companyId : 1
 }
-
-
-</template>
-<script></script>
-<style></style>
+    }
+}
+}
+</script>
+<style scoped></style>
