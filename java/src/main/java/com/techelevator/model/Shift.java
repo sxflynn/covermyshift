@@ -7,17 +7,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Shift {
 
+    int shiftId;
     //TODO should this be true?
     boolean isCovered;
 
     int shiftOwnerId;
+    String shiftOwnerName;
     Integer shiftVolunteerId;
     LocalDate shiftDate;
 
     int companyId;
 
-    public Shift(boolean isCovered, int shiftOwnerId, Integer shiftVolunteerId, LocalDate shiftDate, int companyId) {
+    public Shift(int shiftId, boolean isCovered, int shiftOwnerId, String shiftOwnerName, Integer shiftVolunteerId, LocalDate shiftDate, int companyId) {
+        this.shiftId = shiftId;
         this.isCovered = isCovered;
+        this.shiftOwnerName = shiftOwnerName;
         this.shiftOwnerId = shiftOwnerId;
         this.shiftVolunteerId = shiftVolunteerId;
         this.shiftDate = shiftDate;
@@ -26,6 +30,22 @@ public class Shift {
 
     public Shift(){
 
+    }
+
+    public String getShiftOwnerName() {
+        return shiftOwnerName;
+    }
+
+    public void setShiftOwnerName(String shiftOwnerName) {
+        this.shiftOwnerName = shiftOwnerName;
+    }
+
+    public int getShiftId() {
+        return shiftId;
+    }
+
+    public void setShiftId(int shiftId) {
+        this.shiftId = shiftId;
     }
 
     public boolean isCovered() {
