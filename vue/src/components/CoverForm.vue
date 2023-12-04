@@ -1,16 +1,22 @@
 <template>
   <form v-on:submit.prevent="submitForm">
-    <h1>I am the form</h1>
     <div class="field">
       <label for="name">Name</label>
       <input
-        type="text"
-        id="name"
-        name="name"
-        v-model="coverReq.employeeName"
-      />
+        type="text" id="name" name="name" v-model="coverReq.employeeName"/>
+      &nbsp;
       <label for="date">Date</label>
       <input type="text" id="date" name="date" v-model="coverReq.date" />
+
+      &nbsp;
+      <label for="Emergency">Emergency</label>
+      <input type="checkbox" id="emergency" name="emergency" v-model="coverReq.isEmergency" />
+     
+      &nbsp;
+      <label for="Message">Reason for request (optional)</label>
+      <input type="text" id="message" name="message" v-model="coverReq.isEmergency" />
+
+      
     </div>
     <div class="actions">
       <button class="btn-submit" type="submit">Submit</button>

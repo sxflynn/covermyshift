@@ -1,11 +1,8 @@
 <template>
-  <div>
-    <h1>I am the dashboard</h1>
-    <list-shifts v-bind:shift="shift" v-show="showShifts" />
-    <h1>I exist</h1>
-    <button @click="addRequest" v-show="showShifts">Make Request</button>
-    <button @click="addRequest" v-show="showForm">Show Shifts</button>
-    <cover-form v-show="showForm" />
+  <button @click="addRequest" class="requestShiftBtn">{{ buttonText }}</button>
+  <div id="dashboardContent">
+    <list-shifts v-bind:shift="shift" v-show="!showForm" class="listShiftsClass"/>
+    <cover-form v-show="showForm" class="coverFormClass" />
   </div>
 </template>
 <script>
@@ -17,16 +14,12 @@ export default {
     ListShifts,
     CoverForm,
   },
-  methods: {
-    addRequest() {
-      this.showForm = !this.showForm;
-      this.showShifts = !this.showShifts;
-    },
-  },
+  
   data() {
     return {
       showShifts: true,
       showForm: false,
+      buttonText: "Show Form",
       shift: {
         isCovered: true,
         shiftOwnerId: 1,
@@ -44,7 +37,45 @@ export default {
       },
     };
   },
+  methods: {
+    addRequest() {
+      if (this.showForm) {
+        this.buttonText = "Show Form"
+        this.showForm = !this.showForm
+
+      } else if(!this.showForm) {
+        this.buttonText = "List Shifts"
+        this.showForm = !this.showForm
+      }
+    },
+  },
 };
 </script>
 <style scoped>
+#dashboardContent{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  row-gap: 10px;
+  column-gap: 10px;
+  align-items: center;
+  justify-content: center;
+  grid-template-areas:
+          ". . requestShiftBtn"
+          "listShiftsClass listShiftsClass listShiftsClass"
+          "coverFormClass coverFormClass coverFormClass"
+
+
+}
+.requestShiftBtn{
+  float: right ;
+
+}
+.listShiftsClass{
+  grid-area: listShiftsClass;
+
+}
+.coverFormClass{
+  grid-area: coverFormClass;
+}
 </style>
