@@ -6,16 +6,15 @@ public class Employee {
     String employeeName;
     String username;
     String email;
-    int companyId;
 
     //TODO add companyName string
 
-    public Employee(int employeeId, String employeeName, String username, String email, int companyId) {
+    public Employee(int employeeId, String employeeName, String username, String email) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.username = username;
         this.email = email;
-        this.companyId = companyId;
+
     }
 
     public Employee(){
@@ -54,11 +53,4 @@ public class Employee {
         this.email = email;
     }
 
-    public int getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
-    }
 }

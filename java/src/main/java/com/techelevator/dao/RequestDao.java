@@ -9,7 +9,9 @@ public interface RequestDao {
     // GetAllRequests
     public List<Request> getAllRequests();
 
-    // GetRequestById
+    // Get Request By RequestId
+    public Request getRequestByRequestId(int requestId);
+
 
     // CreateRequest
     public Request createRequest(Request request);
@@ -18,6 +20,8 @@ public interface RequestDao {
 
     // DeleteRequestById
 
+    // GetRequestByEmployeeId
+    public Request getRequestByEmployeeId(int employeeId);
 
     //LATER -- GetAllRequestsByEmployee
     //LATER -- GetAllRequestByWorkplace

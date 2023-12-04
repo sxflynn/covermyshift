@@ -8,25 +8,42 @@ public class Request {
     private int employeeId;
     private String employeeName;
     private LocalDate date;
-    private int workplaceId;
+    private String message;
     private boolean isEmergency;
+    private boolean isCovered;
     private boolean isPending;
     private boolean isApproved;
 
-    public Request(int requestId, int employeeId, String employeeName, LocalDate date, int workplaceId, boolean isEmergency, boolean isPending, boolean isApproved) {
+    public Request(int requestId, int employeeId, String employeeName, LocalDate date, boolean isEmergency, boolean isPending, boolean isApproved, String message, boolean isCovered) {
         this.requestId = requestId;
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.date = date;
-        this.workplaceId = workplaceId;
         this.isEmergency = isEmergency;
         this.isPending = isPending;
         this.isApproved = isApproved;
+        this.message = message;
+        this.isCovered = isCovered;
     }
 
     public Request() {
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public boolean isCovered() {
+        return isCovered;
+    }
+
+    public void setCovered(boolean covered) {
+        isCovered = covered;
+    }
 
     public int getRequestId() {
         return requestId;
@@ -58,14 +75,6 @@ public class Request {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public int getWorkplaceId() {
-        return workplaceId;
-    }
-
-    public void setWorkplaceId(int workplaceId) {
-        this.workplaceId = workplaceId;
     }
 
     public boolean isEmergency() {
