@@ -11,20 +11,21 @@ CREATE TABLE users (
 );
 
 CREATE TABLE employee (
-    employeeId SERIAL PRIMARY KEY,
-    employeeName VARCHAR(255),
+    employee_id SERIAL PRIMARY KEY,
+    employee_name VARCHAR(255),
     username VARCHAR(50) REFERENCES users(username),
     email VARCHAR(255)
 );
 
 CREATE TABLE request (
-    RequestId SERIAL PRIMARY KEY,
-    employeeId INT REFERENCES employee(employeeId),
-    date TIMESTAMP,
-    isEmergency BOOLEAN,
-    isPending BOOLEAN,
-    isCovered BOOLEAN,
-    isApproved BOOLEAN
+    request_id SERIAL PRIMARY KEY,
+    employee_id INT REFERENCES employee(employee_id),
+    date TIMESTAMP WITH TIME ZONE,
+    message VARCHAR(5000),
+    is_emergency BOOLEAN,
+    is_pending BOOLEAN,
+    is_covered BOOLEAN,
+    is_approved BOOLEAN
 );
 
 COMMIT TRANSACTION;

@@ -15,10 +15,10 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
     //create DUMMY REQUEST
     //CREATE DUMMY EMPLOYEE
 
-    private static final Request REQUEST_1_NOID = new Request(0,1,"Steve C.", LocalDate.parse("2023-12-01"),1,false,true,false);
+    private static final Request REQUEST_1_NOID = new Request(0,1,"Steve C.", LocalDate.parse("2023-12-01"),false,true,false,"My message",false);
 
-    private static final Request REQUEST_1 = new Request(1,1,"Steve C.", LocalDate.parse("2023-12-01"),1,false,true,false);
-    private static final Request REQUEST_2 = new Request(2,1,"Steve C.", LocalDate.parse("2023-12-02"),1,false,true,false);
+    private static final Request REQUEST_1 = new Request(1,1,"Steve C.", LocalDate.parse("2023-12-01"),false,true,false,"My message",false);
+    private static final Request REQUEST_2 = new Request(2,1,"Steve C.", LocalDate.parse("2023-12-02"),false,true,false, "My message",false);
 
     private JdbcRequestDao dao;
 
@@ -31,7 +31,14 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
     @Test
     public void get_request_by_id_returns_correct_request(){
         Request testRequest = REQUEST_2;
+        Request realRequest = dao.getRequestByRequestId(2);
+        assertRequestsMatch(testRequest,realRequest);
+    }
 
+    @Test
+    public void get_request_by_id_with_invalid_id_returns_null_request(){
+        Request realrequest = dao.getRequestByRequestId(99);
+        Assert.assertNull("Request should be null",realrequest);
     }
 
     @Test
@@ -39,7 +46,8 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
         Request testRequest = REQUEST_1_NOID;
         Request realRequest = dao.createRequest(testRequest);
         int requestId = realRequest.getRequestId();
-        Assert.assertTrue("Request ID should be greater than 0, but is " + realRequest.getRequestId(),realRequest.getRequestId() > 0);
+        testRequest.setRequestId(requestId);
+        Assert.assertTrue("Request ID should be greater than 0, but is " + realRequest.getRequestId(),requestId > 0);
         Assert.assertNotNull("Returned request should not be null",realRequest);
         assertRequestsMatch(testRequest,realRequest);
     }
@@ -49,10 +57,6 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
         List<Request> testRequesList = new ArrayList<>();
         testRequesList.add(REQUEST_1);
         testRequesList.add(REQUEST_2);
-
-        //INSERT TWO DUMMY REQUESTS
-        dao.createRequest(REQUEST_1);
-        dao.createRequest(REQUEST_2);
 
         List<Request> realRequestList = dao.getAllRequests();
 
@@ -66,10 +70,11 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
         Assert.assertEquals("Expected employee ID: " + requestExpected.getEmployeeId() + ", but was: " + realRequest.getEmployeeId(), requestExpected.getEmployeeId(), realRequest.getEmployeeId());
         Assert.assertEquals("Expected employee name: " + requestExpected.getEmployeeName() + ", but was: " + realRequest.getEmployeeName(), requestExpected.getEmployeeName(), realRequest.getEmployeeName());
         Assert.assertEquals("Expected request ID: " + requestExpected.getRequestId() + ", but was: " + realRequest.getRequestId(), requestExpected.getRequestId(), realRequest.getRequestId());
-        Assert.assertEquals("Expected workplace ID: " + requestExpected.getWorkplaceId() + ", but was: " + realRequest.getWorkplaceId(), requestExpected.getWorkplaceId(), realRequest.getWorkplaceId());
         Assert.assertEquals("Expected approved status: " + requestExpected.isApproved() + ", but was: " + realRequest.isApproved(), requestExpected.isApproved(), realRequest.isApproved());
         Assert.assertEquals("Expected emergency status: " + requestExpected.isEmergency() + ", but was: " + realRequest.isEmergency(), requestExpected.isEmergency(), realRequest.isEmergency());
+        Assert.assertEquals("Expected message: " + requestExpected.getMessage() + ", but was: " + realRequest.getMessage(), requestExpected.getMessage(), realRequest.getMessage());
         Assert.assertEquals("Expected pending status: " + requestExpected.isPending() + ", but was: " + realRequest.isPending(), requestExpected.isPending(), realRequest.isPending());
+        Assert.assertEquals("Expected covered status: " + requestExpected.isCovered() + ", but was: " + realRequest.isCovered(), requestExpected.isCovered(), realRequest.isCovered());
     }
 
 
