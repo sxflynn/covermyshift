@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, employee, request;
+DROP TABLE IF EXISTS request, employee, users;
 
 CREATE TABLE users (
     user_id SERIAL,
@@ -11,18 +11,16 @@ CREATE TABLE users (
 );
 
 CREATE TABLE employee (
-    employeeId INT PRIMARY KEY,
+    employeeId SERIAL PRIMARY KEY,
     employeeName VARCHAR(255),
     username VARCHAR(50) REFERENCES users(username),
     email VARCHAR(255)
 );
 
 CREATE TABLE request (
-    RequestId INT PRIMARY KEY,
+    RequestId SERIAL PRIMARY KEY,
     employeeId INT REFERENCES employee(employeeId),
-    employeeName VARCHAR(255),
     date TIMESTAMP,
-    workplaceId INT,
     isEmergency BOOLEAN,
     isPending BOOLEAN,
     isCovered BOOLEAN,

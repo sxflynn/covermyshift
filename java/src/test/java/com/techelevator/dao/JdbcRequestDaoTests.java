@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.sql.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +14,8 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
 
     //create DUMMY REQUEST
     //CREATE DUMMY EMPLOYEE
+
+    private static final Request REQUEST_1_NOID = new Request(0,1,"Steve C.", LocalDate.parse("2023-12-01"),1,false,true,false);
 
     private static final Request REQUEST_1 = new Request(1,1,"Steve C.", LocalDate.parse("2023-12-01"),1,false,true,false);
     private static final Request REQUEST_2 = new Request(2,1,"Steve C.", LocalDate.parse("2023-12-02"),1,false,true,false);
@@ -28,9 +29,17 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
     }
 
     @Test
+    public void get_request_by_id_returns_correct_request(){
+        Request testRequest = REQUEST_2;
+
+    }
+
+    @Test
     public void create_request_should_returns_new_request(){
-        Request testRequest = REQUEST_1;
+        Request testRequest = REQUEST_1_NOID;
         Request realRequest = dao.createRequest(testRequest);
+        int requestId = realRequest.getRequestId();
+        Assert.assertTrue("Request ID should be greater than 0, but is " + realRequest.getRequestId(),realRequest.getRequestId() > 0);
         Assert.assertNotNull("Returned request should not be null",realRequest);
         assertRequestsMatch(testRequest,realRequest);
     }
