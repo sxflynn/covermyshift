@@ -14,5 +14,4 @@ VALUES (1, 'Steve C.', '2023-12-01 00:00:00', 1, false, true, false, false);
 INSERT INTO request (employeeId, employeeName, date, workplaceId, isEmergency, isPending, isCovered, isApproved)
 VALUES (1, 'Steve C.', '2023-12-02 00:00:00', 1, false, true, false, false);
 
-
 COMMIT TRANSACTION;

@@ -10,6 +10,7 @@ public interface RequestDao {
     public List<Request> getAllRequests();
 
     // GetRequestById
+    public Request getRequestById(int employeeId);
 
     // CreateRequest
     public Request createRequest(Request request);
