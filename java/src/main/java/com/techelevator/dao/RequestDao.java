@@ -12,6 +12,7 @@ public interface RequestDao {
     // Get Request By RequestId
     public Request getRequestByRequestId(int requestId);
 
+    public List<Request> getCurrentAndFutureRequests();
 
     // CreateRequest
     public Request createRequest(Request request);

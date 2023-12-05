@@ -2,16 +2,14 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.RequestDao;
 import com.techelevator.model.Request;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class ViewController {
     private RequestDao requestDao;
 
@@ -29,6 +27,12 @@ public class ViewController {
     @RequestMapping(path = API_BASE_REQUEST_URL, method=RequestMethod.POST)
     public Request addRequest(@RequestBody Request request){
         return requestDao.createRequest(request);
+    }
+
+    @RequestMapping(path = API_BASE_REQUEST_URL + "/current", method = RequestMethod.GET)
+    public List<Request> getPresentAndFutureRequests(){
+        //Returns all requests from 1 day ago plus into the future
+        return requestDao.getCurrentAndFutureRequests();
     }
 
 

@@ -20,6 +20,9 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
     private static final Request REQUEST_1 = new Request(1,1,"Steve C.", LocalDate.parse("2023-12-01"),false,true,false,"My message",false);
     private static final Request REQUEST_2 = new Request(2,1,"Steve C.", LocalDate.parse("2023-12-02"),false,true,false, "My message",false);
 
+    private static final Request FUTURE_REQUEST = new Request(3,1,"Steve C.", LocalDate.parse("2024-12-02"),false,true,false, "My message",false);
+
+
     private JdbcRequestDao dao;
 
     @Before
@@ -34,6 +37,17 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
         Request realRequest = dao.getRequestByRequestId(2);
         assertRequestsMatch(testRequest,realRequest);
     }
+
+    @Test
+    public void get_future_request_only_returns_future_requests(){
+        Request testRequest = FUTURE_REQUEST;
+        List<Request> testRequestList = new ArrayList<>();
+        testRequestList.add(testRequest);
+        List<Request> realRequestList = dao.getCurrentAndFutureRequests();
+        assertRequestsMatch(testRequestList.get(0),realRequestList.get(0));
+    }
+
+
 
     @Test
     public void get_request_by_id_with_invalid_id_returns_null_request(){
