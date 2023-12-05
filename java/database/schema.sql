@@ -36,7 +36,7 @@ CREATE TABLE Shift (
     shift_volunteer_id INT,
     shift_volunteer_name VARCHAR(255),
     start_time TIMESTAMP,
-    endTime TIMESTAMP
+    end_time TIMESTAMP
 );
 
 
