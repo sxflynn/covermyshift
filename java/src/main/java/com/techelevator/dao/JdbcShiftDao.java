@@ -13,8 +13,8 @@ public class JdbcShiftDao implements ShiftDao {
     private final JdbcTemplate jdbcTemplate;
 
 
-    public JdbcShiftDao(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public JdbcShiftDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override

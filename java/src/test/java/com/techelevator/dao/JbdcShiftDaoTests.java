@@ -21,6 +21,9 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
     }
 
     @Test
+    public void get_all_shifts_returns_shifts(){
+
+    }
 
 
 
