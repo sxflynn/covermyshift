@@ -39,28 +39,28 @@ export default {
     };
   },
   methods: {
-    handleErrorResponse(error, verb) {
-      if (error.response) {
-        if (error.response.status == 404) {
-          this.$router.push({ name: "NotFoundView" });
-        } else {
-          this.$store.commit(
-            "SET_NOTIFICATION",
-            `Error ${verb} request. Response received was "${error.response.statusText}".`
-          );
-        }
-      } else if (error.request) {
-        this.$store.commit(
-          "SET_NOTIFICATION",
-          `Error ${verb} request. Server could not be reached.`
-        );
-      } else {
-        this.$store.commit(
-          "SET_NOTIFICATION",
-          `Error ${verb} request. Request could not be created.`
-        );
-      }
-    },
+    // handleErrorResponse(error, verb) {
+    //   if (error.response) {
+    //     if (error.response.status == 404) {
+    //       this.$router.push({ name: "NotFoundView" });
+    //     } else {
+    //       this.$store.commit(
+    //         "SET_NOTIFICATION",
+    //         `Error ${verb} request. Response received was "${error.response.statusText}".`
+    //       );
+    //     }
+    //   } else if (error.request) {
+    //     this.$store.commit(
+    //       "SET_NOTIFICATION",
+    //       `Error ${verb} request. Server could not be reached.`
+    //     );
+    //   } else {
+    //     this.$store.commit(
+    //       "SET_NOTIFICATION",
+    //       `Error ${verb} request. Request could not be created.`
+    //     );
+    //   }
+    // },
     addRequest() {
       if (this.showForm) {
         this.buttonText = "Show Form";
@@ -72,7 +72,6 @@ export default {
     },
   },
   created() {
-    console.log("I am alive");
     // TODO - Do an add, then navigate Home on success.
     // For errors, call handleErrorResponse
     RequestService.list()
@@ -84,7 +83,8 @@ export default {
         }
       })
       .catch((error) => {
-        this.handleErrorResponse(error, "adding");
+        // this.handleErrorResponse(error, "adding");
+        console.log('Dashboard: ' + error)
       });
   },
 };
