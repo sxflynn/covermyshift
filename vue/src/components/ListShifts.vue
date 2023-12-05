@@ -24,44 +24,9 @@ import RequestService from "../services/RequestService";
 export default {
   props: ["coverReq"],
   methods: {
-    handleErrorResponse(error, verb) {
-      if (error.response) {
-        if (error.response.status == 404) {
-          this.$router.push({ name: "NotFoundView" });
-        } else {
-          this.$store.commit(
-            "SET_NOTIFICATION",
-            `Error ${verb} request. Response received was "${error.response.statusText}".`
-          );
-        }
-      } else if (error.request) {
-        this.$store.commit(
-          "SET_NOTIFICATION",
-          `Error ${verb} request. Server could not be reached.`
-        );
-      } else {
-        this.$store.commit(
-          "SET_NOTIFICATION",
-          `Error ${verb} request. Request could not be created.`
-        );
-      }
-    },
+    
   },
-  created() {
-    console.log("I am alive");
-    // TODO - Do an add, then navigate Home on success.
-    // For errors, call handleErrorResponse
-    RequestService.list()
-      .then((response) => {
-        console.log(response.data);
-        if (response.status === 201 || response.status === 200) {
-          this.$router.push({ name: "DashboardView" });
-        }
-      })
-      .catch((error) => {
-        this.handleErrorResponse(error, "adding");
-      });
-  },
+ 
 };
 </script>
 
