@@ -33,8 +33,8 @@ CREATE TABLE shift (
     is_covered BOOLEAN,
     shift_owner_id INT REFERENCES employee(employee_id),
     shift_volunteer_id INT REFERENCES employee(employee_id),
-    start_time TIMESTAMP,
-    end_time TIMESTAMP,
+    start_time TIMESTAMP WITH TIME ZONE,
+    end_time TIMESTAMP WITH TIME ZONE,
     CHECK (shift_owner_id IS NULL OR shift_volunteer_id IS NULL OR shift_owner_id != shift_volunteer_id)
 );
 
