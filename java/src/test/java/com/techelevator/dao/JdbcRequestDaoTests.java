@@ -12,9 +12,6 @@ import java.util.List;
 
 public class JdbcRequestDaoTests extends BaseDaoTests{
 
-    //create DUMMY REQUEST
-    //CREATE DUMMY EMPLOYEE
-
     private static final Request REQUEST_1_NOID = new Request(0,1,"Steve C.", LocalDate.parse("2023-12-01"),false,true,false,"My message",false);
 
     private static final Request REQUEST_1 = new Request(1,1,"Steve C.", LocalDate.parse("2023-12-01"),false,true,false,"My message",false);
