@@ -27,13 +27,17 @@ public class JdbcShiftDao implements ShiftDao {
     @Override
     public List<Shift> getAllCurrentShifts() {
         List<Shift> shiftsList = new ArrayList<>();
-        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE start_time >= CURRENT_TIMESTAMP\n" +
-                "AND start_time < CURRENT_TIMESTAMP + INTERVAL '1 day';";
+        String sql = "SELECT * FROM shift\n" +
+                "WHERE start_time >= CURRENT_TIMESTAMP AND start_time < CURRENT_TIMESTAMP\n" +
+                "+ INTERVAL '1 day'";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
                 Shift shift = mapRowsToShifts(results);
                 shiftsList.add(shift);
+
+            } if (shiftsList.isEmpty()){
+                System.out.println("No shifts found for the specified criteria.");
 
             }
         } catch (CannotGetJdbcConnectionException e) {
@@ -44,24 +48,25 @@ public class JdbcShiftDao implements ShiftDao {
 
     @Override
     public Shift updateShifts(Shift shift) {
-        Shift updatedshift = null;
-        String sql = ALL_COLUMN_WITH_THE_SHIFT + " WHERE shift_id = ?;";
+        Shift updatedShift = null;
+        String sql = "UPDATE shift\n" +
+                "SET is_covered = ?, shift_volunteer_id = ?, start_time = ?, end_time = ?\n" +
+                "WHERE shift_id = ?;";
         try {
-            int number0fShifts = jdbcTemplate.update(sql, shift.getShiftId(), shift.getShiftOwnerId(), shift.getShiftOwnerName(),
-                    shift.getShiftVolunteerId(), shift.getShiftVolunteerName(), shift.isCovered(), shift.getStartTime(), shift.getEndTime());
-            if (number0fShifts == 0) {
-             throw new DaoException("Zero rows affected, expected at least one");
-            }else {
-                updatedshift = getShiftByShiftId(shift.getShiftId());
+            int numberOfShifts = jdbcTemplate.update(sql, shift.isCovered(), shift.getShiftVolunteerId(), shift.getStartTime(), shift.getEndTime(), shift.getShiftId());
+            if (numberOfShifts == 0) {
+                throw new DaoException("Zero rows affected, expected at least one");
+            } else {
+                updatedShift = getShiftByShiftId(shift.getShiftId());
             }
 
         } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
+            throw new DaoException("Unable to connect to the server or database", e);
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
-        }
 
-        return updatedshift;
+        }
+        return  updatedShift;
     }
 
     @Override
@@ -137,5 +142,6 @@ public class JdbcShiftDao implements ShiftDao {
 
         return shift;
     }
+
 
 }
