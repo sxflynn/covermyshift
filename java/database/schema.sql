@@ -29,13 +29,13 @@ CREATE TABLE request (
 );
 
 CREATE TABLE Shift (
-    shiftId SERIAL PRIMARY KEY,
-    isCovered BOOLEAN,
-    shiftOwnerId INT,
-    shiftOwnerName VARCHAR(255),
-    shiftVolunteerId INT,
-    shiftVolunteerName VARCHAR(255),
-    startTime TIMESTAMP,
+    shift_id SERIAL PRIMARY KEY,
+    is_covered BOOLEAN,
+    shift_ownerId INT,
+    shift_ownerName VARCHAR(255),
+    shift_volunteerId INT,
+    shift_volunteerName VARCHAR(255),
+    start_time TIMESTAMP,
     endTime TIMESTAMP
 );
 
