@@ -1,32 +1,77 @@
 <template>
   <div>
     <ul class="shiftList">
-    <span id="nameColumn">Name</span> <span id="dateColumn"> Date</span>    
-    
-    <li v-bind="shift" v-for="item in shift" v-bind:key="item" class="listRow">
+      <span id="nameColumn">Name</span>
+      <span id="dateColumn"> Date</span>
 
-     <span id="shiftName">{{ shift.shiftOwnerName }}</span> : <span id="shiftDate">{{ shift.shiftDate }}</span>
-      <button id="accept">Accept</button>
-      <button id="reject">Reject</button>
-    </li>
-  </ul>
-
+      <li
+        v-bind="coverReq"
+        v-for="item in coverReq"
+        v-bind:key="item"
+        class="listRow"
+      >
+        <span id="shiftName">{{ coverReq }}</span> :
+        <span id="shiftDate">{{ coverReq }}</span>
+        <button id="accept">Accept</button>
+        <button id="reject">Reject</button>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
+import RequestService from "../services/RequestService";
 export default {
-  props: ["shift"],
+  props: ["coverReq"],
+  methods: {
+    handleErrorResponse(error, verb) {
+      if (error.response) {
+        if (error.response.status == 404) {
+          this.$router.push({ name: "NotFoundView" });
+        } else {
+          this.$store.commit(
+            "SET_NOTIFICATION",
+            `Error ${verb} request. Response received was "${error.response.statusText}".`
+          );
+        }
+      } else if (error.request) {
+        this.$store.commit(
+          "SET_NOTIFICATION",
+          `Error ${verb} request. Server could not be reached.`
+        );
+      } else {
+        this.$store.commit(
+          "SET_NOTIFICATION",
+          `Error ${verb} request. Request could not be created.`
+        );
+      }
+    },
+  },
+  created() {
+    console.log("I am alive");
+    // TODO - Do an add, then navigate Home on success.
+    // For errors, call handleErrorResponse
+    RequestService.list()
+      .then((response) => {
+        console.log(response.data);
+        if (response.status === 201 || response.status === 200) {
+          this.$router.push({ name: "DashboardView" });
+        }
+      })
+      .catch((error) => {
+        this.handleErrorResponse(error, "adding");
+      });
+  },
 };
 </script>
 
 <style>
-#accept{
+#accept {
   background-color: rgb(56, 249, 66);
-  
+
   border-radius: 5px;
   border: 1px solid transparent;
-  padding: 0.em .2em;
+  padding: 0em 0.2em;
   font-size: 1em;
   font-weight: 1000;
   font-family: inherit;
@@ -34,21 +79,19 @@ export default {
   transition: border-color 0.25s;
   margin-left: 2.2%;
 }
-#reject{
+#reject {
   background-color: rgb(255, 56, 25);
   border-radius: 5px;
   border: 1px solid transparent;
-  padding: 0.em .2em;
+  padding: 0em 0.2em;
   font-size: 1em;
   font-weight: 1000;
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
 }
-#dateColumn{
+#dateColumn {
   text-underline-position: below;
   margin-left: 1%;
-  
 }
-
 </style>
