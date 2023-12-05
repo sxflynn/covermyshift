@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Employee;
 import com.techelevator.model.Request;
 import com.techelevator.model.Shift;
 import org.junit.Assert;
@@ -9,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,18 +33,18 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
             2,
             true,
             1,
-            null,
-            null,
-            null,
-            LocalDateTime.parse("2023-12-06T08:00:00"),
-            LocalDateTime.parse("2023-12-06T16:00:00")
+            "Steve C.",
+            2,
+            "Rachelle R.",
+            LocalDateTime.parse("2023-12-16T08:00:00"),
+            LocalDateTime.parse("2023-12-16T16:00:00")
     );
 
     private final Shift SHIFT_3 = new Shift(
             3,
             false,
-            1,
-            null,
+            2,
+            "Rachelle R.",
             null,
             null,
             LocalDateTime.parse("2024-12-07T08:00:00"),
@@ -67,6 +69,85 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
         testList.add(SHIFT_2);
         testList.add(SHIFT_3);
         List <Shift> realList = dao.getAllShifts();
+        for (int i = 0; i < testList.size(); i++) {
+            assertShiftsMatch(testList.get(i),realList.get(i));
+        }
+    }
+
+    @Test
+    public void get_shift_by_shift_id_returns_correct_shift(){
+        Shift testShift = SHIFT_2;
+        Shift realShift = dao.getShiftByShiftId(2);
+        assertShiftsMatch(testShift,realShift);
+    }
+
+
+    @Test
+    public void update_shift_updates_correct_shift(){
+        Shift testShift = SHIFT_1;
+        testShift.setCovered(true);
+        Shift realShift = dao.updateShifts(testShift);
+        Assert.assertNotNull(realShift);
+        assertShiftsMatch(testShift,realShift);
+    }
+
+
+    @Test
+    public void get_shift_by_employee_id_returns_correct_shift(){
+        List<Shift> testList = new ArrayList<>();
+        testList.add(SHIFT_2);
+        testList.add(SHIFT_3);
+        List<Shift> realList = dao.getAllShiftsByEmployeeId(2);
+        assertShiftsMatch(testList.get(0),realList.get(0));
+        assertShiftsMatch(testList.get(1),realList.get(1));
+    }
+
+    @Test
+    public void get_all_uncovered_shifts(){
+        Shift testShift = SHIFT_2;
+        List<Shift> realList = new ArrayList<>();
+        realList = dao.getAllUncoveredShifts();
+        assertShiftsMatch(realList.get(0),testShift);
+    }
+
+
+    @Test
+    public void get_all_current_shifts_returns_current_shifts(){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime pastDateStartTime = now.minusDays(10); // Today minus 10 days
+        LocalDateTime pastDateEndTime = now.minusDays(10).plusHours(8); // Assuming an 8-hour difference for the end time
+        LocalDateTime futureDateStartTime = now.plusDays(365); // Today plus 365 days
+        LocalDateTime futureDateEndTime = now.plusDays(365).plusHours(8); // Assuming an 8-hour difference for the end time
+        Shift oldTest = SHIFT_1;
+        oldTest.setStartTime(pastDateStartTime);
+        oldTest.setEndTime(pastDateEndTime);
+        Shift futureTest2 = SHIFT_2;
+        futureTest2.setStartTime(futureDateStartTime);
+        futureTest2.setEndTime(futureDateEndTime);
+
+        Shift futureTest3 = SHIFT_3;
+        futureTest3.setStartTime(futureDateStartTime);
+        futureTest3.setEndTime(futureDateEndTime);
+
+        Shift oldRealShift = dao.getShiftByShiftId(1);
+        oldRealShift.setStartTime(pastDateStartTime);
+        oldRealShift.setEndTime(pastDateEndTime);
+        Shift futureRealShift2 = dao.getShiftByShiftId(2);
+        futureRealShift2.setStartTime(futureDateStartTime);
+        futureRealShift2.setEndTime(futureDateEndTime);
+
+        Shift futureRealShift3 = dao.getShiftByShiftId(3);
+        futureRealShift3.setStartTime(futureDateStartTime);
+        futureRealShift3.setEndTime(futureDateEndTime);
+
+        dao.updateShifts(oldRealShift);
+        dao.updateShifts(futureRealShift3);
+        dao.updateShifts(futureRealShift2);
+
+        List<Shift> realUpdatedShiftList = dao.getAllCurrentShifts();
+        assertShiftsMatch(futureTest2,realUpdatedShiftList.get(0));
+        assertShiftsMatch(futureTest3,realUpdatedShiftList.get(1));
+
     }
 
     public void assertShiftsMatch(Shift expectedShift, Shift realShift){
