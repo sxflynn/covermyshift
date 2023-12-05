@@ -7,6 +7,7 @@ import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import java.security.AlgorithmConstraints;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,21 +28,27 @@ public class JdbcShiftDao implements ShiftDao {
     @Override
     public List<Shift> getAllCurrentShifts() {
         List<Shift> shiftsList = new ArrayList<>();
-        String sql = "SELECT * FROM shift\n" +
-                "WHERE start_time >= CURRENT_TIMESTAMP AND start_time < CURRENT_TIMESTAMP\n" +
+        String sql = ALL_COLUMN_WITH_THE_SHIFT +
+                "  WHERE start_time >= CURRENT_TIMESTAMP AND start_time < CURRENT_TIMESTAMP\n" +
                 "+ INTERVAL '1 day'";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
                 Shift shift = mapRowsToShifts(results);
                 shiftsList.add(shift);
-
-            } if (shiftsList.isEmpty()){
-                System.out.println("No shifts found for the specified criteria.");
-
             }
+
+            if (shiftsList.isEmpty()) {
+                System.out.println("No shifts found for the specified criteria.");
+            }
+
         } catch (CannotGetJdbcConnectionException e) {
+            System.err.println("Error connecting to the database: " + e.getMessage());
             throw new DaoException("Unable to connect to server or database", e);
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred: " + e.getMessage());
+            e.printStackTrace();
+            throw new DaoException("An unexpected error occurred", e);
         }
         return shiftsList;
     }
