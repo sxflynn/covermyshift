@@ -5,13 +5,14 @@
       <span id="dateColumn"> Date</span>
 
       <li
-        v-bind="coverReq"
         v-for="item in listReqArr"
         v-bind:key="item"
         class="listRow"
       >
         <span id="shiftName">{{ item.employeeName }}</span> :
         <span id="shiftDate">{{ item.date }}</span>
+        <span id="shiftEmergency">{{ item.emergency }}</span>
+        <span id="shiftMessage">{{ item.message }}</span>
         <button id="accept">Accept</button>
         <button id="reject">Reject</button>
       </li>
@@ -29,17 +30,7 @@ export default {
       showForm: false,
       buttonText: "Show Form",
       listReqArr: [],
-      coverReq: {
-        requestID: null,
-        employeeID: 1,
-        employeeName: "",
-        date: "",
-        workplaceID: null,
-        isEmergency: null,
-        isPending: null,
-        isCovered: null,
-        isApproved: null,
-      },
+      
     };
   },
   methods: {

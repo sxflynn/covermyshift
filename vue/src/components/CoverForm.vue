@@ -7,11 +7,11 @@
 
       &nbsp;
       <label for="Emergency">Emergency</label>
-      <input type="checkbox" id="emergency" name="emergency" v-model="coverReq.isEmergency" />
+      <input type="checkbox" id="emergency" name="emergency" v-model="coverReq.emergency" />
      
       &nbsp;
       <label for="Message">Reason for request (optional)</label>
-      <input type="text" id="message" name="message" v-model="coverReq.isEmergency" />
+      <input type="text" id="message" name="message" v-model="coverReq.message" />
 
       
     </div>
