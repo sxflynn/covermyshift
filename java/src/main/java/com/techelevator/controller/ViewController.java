@@ -31,6 +31,12 @@ public class ViewController {
         return requestDao.createRequest(request);
     }
 
+    @RequestMapping(path = API_BASE_REQUEST_URL + "/current", method = RequestMethod.GET)
+    public List<Request> getPresentAndFutureRequests(){
+        //Returns all requests from 1 day ago plus into the future
+        return requestDao.getCurrentAndFutureRequests();
+    }
+
 
 //    @RequestMapping(path = API_BASE_REQUEST_URL, method = RequestMethod.PUT)
 //    public Shift updateShifttoUnCovered(@RequestBody CoverageRequest request){

@@ -55,6 +55,22 @@ public class JdbcRequestDao implements RequestDao {
     }
 
     @Override
+    public List<Request> getCurrentAndFutureRequests() {
+        List<Request> requestList = new ArrayList<>();
+        String sql = ALL_COLUMNS_WITH_EMPLOYEE_NAME + "WHERE date >= CURRENT_DATE - INTERVAL '1 day';";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+            while (results.next()) {
+                Request request = mapRowsToRequests(results);
+                requestList.add(request);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return requestList;
+    }
+
+    @Override
     public Request getRequestByEmployeeId(int employeeId) {
         Request requestById = new Request();
         String sql =  ALL_COLUMNS_WITH_EMPLOYEE_NAME + "WHERE request.employee_Id = ?;";
