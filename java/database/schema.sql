@@ -28,4 +28,16 @@ CREATE TABLE request (
     is_approved BOOLEAN
 );
 
+CREATE TABLE Shift (
+    shiftId SERIAL PRIMARY KEY,
+    isCovered BOOLEAN,
+    shiftOwnerId INT,
+    shiftOwnerName VARCHAR(255),
+    shiftVolunteerId INT,
+    shiftVolunteerName VARCHAR(255),
+    startTime TIMESTAMP,
+    endTime TIMESTAMP
+);
+
+
 COMMIT TRANSACTION;
