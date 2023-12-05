@@ -18,11 +18,9 @@ public interface ShiftDao {
 
     public Shift getShiftByShiftId(int shiftId);
 
-
-
-
-
     public List<Shift> getAllShifts();
+
+
 
 
 

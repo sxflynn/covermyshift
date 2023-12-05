@@ -17,6 +17,16 @@ CREATE TABLE employee (
     email VARCHAR(255)
 );
 
+CREATE TABLE shift (
+    shift_id SERIAL PRIMARY KEY,
+    is_covered BOOLEAN,
+    shift_owner_id INT REFERENCES employee(employee_id),
+    shift_volunteer_id INT REFERENCES employee(employee_id),
+    start_time TIMESTAMP WITH TIME ZONE,
+    end_time TIMESTAMP WITH TIME ZONE,
+    CHECK (shift_owner_id IS NULL OR shift_volunteer_id IS NULL OR shift_owner_id != shift_volunteer_id)
+);
+
 CREATE TABLE request (
     request_id SERIAL PRIMARY KEY,
     employee_id INT REFERENCES employee(employee_id),
@@ -28,16 +38,12 @@ CREATE TABLE request (
     is_approved BOOLEAN
 );
 
-CREATE TABLE shift (
-    shift_id SERIAL PRIMARY KEY,
-    is_covered BOOLEAN,
-    shift_owner_id INT REFERENCES employee(employee_id),
-    shift_volunteer_id INT REFERENCES employee(employee_id),
-    start_time TIMESTAMP WITH TIME ZONE,
-    end_time TIMESTAMP WITH TIME ZONE,
-    CHECK (shift_owner_id IS NULL OR shift_volunteer_id IS NULL OR shift_owner_id != shift_volunteer_id)
+CREATE TABLE shift_request(
+    shift_id int NOT NULL,
+    request_id int NOT NULL,
+    CONSTRAINT pk_shift_request PRIMARY KEY (shift_id, request_id),
+    CONSTRAINT fk_shift_id FOREIGN KEY (shift_id) REFERENCES shift (shift_id),
+    CONSTRAINT fk_request_id FOREIGN KEY (request_id) REFERENCES request (request_id)
 );
-
-
 
 COMMIT TRANSACTION;

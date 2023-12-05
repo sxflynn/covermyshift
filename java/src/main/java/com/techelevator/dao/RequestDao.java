@@ -17,8 +17,6 @@ public interface RequestDao {
     // CreateRequest
     public Request createRequest(Request request);
 
-
-
     // UpdateRequestByRequest
 
     // DeleteRequestById
