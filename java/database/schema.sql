@@ -28,16 +28,16 @@ CREATE TABLE request (
     is_approved BOOLEAN
 );
 
-CREATE TABLE Shift (
+CREATE TABLE shift (
     shift_id SERIAL PRIMARY KEY,
     is_covered BOOLEAN,
-    shift_owner_id INT,
-    shift_owner_name VARCHAR(255),
-    shift_volunteer_id INT,
-    shift_volunteer_name VARCHAR(255),
+    shift_owner_id INT REFERENCES employee(employee_id),
+    shift_volunteer_id INT REFERENCES employee(employee_id),
     start_time TIMESTAMP,
-    end_time TIMESTAMP
+    end_time TIMESTAMP,
+    CHECK (shift_owner_id IS NULL OR shift_volunteer_id IS NULL OR shift_owner_id != shift_volunteer_id)
 );
+
 
 
 COMMIT TRANSACTION;
