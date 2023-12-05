@@ -6,11 +6,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
 import java.security.AlgorithmConstraints;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class JdbcShiftDao implements ShiftDao {
     private final JdbcTemplate jdbcTemplate;
 
@@ -29,8 +31,7 @@ public class JdbcShiftDao implements ShiftDao {
     public List<Shift> getAllCurrentShifts() {
         List<Shift> shiftsList = new ArrayList<>();
         String sql = ALL_COLUMN_WITH_THE_SHIFT +
-                "  WHERE start_time >= CURRENT_TIMESTAMP AND start_time < CURRENT_TIMESTAMP\n" +
-                "+ INTERVAL '1 day'";
+                "WHERE start_time >= CURRENT_TIMESTAMP";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -56,7 +57,7 @@ public class JdbcShiftDao implements ShiftDao {
     @Override
     public Shift updateShifts(Shift shift) {
         Shift updatedShift = null;
-        String sql = "UPDATE shift\n" +
+        String sql = "UPDATE shift \n" +
                 "SET is_covered = ?, shift_volunteer_id = ?, start_time = ?, end_time = ?\n" +
                 "WHERE shift_id = ?;";
         try {
