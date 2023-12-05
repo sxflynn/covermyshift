@@ -14,30 +14,22 @@ public class Shift {
     int shiftOwnerId;
     String shiftOwnerName;
     Integer shiftVolunteerId;
-    LocalDate shiftDate;
+    String shiftVolunteerName;
+    LocalDate startTime;
+    LocalDate endTime;
 
-    int companyId;
-
-    public Shift(int shiftId, boolean isCovered, int shiftOwnerId, String shiftOwnerName, Integer shiftVolunteerId, LocalDate shiftDate, int companyId) {
+    public Shift(int shiftId, boolean isCovered, int shiftOwnerId, String shiftOwnerName, Integer shiftVolunteerId, String shiftVolunteerName, LocalDate startTime, LocalDate endTime) {
         this.shiftId = shiftId;
         this.isCovered = isCovered;
-        this.shiftOwnerName = shiftOwnerName;
         this.shiftOwnerId = shiftOwnerId;
-        this.shiftVolunteerId = shiftVolunteerId;
-        this.shiftDate = shiftDate;
-        this.companyId = companyId;
-    }
-
-    public Shift(){
-
-    }
-
-    public String getShiftOwnerName() {
-        return shiftOwnerName;
-    }
-
-    public void setShiftOwnerName(String shiftOwnerName) {
         this.shiftOwnerName = shiftOwnerName;
+        this.shiftVolunteerId = shiftVolunteerId;
+        this.shiftVolunteerName = shiftVolunteerName;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public Shift() {
     }
 
     public int getShiftId() {
@@ -64,6 +56,14 @@ public class Shift {
         this.shiftOwnerId = shiftOwnerId;
     }
 
+    public String getShiftOwnerName() {
+        return shiftOwnerName;
+    }
+
+    public void setShiftOwnerName(String shiftOwnerName) {
+        this.shiftOwnerName = shiftOwnerName;
+    }
+
     public Integer getShiftVolunteerId() {
         return shiftVolunteerId;
     }
@@ -72,19 +72,27 @@ public class Shift {
         this.shiftVolunteerId = shiftVolunteerId;
     }
 
-    public LocalDate getShiftDate() {
-        return shiftDate;
+    public String getShiftVolunteerName() {
+        return shiftVolunteerName;
     }
 
-    public void setShiftDate(LocalDate shiftDate) {
-        this.shiftDate = shiftDate;
+    public void setShiftVolunteerName(String shiftVolunteerName) {
+        this.shiftVolunteerName = shiftVolunteerName;
     }
 
-    public int getCompanyId() {
-        return companyId;
+    public LocalDate getStartTime() {
+        return startTime;
     }
 
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
+    public void setStartTime(LocalDate startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDate getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDate endTime) {
+        this.endTime = endTime;
     }
 }
