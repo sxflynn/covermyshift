@@ -22,7 +22,7 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
             1,
             false,
             1,
-            "Steve C",
+            "Steve C.",
             null,
             null,
             LocalDateTime.parse("2022-12-05T08:00:00"),
