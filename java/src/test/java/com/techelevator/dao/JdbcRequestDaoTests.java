@@ -12,15 +12,12 @@ import java.util.List;
 
 public class JdbcRequestDaoTests extends BaseDaoTests{
 
-    //create DUMMY REQUEST
-    //CREATE DUMMY EMPLOYEE
-
     private static final Request REQUEST_1_NOID = new Request(0,1,"Steve C.", LocalDate.parse("2023-12-01"),false,true,false,"My message",false);
 
     private static final Request REQUEST_1 = new Request(1,1,"Steve C.", LocalDate.parse("2023-12-01"),false,true,false,"My message",false);
     private static final Request REQUEST_2 = new Request(2,1,"Steve C.", LocalDate.parse("2023-12-02"),false,true,false, "My message",false);
 
-    private static final Request FUTURE_REQUEST = new Request(3,1,"Steve C.", LocalDate.parse("2024-12-02"),false,true,false, "My message",false);
+    private static final Request FUTURE_REQUEST = new Request(3,2,"Rachelle R.", LocalDate.parse("2024-12-02"),false,true,false, "My message",false);
 
 
     private JdbcRequestDao dao;
@@ -68,15 +65,16 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
 
     @Test
     public void get_all_requests_returns_request(){
-        List<Request> testRequesList = new ArrayList<>();
-        testRequesList.add(REQUEST_1);
-        testRequesList.add(REQUEST_2);
+        List<Request> testRequestList = new ArrayList<>();
+        testRequestList.add(REQUEST_1);
+        testRequestList.add(REQUEST_2);
+        testRequestList.add(FUTURE_REQUEST);
 
         List<Request> realRequestList = dao.getAllRequests();
 
-        Assert.assertEquals("Expected 2 requests, but got " + realRequestList.size(),testRequesList.size(),realRequestList.size());
-        assertRequestsMatch(testRequesList.get(0),realRequestList.get(0));
-        assertRequestsMatch(testRequesList.get(1),realRequestList.get(1));
+        Assert.assertEquals("Expected 2 requests, but got " + realRequestList.size(),testRequestList.size(),realRequestList.size());
+        assertRequestsMatch(testRequestList.get(0),realRequestList.get(0));
+        assertRequestsMatch(testRequestList.get(1),realRequestList.get(1));
     }
 
     public void assertRequestsMatch(Request requestExpected, Request realRequest){

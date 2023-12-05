@@ -4,14 +4,11 @@
       <span id="nameColumn">Name</span>
       <span id="dateColumn"> Date</span>
 
-      <li
-        v-bind="coverReq"
-        v-for="item in coverReq"
-        v-bind:key="item"
-        class="listRow"
-      >
-        <span id="shiftName">{{ coverReq }}</span> :
-        <span id="shiftDate">{{ coverReq }}</span>
+      <li v-for="item in listReqArr" v-bind:key="item" class="listRow">
+        <span id="shiftName">{{ item.employeeName }}</span> :
+        <span id="shiftDate">{{ item.date }}</span>
+        <span id="shiftEmergency">{{ item.emergency }}</span>
+        <span id="shiftMessage">{{ item.message }}</span>
         <button id="accept">Accept</button>
         <button id="reject">Reject</button>
       </li>
@@ -22,11 +19,53 @@
 <script>
 import RequestService from "../services/RequestService";
 export default {
-  props: ["coverReq"],
-  methods: {
-    
+  data() {
+    return {
+      showShifts: true,
+      showForm: false,
+      buttonText: "Show Form",
+      listReqArr: [],
+    };
   },
- 
+  methods: {
+    // handleErrorResponse(error, verb) {
+    //   if (error.response) {
+    //     if (error.response.status == 404) {
+    //       this.$router.push({ name: "NotFoundView" });
+    //     } else {
+    //       this.$store.commit(
+    //         "SET_NOTIFICATION",
+    //         `Error ${verb} request. Response received was "${error.response.statusText}".`
+    //       );
+    //     }
+    //   } else if (error.request) {
+    //     this.$store.commit(
+    //       "SET_NOTIFICATION",
+    //       `Error ${verb} request. Server could not be reached.`
+    //     );
+    //   } else {
+    //     this.$store.commit(
+    //       "SET_NOTIFICATION",
+    //       `Error ${verb} request. Request could not be created.`
+    //     );
+    //   }
+    // },
+  },
+  created() {
+    // TODO - Do an add, then navigate Home on success.
+    // For errors, call handleErrorResponse
+    RequestService.list()
+      .then((response) => {
+        console.log(response.data);
+        this.listReqArr = response.data;
+        if (response.status === 201 || response.status === 200) {
+          this.$router.push({ name: "DashboardView" });
+        }
+      })
+      .catch((error) => {
+        // this.handleErrorResponse(error, "adding");
+      });
+  },
 };
 </script>
 

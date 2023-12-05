@@ -1,6 +1,7 @@
 package com.techelevator.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -15,10 +16,10 @@ public class Shift {
     String shiftOwnerName;
     Integer shiftVolunteerId;
     String shiftVolunteerName;
-    LocalDate startTime;
-    LocalDate endTime;
+    LocalDateTime startTime;
+    LocalDateTime endTime;
 
-    public Shift(int shiftId, boolean isCovered, int shiftOwnerId, String shiftOwnerName, Integer shiftVolunteerId, String shiftVolunteerName, LocalDate startTime, LocalDate endTime) {
+    public Shift(int shiftId, boolean isCovered, int shiftOwnerId, String shiftOwnerName, Integer shiftVolunteerId, String shiftVolunteerName, LocalDateTime startTime, LocalDateTime endTime) {
         this.shiftId = shiftId;
         this.isCovered = isCovered;
         this.shiftOwnerId = shiftOwnerId;
@@ -80,19 +81,19 @@ public class Shift {
         this.shiftVolunteerName = shiftVolunteerName;
     }
 
-    public LocalDate getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDate startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDate getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDate endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 }

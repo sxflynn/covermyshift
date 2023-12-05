@@ -2,7 +2,6 @@
   <button @click="addRequest" class="requestShiftBtn">{{ buttonText }}</button>
   <div id="dashboardContent">
     <list-shifts
-      v-bind:coverReq="coverReq"
       v-show="!showForm"
       class="listShiftsClass"
     />
@@ -12,7 +11,7 @@
 <script>
 import ListShifts from "../components/ListShifts.vue";
 import CoverForm from "../components/CoverForm.vue";
-import RequestService from "../services/RequestService";
+
 
 export default {
   components: {
@@ -39,28 +38,28 @@ export default {
     };
   },
   methods: {
-    handleErrorResponse(error, verb) {
-      if (error.response) {
-        if (error.response.status == 404) {
-          this.$router.push({ name: "NotFoundView" });
-        } else {
-          this.$store.commit(
-            "SET_NOTIFICATION",
-            `Error ${verb} request. Response received was "${error.response.statusText}".`
-          );
-        }
-      } else if (error.request) {
-        this.$store.commit(
-          "SET_NOTIFICATION",
-          `Error ${verb} request. Server could not be reached.`
-        );
-      } else {
-        this.$store.commit(
-          "SET_NOTIFICATION",
-          `Error ${verb} request. Request could not be created.`
-        );
-      }
-    },
+    // handleErrorResponse(error, verb) {
+    //   if (error.response) {
+    //     if (error.response.status == 404) {
+    //       this.$router.push({ name: "NotFoundView" });
+    //     } else {
+    //       this.$store.commit(
+    //         "SET_NOTIFICATION",
+    //         `Error ${verb} request. Response received was "${error.response.statusText}".`
+    //       );
+    //     }
+    //   } else if (error.request) {
+    //     this.$store.commit(
+    //       "SET_NOTIFICATION",
+    //       `Error ${verb} request. Server could not be reached.`
+    //     );
+    //   } else {
+    //     this.$store.commit(
+    //       "SET_NOTIFICATION",
+    //       `Error ${verb} request. Request could not be created.`
+    //     );
+    //   }
+    // },
     addRequest() {
       if (this.showForm) {
         this.buttonText = "Show Form";
@@ -70,22 +69,6 @@ export default {
         this.showForm = !this.showForm;
       }
     },
-  },
-  created() {
-    console.log("I am alive");
-    // TODO - Do an add, then navigate Home on success.
-    // For errors, call handleErrorResponse
-    RequestService.list()
-      .then((response) => {
-        console.log(response.data);
-        this.coverReq = response.data;
-        if (response.status === 201 || response.status === 200) {
-          this.$router.push({ name: "DashboardView" });
-        }
-      })
-      .catch((error) => {
-        this.handleErrorResponse(error, "adding");
-      });
   },
 };
 </script>
