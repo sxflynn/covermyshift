@@ -30,8 +30,12 @@ public class ShiftController {
     }
 
     @RequestMapping(path = API_BASE_SHIFT_URL + "/current", method = RequestMethod.GET)
-    public List<Shift> getAllCurrentShifts(){
-        return shiftDao.getAllCurrentShifts();
+    public ResponseEntity<List<Shift>> getAllCurrentShifts(){
+        List<Shift> allCurrentShift = shiftDao.getAllCurrentShifts();
+        if (allCurrentShift.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(allCurrentShift);
     }
 
     @RequestMapping(path = API_BASE_SHIFT_URL, method = RequestMethod.PUT)
