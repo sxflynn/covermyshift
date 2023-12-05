@@ -29,9 +29,8 @@ public class JdbcShiftDao implements ShiftDao {
     @Override
     public List<Shift> getAllCurrentShifts() {
         List<Shift> shiftsList = new ArrayList<>();
-        String sql = "SELECT * FROM shift\n" +
-                "WHERE start_time >= CURRENT_TIMESTAMP AND start_time < CURRENT_TIMESTAMP\n" +
-                "+ INTERVAL '1 day'";
+        String sql = ALL_COLUMN_WITH_THE_SHIFT +
+                "WHERE start_time >= CURRENT_TIMESTAMP";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -51,7 +50,7 @@ public class JdbcShiftDao implements ShiftDao {
     @Override
     public Shift updateShifts(Shift shift) {
         Shift updatedShift = null;
-        String sql = "UPDATE shift\n" +
+        String sql = "UPDATE shift \n" +
                 "SET is_covered = ?, shift_volunteer_id = ?, start_time = ?, end_time = ?\n" +
                 "WHERE shift_id = ?;";
         try {
