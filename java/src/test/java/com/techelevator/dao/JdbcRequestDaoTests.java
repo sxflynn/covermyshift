@@ -68,15 +68,16 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
 
     @Test
     public void get_all_requests_returns_request(){
-        List<Request> testRequesList = new ArrayList<>();
-        testRequesList.add(REQUEST_1);
-        testRequesList.add(REQUEST_2);
+        List<Request> testRequestList = new ArrayList<>();
+        testRequestList.add(REQUEST_1);
+        testRequestList.add(REQUEST_2);
+        testRequestList.add(FUTURE_REQUEST);
 
         List<Request> realRequestList = dao.getAllRequests();
 
-        Assert.assertEquals("Expected 2 requests, but got " + realRequestList.size(),testRequesList.size(),realRequestList.size());
-        assertRequestsMatch(testRequesList.get(0),realRequestList.get(0));
-        assertRequestsMatch(testRequesList.get(1),realRequestList.get(1));
+        Assert.assertEquals("Expected 2 requests, but got " + realRequestList.size(),testRequestList.size(),realRequestList.size());
+        assertRequestsMatch(testRequestList.get(0),realRequestList.get(0));
+        assertRequestsMatch(testRequestList.get(1),realRequestList.get(1));
     }
 
     public void assertRequestsMatch(Request requestExpected, Request realRequest){
