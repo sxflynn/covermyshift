@@ -25,7 +25,20 @@ public class JdbcShiftDao implements ShiftDao {
 
     @Override
     public List<Shift> getAllCurrentShifts() {
-        return null;
+        List<Shift> shiftsList = new ArrayList<>();
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE start_time >= CURRENT_TIMESTAMP\n" +
+                "AND start_time < CURRENT_TIMESTAMP + INTERVAL '1 day';" ;
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+            while (results.next()) {
+                Shift shift = mapRowsToShifts(results);
+                shiftsList.add(shift);
+
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return shiftsList;
     }
 
     @Override
@@ -40,6 +53,11 @@ public class JdbcShiftDao implements ShiftDao {
 
     @Override
     public List<Shift> getAllUncoveredShifts() {
+        return null;
+    }
+
+    @Override
+    public Shift getShiftByShiftId(int shiftId) {
         return null;
     }
 
