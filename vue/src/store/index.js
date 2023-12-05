@@ -1,9 +1,11 @@
 import { createStore as _createStore } from 'vuex';
 import axios from 'axios';
+import RequestService from '../services/RequestService';
 
 export function createStore(currentToken, currentUser) {
   let store = _createStore({
     state: {
+      listReqArr: [],
       token: currentToken || '',
       user: currentUser || {}
     },
@@ -23,7 +25,23 @@ export function createStore(currentToken, currentUser) {
         state.token = '';
         state.user = {};
         axios.defaults.headers.common = {};
-      }
+      },
+      LISTSHIFTS(state){
+          // TODO - Do an add, then navigate Home on success.
+          // For errors, call handleErrorResponse
+          RequestService.list()
+            .then((response) => {
+              console.log(response.data);
+              this.state.listReqArr = response.data;
+              if (response.status === 201 || response.status === 200) {
+                this.$router.push({ name: "DashboardView" });
+              }
+            })
+            .catch((error) => {
+              // this.handleErrorResponse(error, "adding");
+            });
+        },
+      
     },
   });
   return store;
