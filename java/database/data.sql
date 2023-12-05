@@ -13,8 +13,8 @@ VALUES (1, '2023-12-01 00:00:00', false, true, false, false, 'My message'),
 
 INSERT INTO Shift (is_covered, shift_owner_id, start_time, end_time)
 VALUES
-(FALSE, 1, '2023-12-05 08:00:00', '2023-12-05 16:00:00'),
+(FALSE, 1, '2022-12-05 08:00:00', '2022-12-05 16:00:00'),
 (TRUE, 1, '2023-12-06 08:00:00', '2023-12-06 16:00:00'),
-(FALSE, 1, '2023-12-07 08:00:00', '2023-12-07 16:00:00');
+(FALSE, 1, '2024-12-07 08:00:00', '2024-12-07 16:00:00');
 
 COMMIT TRANSACTION;
