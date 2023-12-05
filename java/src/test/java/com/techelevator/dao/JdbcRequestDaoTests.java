@@ -17,7 +17,7 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
     private static final Request REQUEST_1 = new Request(1,1,"Steve C.", LocalDate.parse("2023-12-01"),false,true,false,"My message",false);
     private static final Request REQUEST_2 = new Request(2,1,"Steve C.", LocalDate.parse("2023-12-02"),false,true,false, "My message",false);
 
-    private static final Request FUTURE_REQUEST = new Request(3,1,"Steve C.", LocalDate.parse("2024-12-02"),false,true,false, "My message",false);
+    private static final Request FUTURE_REQUEST = new Request(3,2,"Rachelle R.", LocalDate.parse("2024-12-02"),false,true,false, "My message",false);
 
 
     private JdbcRequestDao dao;
