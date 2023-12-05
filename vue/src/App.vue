@@ -12,7 +12,6 @@
     </div>
 
     <router-view />
-    <v-btn>Button</v-btn>
   </div>
 </template>
 <script>

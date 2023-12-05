@@ -3,9 +3,8 @@
     <ul class="shiftList">
       <span id="nameColumn">Name</span>
       <span id="dateColumn"> Date</span>
-
       <li
-        v-for="item in $store.state.listReqArr"
+        v-for="item in this.$store.state.listReqArr"
         v-bind:key="item"
         class="listRow"
       >
@@ -13,8 +12,8 @@
         <span id="shiftDate">{{ item.date }}</span>
         <span id="shiftEmergency">{{ item.emergency }}</span>
         <span id="shiftMessage">{{ item.message }}</span>
-        <button id="accept">Accept</button>
-        <button id="reject">Reject</button>
+        <v-btn id="accept">Accept</v-btn>
+        <v-btn id="reject">Reject</v-btn>
       </li>
     </ul>
   </div>
