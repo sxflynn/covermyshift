@@ -7,19 +7,28 @@
 
       &nbsp;
       <label for="Emergency">Emergency</label>
-      <input type="checkbox" id="emergency" name="emergency" v-model="coverReq.emergency" />
-     
+      <input
+        type="checkbox"
+        id="emergency"
+        name="emergency"
+        v-model="coverReq.emergency"
+      />
+
       &nbsp;
       <label for="Message">Reason for request (optional)</label>
-      <input type="text" id="message" name="message" v-model="coverReq.message" />
-
-      
+      <input
+        type="text"
+        id="message"
+        name="message"
+        v-model="coverReq.message"
+      />
+      x
     </div>
     <div class="actions">
-      <button class="btn-submit" type="submit">Submit</button>
-      <button class="btn-cancel" type="button" v-on:click="cancelForm">
+      <v-btn class="btn-submit" type="submit">Submit</v-btn>
+      <v-btn class="btn-cancel" type="button" v-on:click="cancelForm">
         Cancel
-      </button>
+      </v-btn>
     </div>
   </form>
 </template>
@@ -38,7 +47,7 @@ export default {
         covered: null,
         approved: null,
         emergency: null,
-        pending: true
+        pending: true,
       },
     };
   },
@@ -50,20 +59,19 @@ export default {
 
       // Check for add or edit
 
-     
-        // TODO - Do an add, then navigate Home on success.
-        // For errors, call handleErrorResponse
-        RequestService.create(this.coverReq)
-          .then((response) => {
-            console.log(response.data);
-            if (response.status === 201 || response.status === 200) {
-              this.$router.push({ name: "DashboardView" });
-            }
-          })
-          .catch((error) => {
-            // this.handleErrorResponse(error, "adding");
-          });
-      
+      // TODO - Do an add, then navigate Home on success.
+      // For errors, call handleErrorResponse
+      RequestService.create(this.coverReq)
+        .then((response) => {
+          console.log(response.data);
+          if (response.status === 201 || response.status === 200) {
+            this.$router.push({ name: "DashboardView" });
+          }
+        })
+        .catch((error) => {
+          // this.handleErrorResponse(error, "adding");
+        });
+
       // FOR LATER TO ADD UPDATES?????
       // else {
 

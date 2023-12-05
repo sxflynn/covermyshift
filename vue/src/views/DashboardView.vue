@@ -1,17 +1,13 @@
 <template>
-  <button @click="addRequest" class="requestShiftBtn">{{ buttonText }}</button>
+  <v-btn @click="addRequest" class="requestShiftBtn">{{ buttonText }}</v-btn>
   <div id="dashboardContent">
-    <list-shifts
-      v-show="!showForm"
-      class="listShiftsClass"
-    />
+    <list-shifts v-show="!showForm" class="listShiftsClass" />
   </div>
   <cover-form v-show="showForm" class="coverFormClass" />
 </template>
 <script>
 import ListShifts from "../components/ListShifts.vue";
 import CoverForm from "../components/CoverForm.vue";
-
 
 export default {
   components: {
