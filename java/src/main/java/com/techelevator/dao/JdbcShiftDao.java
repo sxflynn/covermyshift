@@ -67,9 +67,9 @@ public class JdbcShiftDao implements ShiftDao {
     @Override
     public List<Shift> getAllShiftsByEmployeeId(int employeeId) {
         List<Shift> getAllShiftsOfAllEmployees = new ArrayList<>();
-        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE e_owner.employee_id = ?";
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE e_owner.employee_id = ? OR e_volunteer.employee_id = ?";
         try {
-            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, employeeId);
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, employeeId, employeeId);
             while (result.next()) {
                 Shift shiftAllEmployee = mapRowsToShifts(result);
                 getAllShiftsOfAllEmployees.add(shiftAllEmployee);
@@ -83,7 +83,19 @@ public class JdbcShiftDao implements ShiftDao {
 
     @Override
     public List<Shift> getAllUncoveredShifts() {
-        return null;
+        List<Shift> uncoveredShiftList;
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE s.is_covered = false;";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+            uncoveredShiftList = new ArrayList<>();
+            while (results.next()) {
+                Shift shift = mapRowsToShifts(results);
+                uncoveredShiftList.add(shift);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return uncoveredShiftList;
     }
 
     @Override
