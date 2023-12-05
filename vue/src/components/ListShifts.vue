@@ -5,7 +5,7 @@
       <span id="dateColumn"> Date</span>
 
       <li
-        v-for="item in listReqArr"
+        v-for="item in $store.state.listReqArr"
         v-bind:key="item"
         class="listRow"
       >
@@ -21,20 +21,15 @@
 </template>
 
 <script>
-import RequestService from "../services/RequestService";
 export default {
-  
   data() {
     return {
       showShifts: true,
       showForm: false,
       buttonText: "Show Form",
-      listReqArr: [],
-      
     };
   },
   methods: {
-    
     // handleErrorResponse(error, verb) {
     //   if (error.response) {
     //     if (error.response.status == 404) {
@@ -59,20 +54,7 @@ export default {
     // },
   },
   created() {
-    // TODO - Do an add, then navigate Home on success.
-    // For errors, call handleErrorResponse
-    RequestService.list()
-      .then((response) => {
-        console.log(response.data);
-        this.listReqArr = response.data;
-        if (response.status === 201 || response.status === 200) {
-          this.$router.push({ name: "DashboardView" });
-        }
-      })
-      .catch((error) => {
-        // this.handleErrorResponse(error, "adding");
-      
-      });
+    this.$store.commit("LISTSHIFTS");
   },
 };
 </script>
