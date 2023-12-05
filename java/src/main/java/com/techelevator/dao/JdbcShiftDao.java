@@ -13,16 +13,12 @@ import java.util.List;
 public class JdbcShiftDao implements ShiftDao {
     private final JdbcTemplate jdbcTemplate;
 
-    private final String ALL_COLUMN_WITH_THE_SHIFT =
-            "SELECT s.shift_id AS shiftId, s.is_covered AS isCovered, " +
-                    "s.shift_owner_id AS shiftOwnerId, e_owner.employee_name AS shiftOwnerName, " +
-                    "s.shift_volunteer_id AS shiftVolunteerId, e_volunteer.employee_name AS shiftVolunteerName, " +
-                    "s.start_time AS startTime, s.end_time AS endTime " +
-                    "FROM shift s " +
-                    "LEFT JOIN employee e_owner ON s.shift_owner_id = e_owner.employee_id " +
-                    "LEFT JOIN employee e_volunteer ON s.shift_volunteer_id = e_volunteer.employee_id " +
-                    "WHERE e_owner.employee_name IS NOT NULL";
-
+    private final String ALL_COLUMN_WITH_THE_SHIFT = "SELECT\n" +
+            "    s.shift_id AS shiftId, s.is_covered AS isCovered, s.shift_owner_id AS shiftOwnerId, e_owner.employee_name AS shiftOwnerName, s.shift_volunteer_id AS shiftVolunteerId,\n" +
+            "    e_volunteer.employee_name AS shiftVolunteerName, s.start_time AS startTime, s.end_time AS endTime\n" +
+            "FROM shift s\n" +
+            "LEFT JOIN employee e_owner ON s.shift_owner_id = e_owner.employee_id\n" +
+            "LEFT JOIN employee e_volunteer ON s.shift_volunteer_id = e_volunteer.employee_id\n ";
 
     public JdbcShiftDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -71,15 +67,9 @@ public class JdbcShiftDao implements ShiftDao {
     @Override
     public List<Shift> getAllShiftsByEmployeeId(int employeeId) {
         List<Shift> getAllShiftsOfAllEmployees = new ArrayList<>();
-        String sql = "SELECT shift.shift_id, shift.is_covered, shift.start_time, shift.end_time, " +
-                "owner.employee_id AS owner_employee_id, owner.employee_name AS owner_employee_name, " +
-                "volunteer.employee_id AS volunteer_employee_id, volunteer.employee_name AS volunteer_employee_name " +
-                "FROM shift " +
-                "LEFT JOIN employee AS owner ON shift.shift_owner_id = owner.employee_id " +
-                "LEFT JOIN employee AS volunteer ON shift.shift_volunteer_id = volunteer.employee_id " +
-                "WHERE owner.employee_id = ? OR volunteer.employee_id = ?";
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE e_owner.employee_id = ?";
         try {
-            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, employeeId, employeeId);
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, employeeId);
             while (result.next()) {
                 Shift shiftAllEmployee = mapRowsToShifts(result);
                 getAllShiftsOfAllEmployees.add(shiftAllEmployee);
@@ -136,7 +126,11 @@ public class JdbcShiftDao implements ShiftDao {
         shift.setCovered(rowSet.getBoolean("isCovered"));
         shift.setShiftOwnerId(rowSet.getInt("shiftOwnerId"));
         shift.setShiftOwnerName(rowSet.getString("shiftOwnerName"));
-        shift.setShiftVolunteerId(rowSet.getInt("shiftVolunteerId"));
+        if (rowSet.getObject("shiftVolunteerId") == null) {
+            shift.setShiftVolunteerId(null);
+        } else {
+            shift.setShiftVolunteerId(rowSet.getInt("shiftVolunteerId"));
+        }
         shift.setShiftVolunteerName(rowSet.getString("shiftVolunteerName"));
         shift.setStartTime(rowSet.getTimestamp("startTime").toLocalDateTime());
         shift.setEndTime(rowSet.getTimestamp("endTime").toLocalDateTime());
