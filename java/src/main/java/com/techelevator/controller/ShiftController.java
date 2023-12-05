@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,13 +21,21 @@ public class ShiftController {
 
     private final String API_BASE_SHIFT_URL = "/shift";
     @RequestMapping(path = API_BASE_SHIFT_URL + "/all", method = RequestMethod.GET)
-    public List<Shift> getAllShifts(){
-        return shiftDao.getAllShifts();
+    public ResponseEntity<List<Shift>> getAllShifts(){
+        List<Shift> allShiftList = shiftDao.getAllShifts();
+        if (allShiftList.isEmpty()){
+            return ResponseEntity.noContent().build(); // returns 204 no content
+        }
+        return ResponseEntity.ok(allShiftList);
     }
 
     @RequestMapping(path = API_BASE_SHIFT_URL + "/current", method = RequestMethod.GET)
-    public List<Shift> getAllCurrentShifts(){
-        return shiftDao.getAllCurrentShifts();
+    public ResponseEntity<List<Shift>> getAllCurrentShifts(){
+        List<Shift> allCurrentShift = shiftDao.getAllCurrentShifts();
+        if (allCurrentShift.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(allCurrentShift);
     }
 
     @RequestMapping(path = API_BASE_SHIFT_URL, method = RequestMethod.PUT)
