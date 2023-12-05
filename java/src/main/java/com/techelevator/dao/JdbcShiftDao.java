@@ -67,9 +67,9 @@ public class JdbcShiftDao implements ShiftDao {
     @Override
     public List<Shift> getAllShiftsByEmployeeId(int employeeId) {
         List<Shift> getAllShiftsOfAllEmployees = new ArrayList<>();
-        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE e_owner.employee_id = ?";
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE e_owner.employee_id = ? OR e_volunteer.employee_id = ?";
         try {
-            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, employeeId);
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, employeeId, employeeId);
             while (result.next()) {
                 Shift shiftAllEmployee = mapRowsToShifts(result);
                 getAllShiftsOfAllEmployees.add(shiftAllEmployee);
