@@ -114,7 +114,7 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
 
     @Test
     public void get_all_current_shifts_returns_current_shifts(){
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         LocalDateTime pastDateStartTime = now.minusDays(10); // Today minus 10 days
         LocalDateTime pastDateEndTime = now.minusDays(10).plusHours(8); // Assuming an 8-hour difference for the end time
         LocalDateTime futureDateStartTime = now.plusDays(365); // Today plus 365 days
@@ -142,8 +142,8 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
         futureRealShift3.setEndTime(futureDateEndTime);
 
         dao.updateShifts(oldRealShift);
-        dao.updateShifts(futureRealShift3);
         dao.updateShifts(futureRealShift2);
+        dao.updateShifts(futureRealShift3);
 
         List<Shift> realUpdatedShiftList = dao.getAllCurrentShifts();
         assertShiftsMatch(futureTest2,realUpdatedShiftList.get(0));
