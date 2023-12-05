@@ -31,10 +31,10 @@ CREATE TABLE request (
 CREATE TABLE Shift (
     shift_id SERIAL PRIMARY KEY,
     is_covered BOOLEAN,
-    shift_ownerId INT,
-    shift_ownerName VARCHAR(255),
-    shift_volunteerId INT,
-    shift_volunteerName VARCHAR(255),
+    shift_owner_id INT,
+    shift_owner_name VARCHAR(255),
+    shift_volunteer_id INT,
+    shift_volunteer_name VARCHAR(255),
     start_time TIMESTAMP,
     endTime TIMESTAMP
 );

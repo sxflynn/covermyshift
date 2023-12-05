@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Employee;
 import com.techelevator.model.Shift;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -17,6 +18,26 @@ public class JdbcShiftDao implements ShiftDao {
     }
 
     @Override
+    public List<Shift> getAllCurrentShifts() {
+        return null;
+    }
+
+    @Override
+    public Shift updateShifts(Shift shift) {
+        return null;
+    }
+
+    @Override
+    public List<Shift> getAllShiftsByEmployee(Employee employee) {
+        return null;
+    }
+
+    @Override
+    public List<Shift> getAllUncoveredShifts() {
+        return null;
+    }
+
+    @Override
     public List<Shift> getAllShifts() {
         return null;
     }
@@ -25,6 +46,7 @@ public class JdbcShiftDao implements ShiftDao {
     public Shift mapRowToShift(SqlRowSet rowSet) {
         Shift shift = new Shift();
         shift.setShiftId(rowSet.getInt("shift_id"));
+        shift.setCovered(rowSet.getBoolean("is_covered"));
         shift.setShiftOwnerId(rowSet.getInt("shift_owner_id"));
         shift.setShiftOwnerName(rowSet.getString("shift_owner_name"));
         shift.setShiftVolunteerId(rowSet.getInt("shift_volunteer_id"));
