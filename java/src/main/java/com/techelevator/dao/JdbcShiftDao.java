@@ -13,8 +13,16 @@ import java.util.List;
 public class JdbcShiftDao implements ShiftDao {
     private final JdbcTemplate jdbcTemplate;
 
-    private final String ALL_COLUMN_WITH_THE_SHIFT = "SELECT shift_id, is_covered, shift_owner_id,\n" +
-            "shift_volunteer_id, start_time,end_time\n" + "FROM shift\n";
+    private final String ALL_COLUMN_WITH_THE_SHIFT =
+            "SELECT s.shift_id AS shiftId, s.is_covered AS isCovered, " +
+                    "s.shift_owner_id AS shiftOwnerId, e_owner.employee_name AS shiftOwnerName, " +
+                    "s.shift_volunteer_id AS shiftVolunteerId, e_volunteer.employee_name AS shiftVolunteerName, " +
+                    "s.start_time AS startTime, s.end_time AS endTime " +
+                    "FROM shift s " +
+                    "LEFT JOIN employee e_owner ON s.shift_owner_id = e_owner.employee_id " +
+                    "LEFT JOIN employee e_volunteer ON s.shift_volunteer_id = e_volunteer.employee_id " +
+                    "WHERE e_owner.employee_name = 'Steve C.'";
+
 
     public JdbcShiftDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -124,16 +132,16 @@ public class JdbcShiftDao implements ShiftDao {
 
     public Shift mapRowsToShifts(SqlRowSet rowSet) {
         Shift shift = new Shift();
-        shift.setShiftId(rowSet.getInt("shift_id"));
-        shift.setCovered(rowSet.getBoolean("is_covered"));
-        shift.setShiftOwnerId(rowSet.getInt("shift_owner_id"));
-        shift.setShiftOwnerName(rowSet.getString("shift_owner_name"));
-        shift.setShiftVolunteerId(rowSet.getInt("shift_volunteer_id"));
-        shift.setShiftVolunteerName(rowSet.getString("shift_volunteer_name"));
-        shift.setStartTime(rowSet.getTimestamp("start_time").toLocalDateTime());
-        shift.setEndTime(rowSet.getTimestamp("end_time").toLocalDateTime());
+        shift.setShiftId(rowSet.getInt("shiftId"));
+        shift.setCovered(rowSet.getBoolean("isCovered"));
+        shift.setShiftOwnerId(rowSet.getInt("shiftOwnerId"));
+        shift.setShiftOwnerName(rowSet.getString("shiftOwnerName"));
+        shift.setShiftVolunteerId(rowSet.getInt("shiftVolunteerId"));
+        shift.setShiftVolunteerName(rowSet.getString("shiftVolunteerName"));
+        shift.setStartTime(rowSet.getTimestamp("startTime").toLocalDateTime());
+        shift.setEndTime(rowSet.getTimestamp("endTime").toLocalDateTime());
 
         return shift;
-
     }
+
 }
