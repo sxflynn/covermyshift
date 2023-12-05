@@ -21,7 +21,7 @@ public class JdbcShiftDao implements ShiftDao {
                     "FROM shift s " +
                     "LEFT JOIN employee e_owner ON s.shift_owner_id = e_owner.employee_id " +
                     "LEFT JOIN employee e_volunteer ON s.shift_volunteer_id = e_volunteer.employee_id " +
-                    "WHERE e_owner.employee_name = 'Steve C.'";
+                    "WHERE e_owner.employee_name IS NOT NULL";
 
 
     public JdbcShiftDao(JdbcTemplate jdbcTemplate) {
