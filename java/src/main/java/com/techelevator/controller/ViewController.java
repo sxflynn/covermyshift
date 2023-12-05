@@ -2,16 +2,14 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.RequestDao;
 import com.techelevator.model.Request;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class ViewController {
     private RequestDao requestDao;
 

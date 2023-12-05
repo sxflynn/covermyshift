@@ -7,7 +7,7 @@ const http = axios.create({
 export default {
 
   list() {
-    return http.get('/request/pending');
+    return http.get('/request');
   },
 
   get(id) {
