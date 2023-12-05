@@ -6,12 +6,12 @@
 
       <li
         v-bind="coverReq"
-        v-for="item in coverReq"
+        v-for="item in listReqArr"
         v-bind:key="item"
         class="listRow"
       >
-        <span id="shiftName">{{ coverReq }}</span> :
-        <span id="shiftDate">{{ coverReq }}</span>
+        <span id="shiftName">{{ item.employeeName }}</span> :
+        <span id="shiftDate">{{ item.date }}</span>
         <button id="accept">Accept</button>
         <button id="reject">Reject</button>
       </li>
@@ -22,8 +22,28 @@
 <script>
 import RequestService from "../services/RequestService";
 export default {
-  props: ["coverReq"],
+  
+  data() {
+    return {
+      showShifts: true,
+      showForm: false,
+      buttonText: "Show Form",
+      listReqArr: [],
+      coverReq: {
+        requestID: null,
+        employeeID: 1,
+        employeeName: "",
+        date: "",
+        workplaceID: null,
+        isEmergency: null,
+        isPending: null,
+        isCovered: null,
+        isApproved: null,
+      },
+    };
+  },
   methods: {
+    
     // handleErrorResponse(error, verb) {
     //   if (error.response) {
     //     if (error.response.status == 404) {
@@ -53,13 +73,14 @@ export default {
     RequestService.list()
       .then((response) => {
         console.log(response.data);
+        this.listReqArr = response.data;
         if (response.status === 201 || response.status === 200) {
           this.$router.push({ name: "DashboardView" });
         }
       })
       .catch((error) => {
         // this.handleErrorResponse(error, "adding");
-        console.log("List Shifts: " + error)
+      
       });
   },
 };
