@@ -83,7 +83,19 @@ public class JdbcShiftDao implements ShiftDao {
 
     @Override
     public List<Shift> getAllUncoveredShifts() {
-        return null;
+        List<Shift> uncoveredShiftList;
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE s.is_covered = false;";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+            uncoveredShiftList = new ArrayList<>();
+            while (results.next()) {
+                Shift shift = mapRowsToShifts(results);
+                uncoveredShiftList.add(shift);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return uncoveredShiftList;
     }
 
     @Override
