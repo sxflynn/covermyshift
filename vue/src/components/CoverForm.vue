@@ -1,9 +1,6 @@
 <template>
   <form v-on:submit.prevent="submitForm">
     <div class="field">
-      <label for="name">Name</label>
-      <input
-        type="text" id="name" name="name" v-model="coverReq.employeeName"/>
       &nbsp;
       <label for="date">Date</label>
       <input type="text" id="date" name="date" v-model="coverReq.date" />
@@ -33,15 +30,15 @@ export default {
   data() {
     return {
       coverReq: {
-        requestID: 0,
-        employeeID: 1,
-        employeeName: "",
+        requestId: null,
+        // employeeId will come from principal *later*
+        employeeId: 1,
         date: "",
-        workplaceID: null,
-        isEmergency: null,
-        isPending: null,
-        isCovered: null,
-        isApproved: null,
+        message: "",
+        covered: null,
+        approved: null,
+        emergency: null,
+        pending: true
       },
     };
   },
@@ -53,7 +50,7 @@ export default {
 
       // Check for add or edit
 
-      if (this.coverReq.id === 0) {
+     
         // TODO - Do an add, then navigate Home on success.
         // For errors, call handleErrorResponse
         RequestService.create(this.coverReq)
@@ -64,9 +61,9 @@ export default {
             }
           })
           .catch((error) => {
-            this.handleErrorResponse(error, "adding");
+            // this.handleErrorResponse(error, "adding");
           });
-      }
+      
       // FOR LATER TO ADD UPDATES?????
       // else {
 
@@ -89,28 +86,28 @@ export default {
       // this.$router.back();
       this.coverReq = {};
     },
-    handleErrorResponse(error, verb) {
-      if (error.response) {
-        if (error.response.status == 404) {
-          this.$router.push({ name: "NotFoundView" });
-        } else {
-          this.$store.commit(
-            "SET_NOTIFICATION",
-            `Error ${verb} request. Response received was "${error.response.statusText}".`
-          );
-        }
-      } else if (error.request) {
-        this.$store.commit(
-          "SET_NOTIFICATION",
-          `Error ${verb} request. Server could not be reached.`
-        );
-      } else {
-        this.$store.commit(
-          "SET_NOTIFICATION",
-          `Error ${verb} request. Request could not be created.`
-        );
-      }
-    },
+    // handleErrorResponse(error, verb) {
+    //   if (error.response) {
+    //     if (error.response.status == 404) {
+    //       this.$router.push({ name: "NotFoundView" });
+    //     } else {
+    //       this.$store.commit(
+    //         "SET_NOTIFICATION",
+    //         `Error ${verb} request. Response received was "${error.response.statusText}".`
+    //       );
+    //     }
+    //   } else if (error.request) {
+    //     this.$store.commit(
+    //       "SET_NOTIFICATION",
+    //       `Error ${verb} request. Server could not be reached.`
+    //     );
+    //   } else {
+    //     this.$store.commit(
+    //       "SET_NOTIFICATION",
+    //       `Error ${verb} request. Request could not be created.`
+    //     );
+    //   }
+    // },
   },
 };
 </script>
