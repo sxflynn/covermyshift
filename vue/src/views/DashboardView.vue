@@ -2,8 +2,9 @@
   <v-btn @click="addRequest" class="requestShiftBtn">{{ buttonText }}</v-btn>
   <div id="dashboardContent">
     <list-shifts v-show="!showForm" class="listShiftsClass" />
+    <cover-form v-show="showForm" class="coverFormClass" />
   </div>
-  <cover-form v-show="showForm" class="coverFormClass" />
+  
 </template>
 <script>
 import ListShifts from "../components/ListShifts.vue";
@@ -83,7 +84,7 @@ export default {
     "coverFormClass coverFormClass coverFormClass";
 }
 .requestShiftBtn {
-  float: right;
+  float: left;
 }
 .listShiftsClass {
   grid-area: listShiftsClass;

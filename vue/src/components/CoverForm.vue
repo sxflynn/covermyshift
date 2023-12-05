@@ -1,36 +1,39 @@
 <template>
-  <form v-on:submit.prevent="submitForm">
-    <div class="field">
-      &nbsp;
-      <label for="date">Date</label>
-      <input type="text" id="date" name="date" v-model="coverReq.date" />
-
-      &nbsp;
-      <label for="Emergency">Emergency</label>
-      <input
-        type="checkbox"
-        id="emergency"
-        name="emergency"
-        v-model="coverReq.emergency"
-      />
-
-      &nbsp;
-      <label for="Message">Reason for request (optional)</label>
-      <input
-        type="text"
-        id="message"
-        name="message"
-        v-model="coverReq.message"
-      />
-      x
-    </div>
-    <div class="actions">
-      <v-btn class="btn-submit" type="submit">Submit</v-btn>
-      <v-btn class="btn-cancel" type="button" v-on:click="cancelForm">
-        Cancel
-      </v-btn>
-    </div>
-  </form>
+  <div id="form">
+    
+    <form v-on:submit.prevent="submitForm">
+      <div class="field">
+        &nbsp;
+        <label for="date">Date</label>
+        <input type="text" id="date" name="date" v-model="coverReq.date" />
+  
+        &nbsp;
+        <label for="Emergency">Emergency</label>
+        <input
+          type="checkbox"
+          id="emergency"
+          name="emergency"
+          v-model="coverReq.emergency"
+        />
+  
+        &nbsp;
+        <label for="Message">Reason for request (optional)</label>
+        <input
+          type="text"
+          id="message"
+          name="message"
+          v-model="coverReq.message"
+        />
+        x
+      </div>
+      <div class="actions">
+        <v-btn class="btn-submit" type="submit">Submit</v-btn>
+        <v-btn class="btn-cancel" type="button" v-on:click="cancelForm">
+          Cancel
+        </v-btn>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -121,4 +124,8 @@ export default {
 </script>
 
 <style scoped>
+button, input, select, textarea {
+    background-color: transparent;
+    border-style: dashed;
+}
 </style>
