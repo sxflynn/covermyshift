@@ -41,7 +41,18 @@
             :text="item.approved ? 'Approved' : 'Unapproved'"
             class="text-uppercase"
             label
-            size="small"
+            size="large"
+          ></v-chip>
+        </div>
+      </template>
+      <template v-slot:item.requestType="{ item }">
+        <div class="text-end">
+          <v-chip
+            :color="item.approved ? 'red' : 'blue'"
+            :text="item.approved ? 'Emergency' : 'Vacation'"
+            class="text-uppercase"
+            label
+            size="x-small"
           ></v-chip>
         </div>
       </template>
@@ -54,41 +65,41 @@
       return {
         search: '',
         requests: [
-    {
+        {
         "requestId": 1,
         "employeeId": 1,
         "employeeName": "Steve C.",
         "date": "2023-12-01",
-        "message": "My message",
+        "message": "hello",
         "emergency": false,
         "covered": false,
-        approved: true,
+        "approved": false,
         "pending": true
-    },
-    {
-        "requestId": 2,
+    }, {
+        "requestId": 1,
         "employeeId": 1,
         "employeeName": "Steve C.",
-        "date": "2023-12-02",
+        "date": "2023-12-10",
         "message": "My message",
         "emergency": false,
         "covered": false,
         "approved": false,
         "pending": true
-    },
-    {
-        "requestId": 3,
-        "employeeId": 2,
-        "employeeName": "Rachelle R.",
-        "date": "2024-12-02",
+    }, {
+        "requestId": 1,
+        "employeeId": 1,
+        "employeeName": "Steve C.",
+        "date": "2023-12-15",
         "message": "My message",
         "emergency": false,
         "covered": false,
         "approved": false,
         "pending": true
-          },
+    }
         ],
       }
     },
   }
 </script>
+<style>
+</style>
