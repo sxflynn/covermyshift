@@ -46,12 +46,12 @@ export default {
 
       this.$store.dispatch('createNewRequest',this.coverReq)
       .then(response => {
-        console.log(response)
         this.$router.push({name:'home'});
       })
       .catch(error=>{
         console.error('Failed to submit', error)
-      })
+      }),
+      this.$store.dispatch('fetchListReqArr');
       // TODO: Do client-side form validation
       //Form isn't valid, user must update and submit again.
 
