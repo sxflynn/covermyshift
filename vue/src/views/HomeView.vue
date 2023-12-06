@@ -1,15 +1,8 @@
 <template>
-  Home
-  <data-table-example/>
+  Welcome!
   </template>
   <script>
-  import DataTableExample from '../components/DataTableExample.vue';
-  export default{
-    components: {
-      DataTableExample
-    }
 
-  }
 </script>
 <style>
 </style>

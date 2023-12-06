@@ -12,7 +12,8 @@
 
     <v-divider></v-divider>
     <!-- TODO: Add custom headers using the headers prop -->
-    <v-data-table v-model:search="search" :items="this.$store.state.listReqArr">
+    <!-- TODO: Customize the items-per-page -->
+    <v-data-table v-model:search="search" :items="reversedRequests" :items-per-page="1000">
 
       <template v-slot:item.requestId="{ item }">
         <div class="text-end">
@@ -82,7 +83,6 @@
 </template>
 
 <script>
-import requestService from '../services/RequestService';
 export default {
   data() {
     return {
@@ -113,36 +113,12 @@ export default {
         },
       ],
     }
-  }, created() {
-    this.request();
-  },
-  methods: {
-    request() {
-      requestService.list()
-        .then(response => {
-          this.request = response.data;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
-    saveRequest(item) {
-      const updatedRequest = {
-        requestId: item.requestId,
-        approved: true,
-      };
-
-      requestService.update(updatedRequest.requestId, updatedRequest)
-        .then(response => {
-          if (response.status === 200) {
-            this.$router.push({ name: 'TestDashBoardView' });
-          }
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
-  },
+  }, 
+  computed:{
+    reversedRequests(){
+      return [...this.$store.state.listReqArr].reverse();
+    }
+  }
 }
 
 

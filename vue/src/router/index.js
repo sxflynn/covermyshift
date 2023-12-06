@@ -6,10 +6,9 @@ import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
-import DashboardView from '../views/DashboardView.vue';
-import ListShifts from '../components/ListShifts.vue';
+import RequestView from '../views/RequestView.vue';
+import ListRequests from '../components/ListRequests.vue';
 import FormView from '../views/FormView.vue'
-import TestDashboardView from '../views/TestDashboardView.vue'
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
  * inside of App.vue depending on the URL.
@@ -52,22 +51,17 @@ const routes = [
     }
   },
   {
-    path: "/dashboard",
-    name: "dashboard",
-    component: DashboardView,
+    path: "/requestview",
+    name: "requestview",
+    component: RequestView,
     meta: {
       requiresAuth: false
     }
   },
-  { path: "/dashboardtest",
-  name: "dashboardTest",
-  component: TestDashboardView,
-
-  },
   {
     path: "/request",
     name: "request",
-    component: ListShifts
+    component: ListRequests
 
   },
   {

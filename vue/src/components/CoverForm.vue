@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import RequestService from "../services/RequestService";
 export default {
   data() {
     return {
@@ -46,7 +45,7 @@ export default {
 
       this.$store.dispatch('createNewRequest',this.coverReq)
       .then(response => {
-        this.$router.push({name:'dashboardTest'});
+        this.$router.push({name:'dashboard'});
       })
       .catch(error=>{
         console.error('Failed to submit', error)
