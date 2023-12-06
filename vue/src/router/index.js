@@ -9,6 +9,7 @@ import RegisterView from '../views/RegisterView.vue';
 import DashboardView from '../views/DashboardView.vue';
 import ListShifts from '../components/ListShifts.vue';
 import FormView from '../views/FormView.vue'
+import TestDashboardView from '../views/TestDashboardView.vue'
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
  * inside of App.vue depending on the URL.
@@ -57,6 +58,11 @@ const routes = [
     meta: {
       requiresAuth: false
     }
+  },
+  { path: "/dashboardtest",
+  name: "dashboardTest",
+  component: TestDashboardView,
+
   },
   {
     path: "/request",
