@@ -2,7 +2,7 @@
   <v-card flat>
     <v-card-title class="d-flex align-center pe-2">
       <v-icon icon="mdi-video-input-component"></v-icon> &nbsp;
-      Find a Graphics Card
+      List of Requests
 
       <v-spacer></v-spacer>
 
@@ -19,12 +19,12 @@
     </v-card-title>
 
     <v-divider></v-divider>
-    <v-data-table v-model:search="search" :items="items">
+    <v-data-table v-model:search="search" :items="requests">
       <template v-slot:header.stock>
         <div class="text-end">Stock</div>
       </template>
 
-      <template v-slot:item.image="{ item }">
+      <!-- <template v-slot:item.image="{ item }">
         <v-card class="my-2" elevation="2" rounded>
           <v-img
             :src="`https://cdn.vuetifyjs.com/docs/images/graphics/gpus/${item.image}`"
@@ -32,23 +32,13 @@
             cover
           ></v-img>
         </v-card>
-      </template>
+      </template> -->
 
-      <template v-slot:item.rating="{ item }">
-        <v-rating
-          :model-value="item.rating"
-          color="orange-darken-2"
-          density="compact"
-          size="small"
-          readonly
-        ></v-rating>
-      </template>
-
-      <template v-slot:item.stock="{ item }">
+      <template v-slot:item.approved="{ item }">
         <div class="text-end">
           <v-chip
-            :color="item.stock ? 'green' : 'red'"
-            :text="item.stock ? 'In stock' : 'Out of stock'"
+            :color="item.approved ? 'green' : 'red'"
+            :text="item.approved ? 'Approved' : 'Unapproved'"
             class="text-uppercase"
             label
             size="small"
@@ -63,41 +53,39 @@
     data () {
       return {
         search: '',
-        items: [
-          {
-            name: 'Nebula GTX 3080',
-            image: '1.png',
-            price: 699.99,
-            rating: 5,
-            stock: true,
-          },
-          {
-            name: 'Galaxy RTX 3080',
-            image: '2.png',
-            price: 799.99,
-            rating: 4,
-            stock: false,
-          },
-          {
-            name: 'Orion RX 6800 XT',
-            image: '3.png',
-            price: 649.99,
-            rating: 3,
-            stock: true,
-          },
-          {
-            name: 'Vortex RTX 3090',
-            image: '4.png',
-            price: 1499.99,
-            rating: 4,
-            stock: true,
-          },
-          {
-            name: 'Cosmos GTX 1660 Super',
-            image: '5.png',
-            price: 299.99,
-            rating: 4,
-            stock: false,
+        requests: [
+    {
+        "requestId": 1,
+        "employeeId": 1,
+        "employeeName": "Steve C.",
+        "date": "2023-12-01",
+        "message": "My message",
+        "emergency": false,
+        "covered": false,
+        approved: true,
+        "pending": true
+    },
+    {
+        "requestId": 2,
+        "employeeId": 1,
+        "employeeName": "Steve C.",
+        "date": "2023-12-02",
+        "message": "My message",
+        "emergency": false,
+        "covered": false,
+        "approved": false,
+        "pending": true
+    },
+    {
+        "requestId": 3,
+        "employeeId": 2,
+        "employeeName": "Rachelle R.",
+        "date": "2024-12-02",
+        "message": "My message",
+        "emergency": false,
+        "covered": false,
+        "approved": false,
+        "pending": true
           },
         ],
       }

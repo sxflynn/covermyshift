@@ -106,17 +106,21 @@ public class JdbcRequestDao implements RequestDao {
         return getRequestByRequestId(newId);
     }
 
-    private Request mapRowsToRequests(SqlRowSet result) {
+    private Request mapRowsToRequests(SqlRowSet rowSet) {
         Request request = new Request();
-        request.setRequestId(result.getInt("request_id"));
-        request.setEmployeeName(result.getString("employee_name"));
-        request.setEmployeeId(result.getInt("employee_id"));
-        request.setDate(result.getDate("date").toLocalDate());
-        request.setEmergency(result.getBoolean("is_emergency"));
-        request.setMessage(result.getString("message"));
-        request.setCovered(result.getBoolean("is_covered"));
-        request.setPending(result.getBoolean("is_pending"));
-        request.setApproved(result.getBoolean("is_approved"));
+        request.setRequestId(rowSet.getInt("request_id"));
+        request.setEmployeeName(rowSet.getString("employee_name"));
+        request.setEmployeeId(rowSet.getInt("employee_id"));
+        if (rowSet.getObject("date")==null){
+            request.setDate(null);
+        } else {
+            request.setDate(rowSet.getDate("date").toLocalDate());
+        }
+        request.setEmergency(rowSet.getBoolean("is_emergency"));
+        request.setMessage(rowSet.getString("message"));
+        request.setCovered(rowSet.getBoolean("is_covered"));
+        request.setPending(rowSet.getBoolean("is_pending"));
+        request.setApproved(rowSet.getBoolean("is_approved"));
 
         return request;
     }
