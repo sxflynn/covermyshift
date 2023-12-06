@@ -46,7 +46,7 @@ export default {
 
       this.$store.dispatch('createNewRequest',this.coverReq)
       .then(response => {
-        this.$router.push({name:'home'});
+        this.$router.push({name:'dashboardTest'});
       })
       .catch(error=>{
         console.error('Failed to submit', error)

@@ -1,14 +1,9 @@
 <template>
-    <v-btn @click="addRequest" class="requestShiftBtn">{{ buttonText }}</v-btn>
-    <div id="dashboardContent">
-      <test-list-shifts v-show="!showForm" class="listShiftsClass" />
-    </div>
 
-    
+      <test-list-shifts v-show="!showForm" class="listShiftsClass" />
   </template>
   <script>
   import TestListShifts from "../components/TestListShifts.vue";
-  import CoverForm from "../components/CoverForm.vue";
 import RequestService from "../services/RequestService";
  
   export default {
