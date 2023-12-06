@@ -59,7 +59,7 @@
       </v-data-table>
     </v-card>
     <div>
-    <!-- <ul class="shiftList">
+    <ul class="shiftList">
       <span id="nameColumn">Name</span>
       <span id="dateColumn"> Date</span>
       <li
@@ -74,7 +74,7 @@
         <v-btn id="accept">Accept</v-btn>
         <v-btn id="reject">Reject</v-btn>
       </li>
-    </ul> -->
+    </ul>
   </div>
   </template>
   <script>

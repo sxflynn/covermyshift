@@ -19,10 +19,20 @@
       </v-card-title>
   
       <v-divider></v-divider>
-      <v-data-table v-model:search="search" :items="requests">
-        <template v-slot:header.stock>
-          <div class="text-end">Stock</div>
-        </template>
+      <v-data-table v-model:search="search" :items="requests" >
+        <template v-slot:header="{ headers }">
+    <thead>
+      <tr>
+        <th v-for="header in headers" :key="header.value">
+          <div class="text-end">
+            {{ header.value === 'Emergency' ? 'Request Type' : header.text }}
+            {{ header.value === 'EmployeeName' ? 'Name' :header.text }}
+          </div>
+        </th>
+      </tr>
+    </thead>
+  </template>
+  
   
         <!-- <template v-slot:item.image="{ item }">
           <v-card class="my-2" elevation="2" rounded>
@@ -35,7 +45,7 @@
         </template> -->
   
         <template v-slot:item.approved="{ item }">
-          <div class="text-end">
+          <div class="approved">
             <v-chip
               :color="item.approved ? 'green' : 'red'"
               :text="item.approved ? 'Approved' : 'Unapproved'"
@@ -56,6 +66,16 @@
             ></v-chip>
           </div>
         </template>
+        <template v-slot:item="{ item }">
+      <tr>
+        <td :class="{ 'custom-emergency-font': item.emergency }">
+          <div class="text-end">
+            {{ item.emergency ? 'Emergency' : 'Vacation' }}
+          </div>
+        </td>
+        <!-- Add more columns as needed -->
+      </tr>
+    </template>
       </v-data-table>
     </v-card>
   </template>
@@ -101,5 +121,13 @@
       }
     }
   </script>
-  <style>
+  <style scoped>
+  .approved{
+    font-family: fantasy;
+    font-style: italic;
+  }
+  .custom-emergency-font {
+  font-family:cursive
+  
+}
   </style>
