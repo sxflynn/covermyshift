@@ -2,14 +2,15 @@
     <v-btn @click="addRequest" class="requestShiftBtn">{{ buttonText }}</v-btn>
     <div id="dashboardContent">
       <test-list-shifts v-show="!showForm" class="listShiftsClass" />
-     
     </div>
+
     
   </template>
   <script>
   import TestListShifts from "../components/TestListShifts.vue";
   import CoverForm from "../components/CoverForm.vue";
-  
+import RequestService from "../services/RequestService";
+ 
   export default {
     components: {
       TestListShifts,
@@ -34,6 +35,11 @@
         },
       };
     },
+    created() {
+    RequestService.get(this.$route.params.id).then(response => {
+        this.request = response.data;
+      });
+  },
     methods: {
       // handleErrorResponse(error, verb) {
       //   if (error.response) {
