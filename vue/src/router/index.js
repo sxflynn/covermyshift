@@ -8,6 +8,7 @@ import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import DashboardView from '../views/DashboardView.vue';
 import ListShifts from '../components/ListShifts.vue';
+import FormView from '../views/FormView.vue'
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
  * inside of App.vue depending on the URL.
@@ -61,9 +62,14 @@ const routes = [
     path: "/request",
     name: "request",
     component: ListShifts
-  
+
+  },
+  {
+    path: "/form",
+    name: "form",
+    component: FormView
   }
-  
+
 ];
 
 // Create the router
@@ -82,7 +88,7 @@ router.beforeEach((to) => {
 
   // If it does and they are not logged in, send the user to "/login"
   if (requiresAuth && store.state.token === '') {
-    return {name: "login"};
+    return { name: "login" };
   }
   // Otherwise, do nothing and they'll go to their next destination
 });

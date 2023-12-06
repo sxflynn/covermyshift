@@ -1,39 +1,15 @@
 <template>
-  <div id="form">
-    
-    <form v-on:submit.prevent="submitForm">
-      <div class="field">
-        &nbsp;
-        <label for="date">Date</label>
-        <input type="text" id="date" name="date" v-model="coverReq.date" />
-  
-        &nbsp;
-        <label for="Emergency">Emergency</label>
-        <input
-          type="checkbox"
-          id="emergency"
-          name="emergency"
-          v-model="coverReq.emergency"
-        />
-  
-        &nbsp;
-        <label for="Message">Reason for request (optional)</label>
-        <input
-          type="text"
-          id="message"
-          name="message"
-          v-model="coverReq.message"
-        />
-        x
-      </div>
-      <div class="actions">
-        <v-btn class="btn-submit" type="submit">Submit</v-btn>
-        <v-btn class="btn-cancel" type="button" v-on:click="cancelForm">
-          Cancel
-        </v-btn>
-      </div>
-    </form>
-  </div>
+  <h2>Submit a time off request</h2>
+
+  <v-form v-on:submit.prevent="submitForm">
+    <v-text-field label="Employee ID" v-model="coverReq.employeeId" outlined dense></v-text-field>
+    <v-text-field label="Name" v-model="coverReq.employeeName" outlined dense></v-text-field>
+    <v-date-picker show-adjacent-months v-model="coverReq.date"></v-date-picker>
+    <v-checkbox label="Is this an Emergency?" v-model="coverReq.emergency"></v-checkbox>
+    <v-text-field label="Reason for request (optional)" v-model="coverReq.message" outlined dense></v-text-field>
+    <v-btn class="mr-4" color="primary" type="submit">Submit</v-btn>
+    <v-btn color="error" type="button" v-on:click="cancelForm">Cancel</v-btn>
+  </v-form>
 </template>
 
 <script>
@@ -45,13 +21,14 @@ export default {
         requestId: null,
         // employeeId will come from principal *later*
         employeeId: 1,
-        date: "",
+        employeeName: "",
+        date: null,
         message: "",
         covered: null,
         approved: null,
         emergency: null,
         pending: true,
-      },
+      }
     };
   },
   methods: {
@@ -124,8 +101,11 @@ export default {
 </script>
 
 <style scoped>
-button, input, select, textarea {
-    background-color: transparent;
-    border-style: dashed;
+button,
+input,
+select,
+textarea {
+  background-color: transparent;
+  border-style: dashed;
 }
 </style>
