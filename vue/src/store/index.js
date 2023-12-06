@@ -10,6 +10,12 @@ export function createStore(currentToken, currentUser) {
       user: currentUser || {}
     },
     mutations: {
+      UPDATE_REQUEST_SUCCESS(state, responseData) {
+        state.listReqArr.push(responseData);
+      },
+      UPDATE_REQUEST_FAILURE(state, error) {
+        console.error('Request failed:', error);
+      },
       SET_AUTH_TOKEN(state, token) {
         state.token = token;
         localStorage.setItem('token', token);
@@ -42,6 +48,21 @@ export function createStore(currentToken, currentUser) {
             });
         },
       
+    },
+    actions: {
+      createNewRequest({ commit }, requestData) {
+        return RequestService.create(requestData)
+          .then(response => {
+            commit('UPDATE_REQUEST_SUCCESS', response.data);
+            return response;
+          })
+          .catch(error => {
+            commit('UPDATE_REQUEST_FAILURE', error);
+            throw error;
+          });
+      },
+
+      // other actions...
     },
   });
   return store;
