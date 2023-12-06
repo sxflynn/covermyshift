@@ -11,6 +11,9 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives' 
 
 const vuetify = createVuetify({
+   theme: {
+    defaultTheme: 'light'
+  },
   components, directives
 })
 
@@ -34,6 +37,7 @@ if (currentToken) {
 
 // Create the Vuex store passing in the stored credentials
 const store = createStore(currentToken, currentUser);
+store.dispatch('fetchListReqArr');
 
 const app = createApp(CapstoneApp)
 app.use(store);

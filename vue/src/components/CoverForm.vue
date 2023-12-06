@@ -5,11 +5,15 @@
     <v-text-field label="Employee ID" v-model="coverReq.employeeId" outlined dense></v-text-field>
     <v-text-field label="Name" v-model="coverReq.employeeName" outlined dense></v-text-field>
     <v-date-picker show-adjacent-months v-model="coverReq.date"></v-date-picker>
-    <v-checkbox label="Is this an Emergency?" v-model="coverReq.emergency"></v-checkbox>
+    <v-checkbox 
+    label="Is this an emergency?" 
+    v-model="coverReq.emergency"
+    />
     <v-text-field label="Reason for request (optional)" v-model="coverReq.message" outlined dense></v-text-field>
     <v-btn class="mr-4" color="primary" type="submit">Submit</v-btn>
     <v-btn color="error" type="button" v-on:click="cancelForm">Cancel</v-btn>
   </v-form>
+  
 </template>
 
 <script>
@@ -21,19 +25,33 @@ export default {
         requestId: null,
         // employeeId will come from principal *later*
         employeeId: 1,
-        employeeName: "",
+        employeeName: "Steve C.",
         date: null,
         message: "",
-        covered: null,
-        approved: null,
-        emergency: null,
+        covered: false,
+        approved: false,
+        emergency: false,
         pending: true,
       }
     };
   },
+  watch:{
+    'coverReq.emergency'(newVal){
+      // console.log('Emergency: ', newVal)
+    }
+  },
   methods: {
     submitForm() {
-      console.log(this.coverReq.employeeName);
+
+
+      this.$store.dispatch('createNewRequest',this.coverReq)
+      .then(response => {
+        this.$router.push({name:'home'});
+      })
+      .catch(error=>{
+        console.error('Failed to submit', error)
+      }),
+      this.$store.dispatch('fetchListReqArr');
       // TODO: Do client-side form validation
       //Form isn't valid, user must update and submit again.
 
@@ -41,16 +59,18 @@ export default {
 
       // TODO - Do an add, then navigate Home on success.
       // For errors, call handleErrorResponse
-      RequestService.create(this.coverReq)
-        .then((response) => {
-          console.log(response.data);
-          if (response.status === 201 || response.status === 200) {
-            this.$router.push({ name: "DashboardView" });
-          }
-        })
-        .catch((error) => {
-          // this.handleErrorResponse(error, "adding");
-        });
+      // RequestService.create(this.coverReq)
+      //   .then((response) => {
+      //     console.log(response.data);
+      //     if (response.status === 200) {
+      //       this.$store.commit('UPDATE_REQUEST_SUCCESS', response.data);
+      //       this.$router.push({ name: 'home' });
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //     this.$store.commit('UPDATE_REQUEST_FAILURE', error);
+      //   });
 
       // FOR LATER TO ADD UPDATES?????
       // else {
@@ -72,7 +92,19 @@ export default {
     cancelForm() {
       // Go back to previous page
       // this.$router.back();
-      this.coverReq = {};
+      this.coverReq = {
+        requestId: null,
+        // employeeId will come from principal *later*
+        employeeId: 1,
+        // employeeName will come from principal *later*
+        employeeName: "Steve C.",
+        date: null,
+        message: "",
+        covered: false,
+        approved: false,
+        emergency: false,
+        pending: true,
+      };
     },
     // handleErrorResponse(error, verb) {
     //   if (error.response) {
@@ -100,12 +132,8 @@ export default {
 };
 </script>
 
-<style scoped>
-button,
-input,
-select,
-textarea {
-  background-color: transparent;
-  border-style: dashed;
+<style>
+.v-selection-control__input input{
+  opacity: 0.5 !important;
 }
 </style>

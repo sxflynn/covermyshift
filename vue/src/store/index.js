@@ -10,6 +10,16 @@ export function createStore(currentToken, currentUser) {
       user: currentUser || {}
     },
     mutations: {
+      SET_LIST_REQ_ARR(state,list){
+        state.listReqArr = list;
+        console.log("listReqArr is now size ", state.listReqArr.length)
+      },
+      UPDATE_REQUEST_SUCCESS(state, responseData) {
+        state.listReqArr.push(responseData);
+      },
+      UPDATE_REQUEST_FAILURE(state, error) {
+        console.error('Request failed:', error);
+      },
       SET_AUTH_TOKEN(state, token) {
         state.token = token;
         localStorage.setItem('token', token);
@@ -31,7 +41,6 @@ export function createStore(currentToken, currentUser) {
           // For errors, call handleErrorResponse
           RequestService.list()
             .then((response) => {
-              console.log(response.data);
               this.state.listReqArr = response.data;
               if (response.status === 201 || response.status === 200) {
                 this.$router.push({ name: "DashboardView" });
@@ -42,6 +51,31 @@ export function createStore(currentToken, currentUser) {
             });
         },
       
+    },
+    actions: {
+      fetchListReqArr({commit}){
+        return RequestService.list()
+        .then(response =>{
+          commit('SET_LIST_REQ_ARR',response.data);
+        })
+        .catch(error=>{
+          console.error('Error fetching requests:',error);
+          throw error;
+        })
+      },
+      createNewRequest({ commit }, requestData) {
+        return RequestService.create(requestData)
+          .then(response => {
+            commit('UPDATE_REQUEST_SUCCESS', response.data);
+            return response;
+          })
+          .catch(error => {
+            commit('UPDATE_REQUEST_FAILURE', error);
+            throw error;
+          });
+      },
+
+      // other actions...
     },
   });
   return store;
