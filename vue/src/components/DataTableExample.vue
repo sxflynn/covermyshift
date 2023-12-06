@@ -127,7 +127,7 @@
     font-style: italic;
   }
   .custom-emergency-font {
-  font-family:cursive
+  font-family:
   
 }
   </style>
