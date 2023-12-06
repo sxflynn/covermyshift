@@ -41,11 +41,9 @@ export default {
   },
   methods: {
     submitForm() {
-
-
       this.$store.dispatch('createNewRequest',this.coverReq)
       .then(response => {
-        this.$router.push({name:'dashboard'});
+        this.$router.push({name:'requestview'});
       })
       .catch(error=>{
         console.error('Failed to submit', error)
