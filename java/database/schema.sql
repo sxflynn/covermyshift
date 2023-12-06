@@ -38,12 +38,4 @@ CREATE TABLE request (
     is_approved BOOLEAN
 );
 
-CREATE TABLE shift_request(
-    shift_id int NOT NULL,
-    request_id int NOT NULL,
-    CONSTRAINT pk_shift_request PRIMARY KEY (shift_id, request_id),
-    CONSTRAINT fk_shift_id FOREIGN KEY (shift_id) REFERENCES shift (shift_id),
-    CONSTRAINT fk_request_id FOREIGN KEY (request_id) REFERENCES request (request_id)
-);
-
 COMMIT TRANSACTION;

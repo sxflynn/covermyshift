@@ -113,6 +113,13 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
 
 
     @Test
+    public void get_all_shifts_by_employeeid_and_date_returns_correct_shifts(){
+        Shift testShift = SHIFT_3;
+        List<Shift> realList = dao.getAllShiftsByEmployeeIdAndDate(2,LocalDate.parse("2024-12-07"));
+        assertShiftsMatch(testShift,realList.get(0));
+    }
+
+    @Test
     public void get_all_current_shifts_returns_current_shifts(){
         LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         LocalDateTime pastDateStartTime = now.minusDays(10); // Today minus 10 days

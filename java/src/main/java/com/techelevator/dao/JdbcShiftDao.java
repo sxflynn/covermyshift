@@ -9,6 +9,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.security.AlgorithmConstraints;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,6 +145,28 @@ public class JdbcShiftDao implements ShiftDao {
         return shiftsList;
     }
 
+    @Override
+    public List<Shift> getAllShiftsByEmployeeIdAndDate(int employeeId, LocalDate date) {
+        List<Shift> shiftList = new ArrayList<>();
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE\n" +
+                "    s.shift_owner_id = ? AND\n" +
+                "    (\n" +
+                "        DATE(s.start_time) = ? OR\n" +
+                "        DATE(s.end_time) = ? OR\n" +
+                "        ? BETWEEN DATE(s.start_time) AND DATE(s.end_time)\n" +
+                "    );";
+        try {
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, employeeId, date, date, date);
+            while (result.next()) {
+                Shift shiftAllShiftsByDate = mapRowsToShifts(result);
+                shiftList.add(shiftAllShiftsByDate);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return shiftList;
+    }
+
 
     public Shift mapRowsToShifts(SqlRowSet rowSet) {
         Shift shift = new Shift();
@@ -157,9 +180,16 @@ public class JdbcShiftDao implements ShiftDao {
             shift.setShiftVolunteerId(rowSet.getInt("shiftVolunteerId"));
         }
         shift.setShiftVolunteerName(rowSet.getString("shiftVolunteerName"));
-        shift.setStartTime(rowSet.getTimestamp("startTime").toLocalDateTime());
-        shift.setEndTime(rowSet.getTimestamp("endTime").toLocalDateTime());
-
+        if (rowSet.getObject("startTime")==null){
+            shift.setStartTime(null);
+        } else {
+            shift.setStartTime(rowSet.getTimestamp("startTime").toLocalDateTime());
+        }
+        if (rowSet.getObject("endTime")==null){
+            shift.setEndTime(null);
+        } else {
+            shift.setEndTime(rowSet.getTimestamp("endTime").toLocalDateTime());
+        }
         return shift;
     }
 
