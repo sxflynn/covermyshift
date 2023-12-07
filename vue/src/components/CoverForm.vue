@@ -1,19 +1,22 @@
 <template>
-  <h2>Submit a time off request</h2>
+   <h2>Submit a time off request</h2>
 
-  <v-form v-on:submit.prevent="submitForm">
-    <v-text-field label="Employee ID" v-model="coverReq.employeeId" outlined dense></v-text-field>
-    <v-text-field label="Name" v-model="coverReq.employeeName" outlined dense></v-text-field>
-    <v-date-picker show-adjacent-months v-model="coverReq.date"></v-date-picker>
-    <v-checkbox 
-    label="Is this an emergency?" 
-    v-model="coverReq.emergency"
-    />
-    <v-text-field label="Reason for request (optional)" v-model="coverReq.employeeMessage" outlined dense></v-text-field>
-    <v-btn class="mr-4" color="primary" type="submit">Submit</v-btn>
-    <v-btn color="error" type="button" v-on:click="cancelForm">Cancel</v-btn>
-  </v-form>
-  
+
+<div class="d-flex justify-center align-center">
+<v-form v-on:submit.prevent="submitForm">
+  <v-text-field label="Employee ID" v-model="coverReq.employeeId" outlined dense></v-text-field>
+  <v-text-field label="Name" v-model="coverReq.employeeName" outlined dense></v-text-field>
+  <v-date-picker elevation="12" show-adjacent-months v-model="coverReq.date"></v-date-picker>
+  <v-checkbox
+  label= "Is this an emergency?" 
+  v-model="coverReq.emergency"
+  />
+  <v-text-field label="Reason for request (optional)" v-model="coverReq.employeeMessage" outlined dense></v-text-field>
+  <v-btn class="mr-4" color="primary" type="submit">Submit</v-btn>
+  <v-btn color="error" type="button" v-on:click="cancelForm">Cancel</v-btn>
+</v-form>
+</div>
+
 </template>
 
 <script>
