@@ -1,5 +1,6 @@
 <template>
   <v-card flat>
+    <v-btn @click="fileteredRequests">testButton</v-btn>
     <v-card-title class="d-flex align-center pe-2">
       <v-icon icon="mdi-video-input-component"></v-icon> &nbsp;
 
@@ -23,7 +24,7 @@
     <!-- TODO: Customize the items-per-page -->
     <v-data-table
       v-model:search="search"
-      :items="reversedRequests"
+      :items="fileteredRequests"
       :items-per-page="1000"
     >
       <template v-slot:item.requestId="{ item }">
@@ -207,8 +208,35 @@
 
 <script>
 export default {
+  computed: {
+    fileteredRequests() {
+      const result = {};
+      let iteration = 1;
+      iteration++;
+      let filterReq = this.$store.state.listReqArr;
+      console.log(filterReq[0]);
+      filterReq.filter((requestObj) => {
+        console.log("iteration: " + iteration);
+        console.log("Name: " + requestObj.employeeName);
+        // Iterate through the keys of the first object
+        for (let key in requestObj) {
+          // Check if the second object also has the same key
+          if (this.request.hasOwnProperty(key)) {
+            console.log("object keys match for property: " + key);
+            // Add the common property to the result object
+            result[key] = requestObj[key];
+            if (this.requestObjs.indexOf(result.requestId) != -1) {
+              return this.requestObjs.push(result);
+            }
+          }
+        }
+      });
+      return filterReq;
+    },
+  },
   data() {
     return {
+      requestObjs: [],
       headers: [
         { text: "Request ID", value: "requestId", align: "start" },
         { text: "Employee ID", value: "employeeId", align: "start" },
@@ -222,26 +250,17 @@ export default {
       ],
       search: "",
 
-      requests: [
-        {
-          requestId: 1,
-          employeeId: 1,
-          employeeName: "Steve C.",
-          date: "2023-12-01",
-          message: "hello",
-          emergency: false,
-          covered: false,
-          approved: false,
-          pending: true,
-        },
-      ],
+      request: {
+        employeeId: 1,
+        employeeName: "Steve C.",
+        date: "2023-12-01",
+        message: "hello",
+        emergency: false,
+        covered: false,
+        approved: false,
+        pending: true,
+      },
     };
-  },
-  computed: {
-    reversedRequests() {
-      console.log(...this.$store.state.listReqArr);
-      return [...this.$store.state.listReqArr].reverse();
-    },
   },
 };
 </script>
