@@ -32,10 +32,12 @@ CREATE TABLE request (
     employee_id INT REFERENCES employee(employee_id),
     date TIMESTAMP WITH TIME ZONE,
     message VARCHAR(5000),
+    manager_message VARCHAR(5000),
     is_emergency BOOLEAN,
     is_pending BOOLEAN,
     is_covered BOOLEAN,
-    is_approved BOOLEAN
+    is_approved BOOLEAN,
+    workplace_id INT
 );
 
 COMMIT TRANSACTION;
