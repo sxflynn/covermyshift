@@ -1,77 +1,40 @@
 <template>
   <v-card flat>
-    <v-btn @click="fileteredRequests">testButton</v-btn>
     <v-card-title class="d-flex align-center pe-2">
       <v-icon icon="mdi-video-input-component"></v-icon> &nbsp;
 
       <v-spacer></v-spacer>List of Requests (TODO: Headers issue, specific
       column display, font and style change of data)
 
-      <v-text-field
-        v-model="search"
-        prepend-inner-icon="mdi-magnify"
-        density="compact"
-        label="Search"
-        single-line
-        flat
-        hide-details
-        variant="solo-filled"
-      ></v-text-field>
+      <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" density="compact" label="Search" single-line flat
+        hide-details variant="solo-filled"></v-text-field>
     </v-card-title>
 
     <v-divider></v-divider>
     <!-- TODO: Add custom headers using the headers prop -->
     <!-- TODO: Customize the items-per-page -->
-    <v-data-table
-      v-model:search="search"
-      :items="processedRequests"
-      :headers="headers"
-      :items-per-page="1000"
-    >
+    <v-data-table v-model:search="search" :items="processedRequests" :headers="headers" :items-per-page="1000">
       <template v-slot:item.requestId="{ item }">
         <div class="text-end">
-          <v-chip
-            variant="text"
-            :text="item.requestId"
-            class="text-lowercase"
-            label
-            size="large"
-          ></v-chip>
+          <v-chip variant="text" :text="item.requestId" class="text-lowercase" label size="large"></v-chip>
         </div>
       </template>
 
       <template v-slot:item.employeeId="{ item }">
         <div class="text-end">
-          <v-chip
-            variant="text"
-            :text="item.employeeId"
-            class="text-lowercase"
-            label
-            size="large"
-          ></v-chip>
+          <v-chip variant="text" :text="item.employeeId" class="text-lowercase" label size="large"></v-chip>
         </div>
       </template>
 
       <template v-slot:item.employeeName="{ item }">
         <div class="text-end">
-          <v-chip
-            variant="text"
-            :text="item.employeeName"
-            label
-            size="large"
-          ></v-chip>
+          <v-chip variant="text" :text="item.employeeName" label size="large"></v-chip>
         </div>
       </template>
 
       <template v-slot:item.date="{ item }">
         <div class="text-end">
-          <v-chip
-            variant="text"
-            :text="item.date"
-            class="text-lowercase"
-            label
-            size="large"
-          ></v-chip>
+          <v-chip variant="text" :text="item.date" class="text-lowercase" label size="large"></v-chip>
         </div>
       </template>
 
@@ -83,64 +46,41 @@
 
       <template v-slot:item.emergency="{ item }">
         <div class="text-end">
-          <v-chip
-            :color="item.emergency ? 'red' : 'blue'"
-            :text="item.emergency ? 'Emergency' : 'Vacation'"
-            class="text-uppercase"
-            label
-            size="large"
-          ></v-chip>
+          <v-chip :color="item.emergency ? 'red' : 'blue'" :text="item.emergency ? 'Emergency' : 'Vacation'"
+            class="text-uppercase" label size="large"></v-chip>
         </div>
       </template>
 
       <template v-slot:item.approved="{ item }">
         <v-dialog width="500">
           <template v-slot:activator="{ props }">
-            <v-btn
-              :color="item.approved ? 'green' : 'orange'"
-              v-bind="props"
-              :text="item.approved ? 'Approved' : 'Accept / Decline'"
-            >
+            <v-btn :color="item.approved ? 'green' : 'orange'" v-bind="props" :text="item.approved ? 'Approved' : 'Accept / Decline'">
             </v-btn>
           </template>
 
           <template v-slot:default="{ isActive }">
             <v-card class="ma-2">
-              <v-card-title class="headline"> Request Off </v-card-title>
+              <v-card-title class="headline">
+                Request Off
+              </v-card-title>
 
               <v-card-subtitle>
                 <v-chip small color="primary" class="ma-2">
-                  {{ item.employeeName }} - {{ item.date }} ({{
-                    item.emergency ? "Emergency" : "Vacation"
-                  }})
+                  {{ item.employeeName }} - {{ item.date }} ({{ item.emergency ? 'Emergency' : 'Vacation' }})
                 </v-chip>
               </v-card-subtitle>
 
               <v-card-text>
-                {{ item.employeeMessage }}
+                {{item.employeeMessage}}
               </v-card-text>
 
               <v-card-actions>
-                <v-btn
-                  variant="tonal"
-                  color="green"
-                  rounded
-                  text="Accept"
-                  @click="acceptRequest(item, isActive)"
-                  class="ma-1"
-                >
+                <v-btn variant="tonal" color="green" rounded text="Accept" @click="acceptRequest(item, isActive)" class="ma-1">
                   Accept
                 </v-btn>
                 <v-dialog width="500">
                   <template v-slot:activator="{ props }">
-                    <v-btn
-                      v-bind="props"
-                      variant="tonal"
-                      color="red"
-                      rounded
-                      text="Decline"
-                      class="ma-1"
-                    >
+                    <v-btn v-bind="props" variant="tonal" color="red" rounded text="Decline" class="ma-1">
                       Decline
                     </v-btn>
                   </template>
@@ -151,65 +91,37 @@
                         Reasoning for Decline
                       </v-card-title>
                       <v-card-text>
-                        <v-text-field
-                          label="Message (optional)"
-                          outlined
-                          dense
-                        ></v-text-field>
+                        <v-text-field label="Message (optional)" outlined dense></v-text-field>
                       </v-card-text>
 
                       <v-card-actions>
-                        <v-btn
-                          variant="tonal"
-                          color="red"
-                          rounded
-                          text="Send & Decline"
-                          class="ma-1"
-                        ></v-btn>
+                        <v-btn variant="tonal" color="red" rounded text="Send & Decline" class="ma-1"></v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn
-                          text="Cancel"
-                          @click="isActive.value = false"
-                          class="ma-1"
-                        ></v-btn>
+                        <v-btn text="Cancel" @click="isActive.value = false" class="ma-1"></v-btn>
                       </v-card-actions>
                     </v-card>
                   </template>
                 </v-dialog>
                 <v-spacer></v-spacer>
-                <v-btn
-                  text="Cancel"
-                  class="ma-1"
-                  @click="isActive.value = false"
-                ></v-btn>
+                <v-btn text="Cancel" class="ma-1" @click="isActive.value = false"></v-btn>
               </v-card-actions>
             </v-card>
           </template>
+
         </v-dialog>
       </template>
 
       <template v-slot:item.covered="{ item }">
         <div class="text-end">
-          <v-chip
-            :color="item.covered ? 'green' : 'red'"
-            :text="item.covered ? 'Covered' : 'Uncovered'"
-            class="text-uppercase"
-            label
-            size="large"
-            variant="outlined"
-          ></v-chip>
+          <v-chip :color="item.covered ? 'green' : 'red'" :text="item.covered ? 'Covered' : 'Uncovered'"
+            class="text-uppercase" label size="large" variant="outlined"></v-chip>
         </div>
       </template>
 
       <template v-slot:item.pending="{ item }">
         <div class="text-end">
-          <v-chip
-            :color="item.pending ? 'red' : 'green'"
-            :text="item.pending ? 'Pending' : 'Finalized'"
-            class="text-uppercase"
-            label
-            size="large"
-          ></v-chip>
+          <v-chip :color="item.pending ? 'red' : 'green'" :text="item.pending ? 'Pending' : 'Finalized'"
+            class="text-uppercase" label size="large"></v-chip>
         </div>
       </template>
     </v-data-table>
@@ -218,35 +130,8 @@
 
 <script>
 export default {
-  computed: {
-    fileteredRequests() {
-      const result = {};
-      let iteration = 1;
-      iteration++;
-      let filterReq = this.$store.state.listReqArr;
-      console.log(filterReq[0]);
-      filterReq.filter((requestObj) => {
-        console.log("iteration: " + iteration);
-        console.log("Name: " + requestObj.employeeName);
-        // Iterate through the keys of the first object
-        for (let key in requestObj) {
-          // Check if the second object also has the same key
-          if (this.request.hasOwnProperty(key)) {
-            console.log("object keys match for property: " + key);
-            // Add the common property to the result object
-            result[key] = requestObj[key];
-            if (this.requestObjs.indexOf(result.requestId) != -1) {
-              return this.requestObjs.push(result);
-            }
-          }
-        }
-      });
-      return filterReq;
-    },
-  },
   data() {
     return {
-      requestObjs: [],
       headers: [
         { title: "Request ID", key: "requestId", align: "start" },
         { title: "Employee ID", key: "employeeId", align: "start" },
@@ -276,7 +161,7 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("fetchListReqArr");
+    this.$store.dispatch('fetchListReqArr');
   },
   computed: {
     processedRequests() {
@@ -285,23 +170,46 @@ export default {
       console.log("Reversed array is ", reversedArray); // Debugging line
       return reversedArray;
     },
+    fileteredRequests() {
+      const result = {};
+      let iteration = 1;
+      iteration++;
+      let filterReq = this.$store.state.listReqArr;
+      console.log(filterReq[0]);
+      filterReq.filter((requestObj) => {
+        console.log("iteration: " + iteration);
+        console.log("Name: " + requestObj.employeeName);
+        // Iterate through the keys of the first object
+        for (let key in requestObj) {
+          // Check if the second object also has the same key
+          if (this.request.hasOwnProperty(key)) {
+            console.log("object keys match for property: " + key);
+            // Add the common property to the result object
+            result[key] = requestObj[key];
+            if (this.requestObjs.indexOf(result.requestId) != -1) {
+              return this.requestObjs.push(result);
+            }
+          }
+        }
+      });
+      return filterReq;
+    },
   },
-  methods: {
-    acceptRequest(item, isActive) {
+  methods:{
+    acceptRequest(item, isActive){
       item.approved = true;
       item.pending = false;
       console.log("RequestID is", item.requestId);
-      this.$store
-        .dispatch("updateRequest", item)
-        .then((response) => {
-          isActive.value = false;
-          console.log("response is ", response);
-        })
-        .catch((error) => {
-          console.error("Error updating shift: ", error);
-        });
-    },
-  },
+      this.$store.dispatch('updateRequest', item)
+      .then(response =>{
+        isActive.value = false; 
+        console.log("response is ",response);
+      })
+      .catch(error =>{
+        console.error("Error updating shift: ",error);
+      })
+    }
+  }
 };
 </script>
 <style></style>
