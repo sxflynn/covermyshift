@@ -12,30 +12,31 @@ public class Request {
     private int employeeId;
     private String employeeName;
     private LocalDate date;
-    private String message;
+    private String employeeMessage;
+    private String managerMessage;
     private boolean isEmergency;
     private boolean isCovered;
     private boolean isPending;
     private boolean isApproved;
+    private int workPlaceId;
 
-    // FOR SPRINT 2
     private List<Integer> shiftId;
 
-    // AFTER SPRING 1 DELETE THIS CONSTRUCTOR
-    public Request(int requestId, int employeeId, String employeeName, LocalDate date, boolean isEmergency, boolean isPending, boolean isApproved, String message, boolean isCovered) {
-        this.requestId = requestId;
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
-        this.date = date;
-        this.isEmergency = isEmergency;
-        this.isPending = isPending;
-        this.isApproved = isApproved;
-        this.message = message;
-        this.isCovered = isCovered;
-    }
+//    // AFTER SPRING 1 DELETE THIS CONSTRUCTOR
+//    public Request(int requestId, int employeeId, String employeeName, LocalDate date, boolean isEmergency, boolean isPending, boolean isApproved, String employeeMessage, boolean isCovered) {
+//        this.requestId = requestId;
+//        this.employeeId = employeeId;
+//        this.employeeName = employeeName;
+//        this.date = date;
+//        this.isEmergency = isEmergency;
+//        this.isPending = isPending;
+//        this.isApproved = isApproved;
+//        this.employeeMessage = employeeMessage;
+//        this.isCovered = isCovered;
+//    }
 
 // USE THIS CONSTRUCTOR FOR SPRINT 2
-    public Request(int requestId, int employeeId, String employeeName, LocalDate date, boolean isEmergency, boolean isPending, boolean isApproved, String message, boolean isCovered, List<Integer> shiftId) {
+    public Request(int requestId, int employeeId, String employeeName, LocalDate date, boolean isEmergency, boolean isPending, boolean isApproved, String employeeMessage, boolean isCovered, int workPlaceId) {
         this.requestId = requestId;
         this.employeeId = employeeId;
         this.employeeName = employeeName;
@@ -43,12 +44,28 @@ public class Request {
         this.isEmergency = isEmergency;
         this.isPending = isPending;
         this.isApproved = isApproved;
-        this.message = message;
+        this.employeeMessage = employeeMessage;
         this.isCovered = isCovered;
-        this.shiftId = shiftId;
+        this.workPlaceId = workPlaceId;
     }
 
     public Request() {
+    }
+
+    public int getWorkPlaceId() {
+        return workPlaceId;
+    }
+
+    public void setWorkPlaceId(int workPlaceId) {
+        this.workPlaceId = workPlaceId;
+    }
+
+    public String getManagerMessage() {
+        return managerMessage;
+    }
+
+    public void setManagerMessage(String managerMessage) {
+        this.managerMessage = managerMessage;
     }
 
     public List<Integer> getShiftId() {
@@ -59,12 +76,12 @@ public class Request {
         this.shiftId = shiftId;
     }
 
-    public String getMessage() {
-        return message;
+    public String getEmployeeMessage() {
+        return employeeMessage;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setEmployeeMessage(String employeeMessage) {
+        this.employeeMessage = employeeMessage;
     }
 
     public boolean isCovered() {
