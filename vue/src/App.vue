@@ -5,6 +5,7 @@
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
       <router-link v-bind:to="{ name: 'form' }">Form</router-link>&nbsp;|&nbsp;
       <router-link v-bind:to="{ name: 'requestview' }">Requests</router-link>&nbsp;|&nbsp;
+      <router-link v-bind:to="{ name: 'teacherview' }">Teacher View</router-link> |&nbsp;
       
       <router-link v-bind:to="{ name: $store.state.token != '' ? 'logout' : 'login' }">
         {{ $store.state.token != '' ? 'Logout' : 'Login' }}
