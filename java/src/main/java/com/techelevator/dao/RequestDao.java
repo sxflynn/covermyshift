@@ -12,14 +12,17 @@ public interface RequestDao {
     // Get Request By RequestId
     public Request getRequestByRequestId(int requestId);
 
+
     public List<Request> getCurrentAndFutureRequests();
 
     // CreateRequest
     public Request createRequest(Request request);
 
     // UpdateRequestByRequest
+    public Request updateRequest(Request request);
 
     // DeleteRequestById
+    public int deleteRequestById(int requestId);
 
     // GetRequestByEmployeeId
     public Request getRequestByEmployeeId(int employeeId);

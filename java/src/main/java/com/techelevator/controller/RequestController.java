@@ -33,6 +33,17 @@ public class RequestController {
         return requestDao.getCurrentAndFutureRequests();
     }
 
+    @RequestMapping(path = API_BASE_REQUEST_URL, method = RequestMethod.PUT)
+    public Request updateRequest(@RequestBody Request request){
+
+        //add logic if manager role is updating the approval field then do other daos like updating shifts to uncovered
+        // if userrole = manager AND request.isapproved = true,
+            // return shiftDao.updateShiftsByRequestId --> changes all those shifts to uncovered
+
+        //else return requestDao.updateRequest(request);
+        return requestDao.updateRequest(request);
+    }
+
 
 //    @RequestMapping(path = API_BASE_REQUEST_URL, method = RequestMethod.PUT)
 //    public Shift updateShifttoUnCovered(@RequestBody CoverageRequest request){

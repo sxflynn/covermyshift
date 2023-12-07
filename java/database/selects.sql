@@ -4,7 +4,8 @@ FROM shift s
 LEFT JOIN employee e_owner ON s.shift_owner_id = e_owner.employee_id
 LEFT JOIN employee e_volunteer ON s.shift_volunteer_id = e_volunteer.employee_id;
 
-
+SELECT request_id, employee.employee_id, employee.employee_name, date, request.message,request.workplace_id is_emergency, is_pending, is_covered, is_approved from request
+JOIN employee ON employee.employee_id = request.employee_id
 
 SELECT
     s.shift_id AS shiftId,
@@ -25,3 +26,8 @@ WHERE
         DATE(s.end_time) = '2022-12-05' OR
         '2022-12-05' BETWEEN DATE(s.start_time) AND DATE(s.end_time)
     );
+
+UPDATE request
+SET employee_id = 1, date = '2023-12-01', message = 'My message', manager_message = 'yes',
+workplace_id = 1,is_emergency = false, is_pending = true, is_covered = false,is_approved = false
+WHERE request_id = 1;

@@ -4,6 +4,8 @@
       <v-icon icon="mdi-video-input-component"></v-icon> &nbsp; List of Requests
 
       <v-spacer></v-spacer>
+      (TODO: Headers issue, specific column display, font and style change of
+      data)
 
       <v-text-field
         v-model="search"
@@ -83,15 +85,89 @@
       </template>
 
       <template v-slot:item.approved="{ item }">
-        <div class="text-end">
-          <v-chip
-            :color="item.approved ? 'green' : 'red'"
-            :text="item.approved ? 'Approved' : 'Unapproved'"
-            class="text-uppercase"
-            label
-            size="large"
-          ></v-chip>
-        </div>
+        <v-dialog width="500">
+          <template v-slot:activator="{ props }">
+            <v-btn color="orange" v-bind="props" text="Accept / Decline">
+            </v-btn>
+          </template>
+
+          <template v-slot:default="{ isActive }">
+            <v-card title="Request off">
+              <v-chip size="compact" id="vchipDate">
+                Rachelle R. 12-02-2023 (Monday) (Vacation)</v-chip
+              >
+              <v-card-text> "Camping with my family" </v-card-text>
+
+              <v-card-actions>
+                <div class="text-end">
+                  <v-btn
+                    variant="tonal"
+                    color="green"
+                    rounded="xl"
+                    text="Accept"
+                    class="text-uppercase"
+                    label
+                    size="x-large"
+                    id="acceptButton"
+                  ></v-btn>
+                  <v-dialog width="500">
+                    <template v-slot:activator="{ props }">
+                      <v-btn
+                        v-bind="props"
+                        variant="tonal"
+                        color="red"
+                        rounded="xl"
+                        text="Decline"
+                        class="text-uppercase"
+                        label
+                        size="x-large"
+                        id="declineButton"
+                      ></v-btn>
+                    </template>
+
+                    <template v-slot:default="{ isActive }">
+                      <v-card title="Reasoning for Decline">
+                        <v-card-text>
+                          <v-text-field
+                            label="Message (optional)"
+                          ></v-text-field>
+                        </v-card-text>
+
+                        <v-card-actions>
+                          <v-btn
+                            variant="tonal"
+                            color="red"
+                            rounded="xl"
+                            text="Send & Decline"
+                            class="text-uppercase"
+                            label
+                            size="x-large"
+                            id="finalDecline"
+                          ></v-btn>
+                          <v-spacer></v-spacer>
+
+                          <v-btn
+                            text="Cancel"
+                            @click="isActive.value = false"
+                            id="declineCancel"
+                          >
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </template>
+                  </v-dialog>
+                </div>
+                <v-spacer></v-spacer>
+
+                <v-btn
+                  text="Cancel"
+                  @click="isActive.value = false"
+                  id="adCancel"
+                ></v-btn>
+              </v-card-actions>
+            </v-card>
+          </template>
+        </v-dialog>
       </template>
 
       <template v-slot:item.covered="{ item }">
@@ -102,6 +178,7 @@
             class="text-uppercase"
             label
             size="large"
+            variant="outlined"
           ></v-chip>
         </div>
       </template>
@@ -155,14 +232,11 @@ export default {
   },
   computed: {
     reversedRequests() {
+      console.log(...this.$store.state.listReqArr);
       return [...this.$store.state.listReqArr].reverse();
     },
   },
 };
 </script>
-<style scoped>
-th > div > span {
-  color: blueviolet;
-  background-color: black;
-}
+<style>
 </style>

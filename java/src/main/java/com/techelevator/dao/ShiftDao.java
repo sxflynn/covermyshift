@@ -17,11 +17,15 @@ public interface ShiftDao {
 
     public List<Shift> getAllUncoveredShifts();
 
+    public List<Shift> getAllShiftsByRequestId(int requestId);
+
     public Shift getShiftByShiftId(int shiftId);
 
     public List<Shift> getAllShifts();
 
 public List<Shift> getAllShiftsByEmployeeIdAndDate(int employeeId, LocalDate date);
+
+public int updateListOfShiftsToUncoveredByRequestId(int requestId);
 
 
 

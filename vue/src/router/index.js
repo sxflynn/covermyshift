@@ -9,6 +9,8 @@ import RegisterView from '../views/RegisterView.vue';
 import RequestView from '../views/RequestView.vue';
 import ListRequests from '../components/ListRequests.vue';
 import FormView from '../views/FormView.vue'
+import TestTabApp from '../components/TestTabApp.vue'
+import TeacherView from '../views/TeacherView.vue'
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
  * inside of App.vue depending on the URL.
@@ -68,6 +70,16 @@ const routes = [
     path: "/form",
     name: "form",
     component: FormView
+  },
+  {
+    path: "/test",
+    name: "test",
+    component: TestTabApp
+  },
+  {
+    path: "/teacherview",
+    name: "teacherview",
+    component: TeacherView
   }
 
 ];

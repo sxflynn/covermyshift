@@ -50,6 +50,47 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
             LocalDateTime.parse("2024-12-07T08:00:00"),
             LocalDateTime.parse("2024-12-07T16:00:00")
     );
+    private final Shift SHIFT_4_SAME_DAY = new Shift(
+            4,
+            true,
+            2,
+            "Rachelle R.",
+            null,
+            null,
+            LocalDateTime.parse("2025-12-08T08:00:00"),
+            LocalDateTime.parse("2025-12-08T09:00:00")
+    );
+    private final Shift SHIFT_5_SAME_DAY = new Shift(
+            5,
+            true,
+            2,
+            "Rachelle R.",
+            null,
+            null,
+            LocalDateTime.parse("2025-12-08T09:00:00"),
+            LocalDateTime.parse("2025-12-08T10:00:00")
+    );
+    private final Shift SHIFT_6_SAME_DAY = new Shift(
+            6,
+            true,
+            2,
+            "Rachelle R.",
+            null,
+            null,
+            LocalDateTime.parse("2025-12-08T10:00:00"),
+            LocalDateTime.parse("2025-12-08T11:00:00")
+    );
+    private final Shift SHIFT_7_SAME_DAY_STEVE = new Shift(
+            7,
+            true,
+            1,
+            "Steve C.",
+            null,
+            null,
+            LocalDateTime.parse("2025-12-08T10:00:00"),
+            LocalDateTime.parse("2025-12-08T11:00:00")
+    );
+
 
     @Before
     public void setup(){
@@ -91,6 +132,17 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
         assertShiftsMatch(testShift,realShift);
     }
 
+@Test
+    public void get_list_of_shifts_linked_to_request_id_returns_correct_list(){
+        Shift test4 = SHIFT_4_SAME_DAY;
+        Shift test5 = SHIFT_5_SAME_DAY;
+        Shift test6 = SHIFT_6_SAME_DAY;
+        int requestId = 4;
+        List<Shift> realList = dao.getAllShiftsByRequestId(requestId);
+        Assert.assertEquals(3,realList.size());
+        assertShiftsMatch(test4,realList.get(0));
+    }
+
 
     @Test
     public void get_shift_by_employee_id_returns_correct_shift(){
@@ -115,12 +167,42 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
     @Test
     public void get_all_shifts_by_employeeid_and_date_returns_correct_shifts(){
         Shift testShift = SHIFT_3;
-        List<Shift> realList = dao.getAllShiftsByEmployeeIdAndDate(2,LocalDate.parse("2024-12-07"));
-        assertShiftsMatch(testShift,realList.get(0));
+        List<Shift> realList = dao.getAllShiftsByEmployeeIdAndDate(2,LocalDate.parse("2025-12-08"));
+        Assert.assertEquals(3,realList.size());
+        assertShiftsMatch(SHIFT_4_SAME_DAY,realList.get(0));
+        assertShiftsMatch(SHIFT_5_SAME_DAY,realList.get(1));
+        assertShiftsMatch(SHIFT_6_SAME_DAY,realList.get(2));
+    }
+
+    @Test
+    public void get_all_shifts_by_request_id_returns_correct_requests(){
+        int requestId = 4; // Rachelle's request
+        List <Shift> realShifts = dao.getAllShiftsByRequestId(4);
+        Assert.assertEquals(3,realShifts.size());
+        assertShiftsMatch(SHIFT_4_SAME_DAY,realShifts.get(0));
+        assertShiftsMatch(SHIFT_5_SAME_DAY,realShifts.get(1));
+        assertShiftsMatch(SHIFT_6_SAME_DAY,realShifts.get(2));
+    }
+
+    @Test
+    public void update_list_of_shifts_to_uncovered_by_request_id_returns_correct_number(){
+       int requestId = 4;
+        int updateCount = dao.updateListOfShiftsToUncoveredByRequestId(requestId);
+        Assert.assertEquals("Expected update count to be 3, but was " + updateCount,3,updateCount);
+        Shift realShift4 = dao.getShiftByShiftId(4);
+        Shift realShift5 = dao.getShiftByShiftId(5);
+        Shift realShift6 = dao.getShiftByShiftId(6);
+        Shift realShift7 = dao.getShiftByShiftId(7);
+        Assert.assertFalse("Expected isCovered to be false",realShift4.isCovered());
+        Assert.assertFalse("Expected isCovered to be false",realShift5.isCovered());
+        Assert.assertFalse("Expected isCovered to be false",realShift6.isCovered());
+        Assert.assertTrue("Expected isCovered to be true",realShift7.isCovered());
     }
 
     @Test
     public void get_all_current_shifts_returns_current_shifts(){
+        //TODO make this test less finicky
+
         LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         LocalDateTime pastDateStartTime = now.minusDays(10); // Today minus 10 days
         LocalDateTime pastDateEndTime = now.minusDays(10).plusHours(8); // Assuming an 8-hour difference for the end time
@@ -153,8 +235,8 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
         dao.updateShifts(futureRealShift3);
 
         List<Shift> realUpdatedShiftList = dao.getAllCurrentShifts();
-        assertShiftsMatch(futureTest2,realUpdatedShiftList.get(0));
-        assertShiftsMatch(futureTest3,realUpdatedShiftList.get(1));
+        assertShiftsMatch(futureTest2,realUpdatedShiftList.get(4));
+        assertShiftsMatch(futureTest3,realUpdatedShiftList.get(5));
 
     }
 
