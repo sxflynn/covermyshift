@@ -12,10 +12,13 @@ public interface ShiftDao {
     public List<Shift> getAllCurrentShifts();
 
     public Shift updateShifts(Shift shift);
+    public int updateMultipleShiftsByRequestId(int requestId);
 
     public List<Shift> getAllShiftsByEmployeeId(int employeeId);
 
     public List<Shift> getAllUncoveredShifts();
+
+    public List<Shift> getAllShiftsByRequestId(int requestId);
 
     public Shift getShiftByShiftId(int shiftId);
 

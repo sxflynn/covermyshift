@@ -38,7 +38,20 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
             1 // Default workPlaceId
     );
 
-    private static final Request REQUEST_2 = new Request(
+    private static final Request REQUEST_1_APPROVED = new Request(
+            1,
+            1,
+            "Steve C.",
+            LocalDate.parse("2023-12-01"),
+            false,
+            false,
+            true,
+            "My message",
+            false,
+            1 // Default workPlaceId
+    );
+
+    private static final Request REQUEST_2 = new Request( //nonemergency
             2,
             1,
             "Steve C.",
@@ -64,7 +77,7 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
             1
     );
 
-    private static final Request FUTURE_REQUEST = new Request(
+    private static final Request FUTURE_REQUEST = new Request( //add manager message
             3,
             2,
             "Rachelle R.",
@@ -76,6 +89,20 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
             false,
             1
     );
+
+    private static final Request FUTURE_REQUEST_DENIED = new Request( //no message
+            3,
+            2,
+            "Rachelle R.",
+            LocalDate.parse("2024-12-02"),
+            false,
+            true,
+            false,
+            "My message",
+            false,
+            1
+    );
+
 
 
     private JdbcRequestDao dao;
@@ -130,7 +157,7 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
 
         List<Request> realRequestList = dao.getAllRequests();
 
-        Assert.assertEquals("Expected 2 requests, but got " + realRequestList.size(),testRequestList.size(),realRequestList.size());
+        Assert.assertEquals("Expected 4 requests, but got " + realRequestList.size(),4,realRequestList.size());
         assertRequestsMatch(testRequestList.get(0),realRequestList.get(0));
         assertRequestsMatch(testRequestList.get(1),realRequestList.get(1));
     }
@@ -138,10 +165,28 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
     public void update_request_to_denied_nonemergency_returns_message(){
         Request testRequest = REQUEST_2;
         Request deniedTestRequest = REQUEST_2_DENIED_NOTEMERGENCY;
+        Request realRequest = dao.getRequestByRequestId(deniedTestRequest.getRequestId());
+        dao.updateRequest(deniedTestRequest);
+        assertRequestsMatch(deniedTestRequest,realRequest);
+    }
+
+    @Test
+    public void update_future_request_to_denied_no_message(){
+        Request testRequest = FUTURE_REQUEST;
+        Request deniedTestRequest = FUTURE_REQUEST_DENIED;
         deniedTestRequest.setManagerMessage("No");
         Request realRequest = dao.getRequestByRequestId(deniedTestRequest.getRequestId());
         dao.updateRequest(deniedTestRequest);
         assertRequestsMatch(deniedTestRequest,realRequest);
+    }
+
+    @Test
+    public void update_request_to_approved_changes_request(){
+        Request testRequest = REQUEST_1;
+        Request approvedTestRequest = REQUEST_1_APPROVED;
+        Request realRequest = dao.getRequestByRequestId(approvedTestRequest.getRequestId());
+        dao.updateRequest(approvedTestRequest);
+        assertRequestsMatch(approvedTestRequest,realRequest);
     }
 @Test
     public void delete_request_by_id_deletes_correct_request(){
