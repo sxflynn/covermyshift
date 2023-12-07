@@ -52,7 +52,7 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
     );
     private final Shift SHIFT_4_SAME_DAY = new Shift(
             4,
-            true,
+            false,
             2,
             "Rachelle R.",
             null,
@@ -62,7 +62,7 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
     );
     private final Shift SHIFT_5_SAME_DAY = new Shift(
             5,
-            true,
+            false,
             2,
             "Rachelle R.",
             null,
@@ -72,7 +72,7 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
     );
     private final Shift SHIFT_6_SAME_DAY = new Shift(
             6,
-            true,
+            false,
             2,
             "Rachelle R.",
             null,
