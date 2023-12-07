@@ -121,13 +121,13 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
         Assert.assertNotNull(realShift);
         assertShiftsMatch(testShift,realShift);
     }
-
+@Test
     public void update_multiple_shifts_by_request_id_returns_correct_int(){
         int requestId = 4;
         int expectedRows = 3;
         Assert.assertEquals(expectedRows,dao.updateMultipleShiftsByRequestId(requestId));
     }
-
+@Test
     public void get_list_of_shifts_linked_to_request_id_returns_correct_list(){
         Shift test4 = SHIFT_4_SAME_DAY;
         Shift test5 = SHIFT_5_SAME_DAY;

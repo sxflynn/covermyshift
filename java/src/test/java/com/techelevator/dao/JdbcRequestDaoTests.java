@@ -166,7 +166,7 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
         Request testRequest = REQUEST_2;
         Request deniedTestRequest = REQUEST_2_DENIED_NOTEMERGENCY;
         Request realRequest = dao.getRequestByRequestId(deniedTestRequest.getRequestId());
-        dao.updateRequest(deniedTestRequest);
+        realRequest = dao.updateRequest(deniedTestRequest);
         assertRequestsMatch(deniedTestRequest,realRequest);
     }
 
@@ -185,7 +185,7 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
         Request testRequest = REQUEST_1;
         Request approvedTestRequest = REQUEST_1_APPROVED;
         Request realRequest = dao.getRequestByRequestId(approvedTestRequest.getRequestId());
-        dao.updateRequest(approvedTestRequest);
+        realRequest= dao.updateRequest(approvedTestRequest);
         assertRequestsMatch(approvedTestRequest,realRequest);
     }
 @Test
