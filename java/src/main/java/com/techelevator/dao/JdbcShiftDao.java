@@ -77,6 +77,32 @@ public class JdbcShiftDao implements ShiftDao {
         }
         return  updatedShift;
     }
+    @Override
+    public List<Shift> getAllShiftsByRequestId(int requestId) {
+        List<Shift> listOfShift = new ArrayList<>();
+        //use this getAllShiftsByEmployeeIdAndDate
+        String sql = "SELECT shift_id, shift.is_covered, shift_owner_id,shift_volunteer_id,shift.start_time,shift.end_time \n" +
+                "FROM shift\n" +
+                "JOIN employee AS owner ON shift.shift_owner_id = owner.employee_id\n" +
+                "JOIN employee AS volunteer ON shift.shift_volunteer_id = volunteer.employee_id\n" +
+                "JOIN request ON owner.employee_id = request.employee_id\n" +
+                "WHERE request.request_id = ?;";
+        try{
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, requestId);
+            while(results.next()){
+                Shift newshift = mapRowsToShifts(results);  ;
+                listOfShift.add(newshift);
+            }
+            if (listOfShift.isEmpty()) {
+                Shift newShift = createNewShift();
+                listOfShift.add(newShift);
+            }
+
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return listOfShift;
+    }
 
 
 
@@ -114,10 +140,6 @@ public class JdbcShiftDao implements ShiftDao {
         return uncoveredShiftList;
     }
 
-    @Override
-    public List<Shift> getAllShiftsByRequestId(int requestId) {
-        return new ArrayList<Shift>();
-    }
 
     @Override
     public Shift getShiftByShiftId(int shiftId) {
@@ -213,7 +235,11 @@ public class JdbcShiftDao implements ShiftDao {
             shift.setEndTime(rowSet.getTimestamp("endTime").toLocalDateTime());
         }
         return shift;
+    };
+    public Shift createNewShift() {
+        return new Shift(); // Assuming the Shift constructor sets default values
     }
+
 
 
 }

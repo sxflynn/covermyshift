@@ -31,3 +31,37 @@ UPDATE request
 SET employee_id = 1, date = '2023-12-01', message = 'My message', manager_message = 'yes',
 workplace_id = 1,is_emergency = false, is_pending = true, is_covered = false,is_approved = false
 WHERE request_id = 1;
+
+SELECT shift_id, shift.is_covered, shift_owner_id,shift_volunteer_id,shift.start_time,shift.end_time
+FROM shift
+JOIN employee AS owner ON shift.shift_owner_id = owner.employee_id
+JOIN employee AS volunteer ON shift.shift_volunteer_id = volunteer.employee_id
+JOIN request ON owner.employee_id = request.employee_id
+WHERE request.request_id = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT * FROM employee
+
+
+SELECT * FROM shift
+
+
+select * from request
+
+SELECT shift_id, is_covered, shift_owner_id,shift_volunteer_id,start_time,end_time FROM shift
+
+SELECT request_id,employee_id, date, request.message, manager_message,
+is_emergency, is_pending, is_covered,is_approved, workplace_id FROM
+request
+
+WHERE request_id = 1
