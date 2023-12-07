@@ -26,3 +26,8 @@ WHERE
         DATE(s.end_time) = '2022-12-05' OR
         '2022-12-05' BETWEEN DATE(s.start_time) AND DATE(s.end_time)
     );
+
+UPDATE request
+SET employee_id = 1, date = '2023-12-01', message = 'My message', manager_message = 'yes',
+workplace_id = 1,is_emergency = false, is_pending = true, is_covered = false,is_approved = false
+WHERE request_id = 1;

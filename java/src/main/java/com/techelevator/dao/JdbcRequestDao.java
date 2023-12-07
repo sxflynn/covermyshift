@@ -108,12 +108,54 @@ public class JdbcRequestDao implements RequestDao {
 
     @Override
     public Request updateRequest(Request request) {
-        return null;
+        Request requestUpdate = null;
+        String sql = "UPDATE request " +
+                "SET employee_id = ?, date = ?, message = ?, manager_message = ?, " +
+                "workplace_id = ?, is_emergency = ?, is_pending = ?, is_covered = ?, is_approved = ? " +
+                "WHERE request_id = ?";
+
+        try {
+            int numberOfRows = jdbcTemplate.update(sql,
+                    request.getEmployeeId(),
+                    request.getDate(),
+                    request.getEmployeeMessage(),
+                    request.getManagerMessage(),
+                    request.getWorkPlaceId(),
+                    request.isEmergency(),
+                    request.isPending(),
+                    request.isCovered(),
+                    request.isApproved(),
+                    request.getRequestId());
+
+            if (numberOfRows == 0) {
+                throw new DaoException("Zero rows affected, expected at least one");
+            } else {
+                requestUpdate = getRequestByRequestId(request.getRequestId());
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to the server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+
+        return requestUpdate;
+
     }
 
     @Override
     public int deleteRequestById(int requestId) {
-        return 0;
+        int numberOfRows = 0;
+        String sql = "DELETE FROM request WHERE request_id = ?;";
+        try {
+            numberOfRows = jdbcTemplate.update(sql, requestId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+
+        return numberOfRows;
+
     }
 
     private Request mapRowsToRequests(SqlRowSet rowSet) {
