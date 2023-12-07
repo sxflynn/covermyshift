@@ -79,6 +79,11 @@ public class JdbcShiftDao implements ShiftDao {
     }
 
     @Override
+    public int updateMultipleShiftsByRequestId(int requestId) {
+        return 0;
+    }
+
+    @Override
     public List<Shift> getAllShiftsByEmployeeId(int employeeId) {
         List<Shift> getAllShiftsOfAllEmployees = new ArrayList<>();
         String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE e_owner.employee_id = ? OR e_volunteer.employee_id = ?";
@@ -110,6 +115,11 @@ public class JdbcShiftDao implements ShiftDao {
             throw new DaoException("Unable to connect to server or database", e);
         }
         return uncoveredShiftList;
+    }
+
+    @Override
+    public List<Shift> getAllShiftsByRequestId(int requestId) {
+        return null;
     }
 
     @Override
