@@ -115,11 +115,7 @@ public class JdbcRequestDao implements RequestDao {
                 "WHERE request_id = ?";
 
         try {
-            int numberOfRows = jdbcTemplate.update(sql,
-                    request.getEmployeeId(),
-                    request.getDate(),
-                    request.getEmployeeMessage(),
-                    request.getManagerMessage(),
+            int numberOfRows = jdbcTemplate.update(sql, request.getEmployeeId(), request.getDate(), request.getEmployeeMessage(), request.getManagerMessage(),
                     request.getWorkPlaceId(),
                     request.isEmergency(),
                     request.isPending(),
