@@ -1,11 +1,10 @@
 <template>
   <v-card flat>
     <v-card-title class="d-flex align-center pe-2">
-      <v-icon icon="mdi-video-input-component"></v-icon> &nbsp; List of Requests
+      <v-icon icon="mdi-video-input-component"></v-icon> &nbsp;
 
-      <v-spacer></v-spacer>
-      (TODO: Headers issue, specific column display, font and style change of
-      data)
+      <v-spacer></v-spacer>List of Requests (TODO: Headers issue, specific
+      column display, font and style change of data)
 
       <v-text-field
         v-model="search"
