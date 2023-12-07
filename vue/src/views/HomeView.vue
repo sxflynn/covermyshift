@@ -41,40 +41,26 @@
       </v-col>
     </v-container>
     <container>
-     <table :items="reversedRequests">
+     <table>
       <th>
           <td>
 <h3>Name</h3>
           </td>
       </th>
-      <tr>
-        <td v-for="item in items" :key="item">
-          {{ item.employeeName }}
-        </td>
-      </tr>
+      <li v-for="item in items" :key="item.date">
+          {{ item}}
+      </li>
      </table> 
     </container>
   </v-app>
 </template>
 <script>
 export default {
-  computed: {
-    reversedRequests() {
-      console.log(...this.$store.state.listReqArr);
-      return [...this.$store.state.listReqArr].reverse();
-    },
-  },
+  computed: {},
   components: {},
   data() {
     return {
-      items: [
-        {
-          name: "African Elephant",
-          species: "Loxodonta africana",
-          diet: "Herbivore",
-          habitat: "Savanna, Forests",
-        },
-      ],
+      items: ["steve", "nikko", "greg"],
     };
   },
 };
