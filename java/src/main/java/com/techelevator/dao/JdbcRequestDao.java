@@ -109,10 +109,11 @@ public class JdbcRequestDao implements RequestDao {
     @Override
     public Request updateRequest(Request request) {
         Request requestUpdate = null;
-        String sql = "UPDATE request " +
-                "SET employee_id = ?, date = ?, message = ?, manager_message = ?, " +
-                "workplace_id = ?, is_emergency = ?, is_pending = ?, is_covered = ?, is_approved = ? " +
-                "WHERE request_id = ?";
+        String sql =
+        "UPDATE request\n" +
+                "SET employee_id = ?, date = ?, message = ?, manager_message = ?,\n" +
+                "workplace_id = ?,is_emergency = ?, is_pending = ?, is_covered = ?,is_approved = ?\n" +
+                "WHERE request_id = ?;";
 
         try {
             int numberOfRows = jdbcTemplate.update(sql,
