@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "22c0d55c-ac4d-4efe-af3b-8b1e7b8e3691",
+		"name": "CoverMyShift",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30953168"
+	},
+	"item": [
+		{
+			"name": "Get All Requests",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/request",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"employeeId\": 1,\r\n        \"employeeName\": \"Steve C.\",\r\n        \"date\": \"2023-12-01\",\r\n        \"message\": \"My message\",\r\n        \"covered\": false,\r\n        \"emergency\": false,\r\n        \"approved\": false,\r\n        \"pending\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/request",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n        \"requestId\": 1,\r\n        \"employeeId\": 1,\r\n        \"employeeName\": \"Steve C.\",\r\n        \"date\": \"2023-12-01\",\r\n        \"employeeMessage\": \"My message has changed\",\r\n        \"workPlaceId\": 1,\r\n        \"emergency\": false,\r\n        \"pending\": true,\r\n        \"covered\": false,\r\n        \"approved\": false\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/request",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Shifts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/shift/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"shift",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Shift",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"shiftId\": 4,\r\n    \"shiftOwnerId\": 2,\r\n    \"shiftOwnerName\": \"Rachelle R.\",\r\n    \"startTime\": \"2025-12-08T08:00:00\",\r\n    \"endTime\": \"2025-12-08T09:00:00\",\r\n    \"covered\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/shift",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"shift"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Current Shifts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/shift/current",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"shift",
+						"current"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Uncovered Shifts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/shift/uncovered",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"shift",
+						"uncovered"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Shift by Employee ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/shift/employee/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"shift",
+						"employee",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Shift by Shift ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/shift/shifts/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"shift",
+						"shifts",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Shift by RequestId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/shift/request/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"shift",
+						"request",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
