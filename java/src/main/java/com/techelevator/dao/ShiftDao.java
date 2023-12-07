@@ -12,7 +12,6 @@ public interface ShiftDao {
     public List<Shift> getAllCurrentShifts();
 
     public Shift updateShifts(Shift shift);
-    public int updateMultipleShiftsByRequestId(int requestId);
 
     public List<Shift> getAllShiftsByEmployeeId(int employeeId);
 
@@ -25,6 +24,8 @@ public interface ShiftDao {
     public List<Shift> getAllShifts();
 
 public List<Shift> getAllShiftsByEmployeeIdAndDate(int employeeId, LocalDate date);
+
+public int updateListOfShiftsToUncoveredByRequestId(int requestId);
 
 
 

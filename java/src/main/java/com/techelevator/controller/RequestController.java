@@ -38,8 +38,9 @@ public class RequestController {
 
         //add logic if manager role is updating the approval field then do other daos like updating shifts to uncovered
         // if userrole = manager AND request.isapproved = true,
-            // shiftDao.updateShiftsByRequestId
+            // return shiftDao.updateShiftsByRequestId --> changes all those shifts to uncovered
 
+        //else return requestDao.updateRequest(request);
         return requestDao.updateRequest(request);
     }
 
