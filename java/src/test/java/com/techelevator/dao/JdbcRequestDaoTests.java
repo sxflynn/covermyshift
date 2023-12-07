@@ -176,7 +176,7 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
         Request deniedTestRequest = FUTURE_REQUEST_DENIED;
         deniedTestRequest.setManagerMessage("No");
         Request realRequest = dao.getRequestByRequestId(deniedTestRequest.getRequestId());
-        dao.updateRequest(deniedTestRequest);
+        realRequest = dao.updateRequest(deniedTestRequest);
         assertRequestsMatch(deniedTestRequest,realRequest);
     }
 
