@@ -19,27 +19,27 @@
 
       <template v-slot:item.requestId="{ item }">
         <div class="text-end">
-          <v-chip :text="item.requestId" class="text-lowercase" label size="large"></v-chip>
+          <v-chip variant="text" :text="item.requestId" class="text-lowercase" label size="large"></v-chip>
         </div>
 
       </template>
 
       <template v-slot:item.employeeId="{ item }">
         <div class="text-end">
-          <v-chip :text="item.employeeId" class="text-lowercase" label size="large"></v-chip>
+          <v-chip variant="text" :text="item.employeeId" class="text-lowercase" label size="large"></v-chip>
         </div>
       </template>
 
       <template v-slot:item.employeeName="{ item }">
         <div class="text-end">
-          <v-chip :text="item.employeeName" label size="large"></v-chip>
+          <v-chip variant="text" :text="item.employeeName" label size="large"></v-chip>
         </div>
       </template>
 
 
       <template v-slot:item.date="{ item }">
         <div class="text-end">
-          <v-chip :text="item.date" class="text-lowercase" label size="large"></v-chip>
+          <v-chip variant="text" :text="item.date" class="text-lowercase" label size="large"></v-chip>
         </div>
       </template>
 
