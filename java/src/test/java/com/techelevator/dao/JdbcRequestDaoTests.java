@@ -134,7 +134,7 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
         assertRequestsMatch(testRequestList.get(0),realRequestList.get(0));
         assertRequestsMatch(testRequestList.get(1),realRequestList.get(1));
     }
-
+@Test
     public void update_request_to_denied_nonemergency_returns_message(){
         Request testRequest = REQUEST_2;
         Request deniedTestRequest = REQUEST_2_DENIED_NOTEMERGENCY;
@@ -143,7 +143,7 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
         dao.updateRequest(deniedTestRequest);
         assertRequestsMatch(deniedTestRequest,realRequest);
     }
-
+@Test
     public void delete_request_by_id_deletes_correct_request(){
         Request testRequest = REQUEST_2;
         int rowsAffected = dao.deleteRequestById(testRequest.getRequestId());
