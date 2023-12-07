@@ -9,7 +9,7 @@
     label="Is this an emergency?" 
     v-model="coverReq.emergency"
     />
-    <v-text-field label="Reason for request (optional)" v-model="coverReq.message" outlined dense></v-text-field>
+    <v-text-field label="Reason for request (optional)" v-model="coverReq.employeeMessage" outlined dense></v-text-field>
     <v-btn class="mr-4" color="primary" type="submit">Submit</v-btn>
     <v-btn color="error" type="button" v-on:click="cancelForm">Cancel</v-btn>
   </v-form>
@@ -26,7 +26,7 @@ export default {
         employeeId: 1,
         employeeName: "Steve C.",
         date: null,
-        message: "",
+        employeeMessage: "",
         covered: false,
         approved: false,
         emergency: false,

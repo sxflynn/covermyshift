@@ -5,22 +5,24 @@ const http = axios.create({
 });
 
 export default {
-
+  // Fetch all requests
   list() {
     return http.get('/request');
   },
 
-  get(id) {
-    return http.get(`/request/${id}`);
+  // Create a new request
+  create(request) {
+    return http.post('/request', request);
   },
 
-  update(id, coverReq) {
-    return http.put(`//${id}`, coverReq);
+  // Update a request
+  update(request) {
+    return http.put(`/request`, request);
   },
-  create(coverReq) {
-  return http.post('/request', coverReq);
-},
-  delete(id) {
-    return http.delete(`/request/${id}`);
-  }
-}
+
+  // Fetch current and future requests
+  getCurrentAndFutureRequests() {
+    return http.get('/request/current');
+  },
+
+};
