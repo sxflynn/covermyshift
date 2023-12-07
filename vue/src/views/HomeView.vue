@@ -41,12 +41,29 @@
       </v-col>
     </v-container>
     <container>
-      <v-data-table :items="items"></v-data-table>
+     <table :items="reversedRequests">
+      <th>
+          <td>
+<h3>Name</h3>
+          </td>
+      </th>
+      <tr>
+        <td v-for="item in items" :key="item">
+          {{ item.employeeName }}
+        </td>
+      </tr>
+     </table> 
     </container>
   </v-app>
 </template>
 <script>
 export default {
+  computed: {
+    reversedRequests() {
+      console.log(...this.$store.state.listReqArr);
+      return [...this.$store.state.listReqArr].reverse();
+    },
+  },
   components: {},
   data() {
     return {
