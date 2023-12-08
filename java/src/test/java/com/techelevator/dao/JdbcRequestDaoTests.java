@@ -51,7 +51,7 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
             1 // Default workPlaceId
     );
 
-    private static final Request REQUEST_2 = new Request( //nonemergency
+    private static final Request REQUEST_2 = new Request(
             2,
             1,
             "Steve C.",
@@ -77,7 +77,7 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
             1
     );
 
-    private static final Request FUTURE_REQUEST = new Request( //add manager message
+    private static final Request FUTURE_REQUEST = new Request(
             3,
             2,
             "Rachelle R.",
@@ -90,7 +90,7 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
             1
     );
 
-    private static final Request FUTURE_REQUEST_DENIED = new Request( //no message
+    private static final Request FUTURE_REQUEST_DENIED = new Request(
             3,
             2,
             "Rachelle R.",

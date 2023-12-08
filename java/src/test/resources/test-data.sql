@@ -12,7 +12,7 @@ INSERT INTO request (employee_id, date, is_emergency, is_pending, is_covered, is
 VALUES (1, '2023-12-01 00:00:00', false, true, false, false, 'My message',1),
 (1, '2023-12-02 00:00:00', false, true, false, false, 'I want to chill on the beach this day',1),
 (2, '2024-12-02 00:00:00', false, true, false, false, 'My message',1),
-(2, '2024-12-08 00:00:00', false, true, false, false, 'I need Dec 8th off',1);
+(2, '2025-12-08 00:00:00', false, true, false, false, 'I need Dec 8th off 2025',1);
 
 INSERT INTO Shift (is_covered, shift_owner_id, start_time, end_time, shift_volunteer_id)
 VALUES

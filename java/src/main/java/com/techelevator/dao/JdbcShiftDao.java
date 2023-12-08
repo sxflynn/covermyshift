@@ -107,7 +107,7 @@ public class JdbcShiftDao implements ShiftDao {
 
     @Override
     public List<Shift> getAllShiftsByRequest(Request request) {
-        return null;
+        return getAllShiftsByEmployeeIdAndDate(request.getEmployeeId(), request.getDate());
     }
 
 

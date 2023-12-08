@@ -91,14 +91,14 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
     );
 
     private static final Request REQUEST_4 = new Request(
-            0,
+            4,
             2,
             "Rachelle R.",
-            LocalDate.parse("2024-12-08"),
+            LocalDate.parse("2025-12-08"),
             false,
             true,
             false,
-            "I need Dec 8th off",
+            "I need Dec 8th off 2025",
             false,
             1
     );
@@ -144,17 +144,6 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
         assertShiftsMatch(testShift,realShift);
     }
 
-//@Test
-//    public void get_list_of_shifts_linked_to_request_id_returns_correct_list(){
-//        Shift test4 = SHIFT_4_SAME_DAY;
-//        Shift test5 = SHIFT_5_SAME_DAY;
-//        Shift test6 = SHIFT_6_SAME_DAY;
-//        int requestId = 4;
-//        List<Shift> realList = dao.getAllShiftsByRequestId(requestId);
-//        Assert.assertEquals(3,realList.size());
-//        assertShiftsMatch(test4,realList.get(0));
-//    }
-
     @Test
     public void get_list_of_shifts_by_request_returns_correct_list(){
         Shift test4 = SHIFT_4_SAME_DAY;
@@ -199,15 +188,15 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
         assertShiftsMatch(SHIFT_6_SAME_DAY,realList.get(2));
     }
 
-    @Test
-    public void get_all_shifts_by_request_id_returns_correct_requests(){
-        int requestId = 4; // Rachelle's request
-        List <Shift> realShifts = dao.getAllShiftsByRequestId(4);
-        Assert.assertEquals(3,realShifts.size());
-        assertShiftsMatch(SHIFT_4_SAME_DAY,realShifts.get(0));
-        assertShiftsMatch(SHIFT_5_SAME_DAY,realShifts.get(1));
-        assertShiftsMatch(SHIFT_6_SAME_DAY,realShifts.get(2));
-    }
+//    @Test
+//    public void get_all_shifts_by_request_id_returns_correct_requests(){
+//        int requestId = 4; // Rachelle's request
+//        List <Shift> realShifts = dao.getAllShiftsByRequestId(4);
+//        Assert.assertEquals(3,realShifts.size());
+//        assertShiftsMatch(SHIFT_4_SAME_DAY,realShifts.get(0));
+//        assertShiftsMatch(SHIFT_5_SAME_DAY,realShifts.get(1));
+//        assertShiftsMatch(SHIFT_6_SAME_DAY,realShifts.get(2));
+//    }
 
     @Test
     public void update_list_of_shifts_to_uncovered_by_request_id_returns_correct_number(){
