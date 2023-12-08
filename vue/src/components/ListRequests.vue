@@ -6,71 +6,24 @@
       <v-spacer></v-spacer>List of Requests (TODO: Headers issue, specific
       column display, font and style change of data)
 
-      <v-text-field
-        v-model="search"
-        prepend-inner-icon="mdi-magnify"
-        density="compact"
-        label="Search"
-        single-line
-        flat
-        hide-details
-        variant="solo-filled"
-      ></v-text-field>
+      <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" density="compact" label="Search" single-line flat
+        hide-details variant="solo-filled"></v-text-field>
     </v-card-title>
 
     <v-divider></v-divider>
     <!-- TODO: Add custom headers using the headers prop -->
     <!-- TODO: Customize the items-per-page -->
-    <v-data-table
-      v-model:search="search"
-      :items="processedRequests"
-      :headers="headers"
-      :items-per-page="1000"
-    >
-      <template v-slot:item.requestId="{ item }">
-        <div class="text-end">
-          <v-chip
-            variant="text"
-            :text="item.requestId"
-            class="text-lowercase"
-            label
-            size="large"
-          ></v-chip>
-        </div>
-      </template>
-
-      <template v-slot:item.employeeId="{ item }">
-        <div class="text-end">
-          <v-chip
-            variant="text"
-            :text="item.employeeId"
-            class="text-lowercase"
-            label
-            size="large"
-          ></v-chip>
-        </div>
-      </template>
+    <v-data-table v-model:search="search" :items="processedRequests" :headers="headers" :items-per-page="1000">
 
       <template v-slot:item.employeeName="{ item }">
         <div class="text-end">
-          <v-chip
-            variant="text"
-            :text="item.employeeName"
-            label
-            size="large"
-          ></v-chip>
+          <v-chip variant="text" :text="item.employeeName" label size="large"></v-chip>
         </div>
       </template>
 
       <template v-slot:item.date="{ item }">
         <div class="text-end">
-          <v-chip
-            variant="text"
-            :text="item.date"
-            class="text-lowercase"
-            label
-            size="large"
-          ></v-chip>
+          <v-chip variant="text" :text="item.date" class="text-lowercase" label size="large"></v-chip>
         </div>
       </template>
 
@@ -82,144 +35,90 @@
 
       <template v-slot:item.emergency="{ item }">
         <div class="text-end">
-          <v-chip
-            :color="item.emergency ? 'red' : 'blue'"
-            :text="item.emergency ? 'Emergency' : 'Vacation'"
-            class="text-uppercase"
-            label
-            size="large"
-          ></v-chip>
+          <v-chip :color="item.emergency ? 'red' : 'blue'" :text="item.emergency ? 'Emergency' : 'Vacation'"
+            class="text-uppercase" label size="large"></v-chip>
         </div>
       </template>
 
       <template v-slot:item.approved="{ item }">
         <div class="text-end">
-          <v-chip
-            :color="item.approved ? 'green' : 'red'"
-            :text="item.approved ? 'Approved' : 'Unapproved'"
-            class="text-uppercase"
-            label
-            size="large"
-          ></v-chip>
-        </div>
-      </template>
-
-      <template v-slot:item.covered="{ item }">
-        <div class="text-end">
-          <v-chip
-            :color="item.covered ? 'green' : 'red'"
-            :text="item.covered ? 'Covered' : 'Uncovered'"
-            class="text-uppercase"
-            label
-            size="large"
-            variant="outlined"
-          ></v-chip>
+          <v-chip :color="item.approved ? 'green' : (item.pending ? 'orange' : 'red')"
+            :text="item.approved ? 'Approved' : (item.pending ? 'Not yet approved' : 'Unapproved')" class="text-uppercase"
+            label size="large"></v-chip>
         </div>
       </template>
 
       <template v-slot:item.pending="{ item }">
         <div class="text-end">
-          <v-chip
-            :color="item.pending ? 'red' : 'green'"
-            :text="item.pending ? 'Pending' : 'Finalized'"
-            class="text-uppercase"
-            label
-            size="large"
-          ></v-chip>
+          <v-chip :color="item.pending ? 'red' : 'green'" :text="item.pending ? 'Pending' : 'Finalized'"
+            class="text-uppercase" label size="large"></v-chip>
         </div>
       </template>
 
 
       <template v-slot:item.action="{ item }">
-      
+
         <v-dialog width="500">
           <template v-slot:activator="{ props }">
-            <v-btn
-              v-bind="props"
-              :text="'Open'"
-            >
+            <v-btn v-bind="props" :text="'Open'">
             </v-btn>
           </template>
 
           <template v-slot:default="{ isActive }">
             <v-card class="ma-2">
-              <v-card-title class="headline"> Request Off </v-card-title>
+              <v-card-title class="headline">Time Off Request</v-card-title>
+              <v-container fluid>
 
-              <v-card-subtitle>
-                <v-chip small color="primary" class="ma-2">
-                  {{ item.employeeName }} - {{ item.date }} ({{
-                    item.emergency ? "Emergency" : "Vacation"
-                  }})
-                </v-chip>
-              </v-card-subtitle>
+                <v-row>
+                  <v-col cols="6" class="text-end"><strong>Employee Name:</strong></v-col>
+                  <v-col cols="6" class="text-start">{{ item.employeeName }}</v-col>
+                </v-row>
 
-              <v-card-text>
-                {{ item.employeeMessage }}
-              </v-card-text>
+
+                <v-row>
+                  <v-col cols="6" class="text-end"><strong>Date:</strong></v-col>
+                  <v-col cols="6" class="text-start">{{ item.date }}</v-col>
+                </v-row>
+
+
+                <v-row>
+                  <v-col cols="6" class="text-end"><strong>Type:</strong></v-col>
+                  <v-col cols="6" class="text-start">
+                    <v-chip small color="primary">
+                      {{ item.emergency ? "Emergency" : "Vacation" }}
+                    </v-chip>
+                  </v-col>
+                </v-row>
+
+
+                <v-row>
+                  <v-col cols="6" class="text-end"><strong>Employee Message:</strong></v-col>
+                  <v-col cols="6" class="text-start">{{ item.employeeMessage }}</v-col>
+                </v-row>
+
+
+              </v-container>
+
+
+
+
+
+              <v-text-field label="Message to employee " outlined dense v-model="item.managerMessage"></v-text-field>
 
               <v-card-actions>
-                <v-btn
-                  variant="tonal"
-                  color="green"
-                  rounded
-                  text="Accept"
-                  @click="acceptRequest(item, isActive)"
-                  class="ma-1"
-                >
+                <v-btn variant="tonal" color="green" rounded text="Accept" @click="acceptRequest(item, isActive)"
+                  class="ma-1">
                   Accept
                 </v-btn>
-                <v-dialog width="500">
-                  <template v-slot:activator="{ props }">
-                    <v-btn
-                      v-bind="props"
-                      variant="tonal"
-                      color="red"
-                      rounded
-                      text="Decline"
-                      class="ma-1"
-                    >
-                      Decline
-                    </v-btn>
-                  </template>
-
-                  <template v-slot:default="{ isActive }">
-                    <v-card>
-                      <v-card-title class="headline">
-                        Reasoning for Decline
-                      </v-card-title>
-                      <v-card-text>
-                        <v-text-field
-                          label="Message (optional)"
-                          outlined
-                          dense
-                        ></v-text-field>
-                      </v-card-text>
-
-                      <v-card-actions>
-                        <v-btn
-                          variant="tonal"
-                          color="red"
-                          rounded
-                          text="Send & Decline"
-                          class="ma-1"
-                        ></v-btn>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          text="Cancel"
-                          @click="isActive.value = false"
-                          class="ma-1"
-                        ></v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </template>
-                </v-dialog>
+                <v-btn variant="tonal" color="red" rounded text="Decline" @click="declineRequest(item, isActive)"
+                  class="ma-1">
+                  {{ item.managerMessage ? 'Decline with Message' : 'Decline' }}
+                </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn
-                  text="Cancel"
-                  class="ma-1"
-                  @click="isActive.value = false"
-                ></v-btn>
+                <v-btn text="Cancel" @click="isActive.value = false" class="ma-1"></v-btn>
               </v-card-actions>
+
+
             </v-card>
           </template>
         </v-dialog>
@@ -241,10 +140,9 @@ export default {
         { title: "Date", key: "date", align: "start" },
         { title: "Message", key: "employeeMessage", align: "start" },
         { title: "Emergency/Vacation", key: "emergency", align: "center" },
-        { title: "Covered", key: "covered", align: "center" },
         { title: "Approved", key: "approved", align: "center" },
         { title: "Pending", key: "pending", align: "center" },
-        {title: "Approve/Deny", value:'action', align:"center"}
+        { title: "Approve/Deny", value: 'action', align: "center" }
       ],
       search: "",
 
@@ -313,6 +211,20 @@ export default {
           console.error("Error updating shift: ", error);
         });
     },
+    declineRequest(item, isActive) {
+      item.approved = false;
+      item.pending = false;
+      console.log("RequestID is", item.requestId);
+      console.log("Manager message is", item.managerMessage);
+      this.$store.dispatch("updateRequest", item)
+        .then((response) => {
+          isActive.value = false;
+          console.log("response is ", response);
+        })
+        .catch((error) => {
+          console.error("Error updating shift: ", error);
+        });
+    }
   },
 };
 </script>
