@@ -26,7 +26,14 @@ export function createStore(currentToken, currentUser) {
         state.listShiftArr = list;
       },
       UPDATE_SHIFT_SUCCESS(state, responseData) {
-        state.listShiftArr.push(responseData);
+        // state.listShiftArr.push(responseData); FIX THIS BUG
+
+        const index = state.listShiftArr.findIndex(shift => shift.id === responseData.id);
+    if (index !== -1) {
+      state.listShiftArr.splice(index, 1, responseData);
+    } else {
+      console.error('Shift not found in listShiftArr');
+    }
       },
       UPDATE_SHIFT_FAILURE(state, error) {
         console.error('Shift update failed:', error);
@@ -109,6 +116,7 @@ export function createStore(currentToken, currentUser) {
         return ShiftService.updateShift(shiftData)
           .then(response => {
             commit('UPDATE_SHIFT_SUCCESS', response.data);
+            // TODO fix bug where it adds shift to store instead of update
             return response;
           })
           .catch(error => {

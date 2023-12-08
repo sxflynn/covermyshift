@@ -2,7 +2,7 @@
   <v-card flat>
     <v-card-title class="d-flex align-center pe-2">
       <v-icon icon="mdi-video-input-component"></v-icon> &nbsp;
-      List of Requests
+      List of Shifts
 
       <v-spacer></v-spacer>
 
@@ -44,8 +44,57 @@
       </template>
 
       <template v-slot:item.action="{ item }">
-        <v-btn color="primary" :disabled="item.covered" @click="onButtonClick(item)">{{ item.covered ? 'Already Claimed' :
+        <v-dialog width="500">
+          <template v-slot:activator="{ props }">
+            <v-btn color="primary" v-bind="props" :disabled="item.covered">{{ item.covered ? 'Already Claimed' :
           'Claim This Shift' }}</v-btn>
+          </template>
+
+          <template v-slot:default="{ isActive }">
+            <v-card class="ma-2">
+              <v-card-title class="headline">Claim this shift</v-card-title>
+              <v-container fluid>
+
+                <v-row>
+                  <v-col cols="6" class="text-end"><strong>Shift Owner Name:</strong></v-col>
+                  <v-col cols="6" class="text-start">{{ item.shiftOwnerName }}</v-col>
+                </v-row>
+
+
+                <v-row>
+                  <v-col cols="6" class="text-end"><strong>Start time:</strong></v-col>
+                  <v-col cols="6" class="text-start">{{ item.startTime }}</v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="6" class="text-end"><strong>End Time:</strong></v-col>
+                  <v-col cols="6" class="text-start">{{ item.endTime }}</v-col>
+                </v-row>
+
+
+                <v-row>
+                  <v-col cols="6" class="text-end"><strong>Covered yet?:</strong></v-col>
+                  <v-col cols="6" class="text-start">
+                    <v-chip small :color="item.covered ? 'blue' : 'red'">
+                      {{ item.covered ? "Covered" : "Uncovered" }}
+                    </v-chip>
+                  </v-col>
+                </v-row>
+  
+              </v-container>
+              <v-card-actions>
+                <v-btn variant="tonal" color="green" rounded text="Claim Shift" @click="updateShift(item, isActive)"
+                  class="ma-1">
+                  Claim Shift
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn text="Cancel" @click="isActive.value = false" class="ma-1"></v-btn>
+              </v-card-actions>
+
+
+            </v-card>
+          </template>
+        </v-dialog>
+       
       </template>
 
     </v-data-table>
@@ -104,6 +153,19 @@ export default {
           let formattedEnd = new Intl.DateTimeFormat('en-US', timeOptions).format(end);
           console.log(`${formattedStart} - ${formattedEnd}`)
           return `${formattedStart} - ${formattedEnd}`;
+        },
+        updateShift(item, isActive){
+          item.covered = true;
+          item.shiftVolunteerId = 1; // TODO CHANGE TO FUTURE STATE WHICH HAS EMPLOYEE INFO
+          this.$store
+          .dispatch("updateShift", item)
+          .then((response) =>{
+            isActive.value = false;
+            console.log("response is ", response);
+          })
+          .catch((error) => {
+          console.error("Error updating shift: ", error);
+        });
         }
       }
 }

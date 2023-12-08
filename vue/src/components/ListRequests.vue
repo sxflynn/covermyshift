@@ -151,30 +151,6 @@ export default {
       console.log("Reversed array is ", reversedArray); // Debugging line
       return reversedArray;
     },
-    fileteredRequests() {
-      console.log("filterRan");
-
-      // Assuming you want to compare with this.requests
-      const comparisonObject = this.requests;
-
-      let filterReq = this.$store.state.listReqArr.filter((requestObj) => {
-        let result = {};
-
-        // Iterate through the keys of the requestObj
-        for (let key in requestObj) {
-          // Check if the comparison object also has the same key
-          if (comparisonObject[key] !== undefined) {
-            // Add the common property to the result object
-            result[key] = requestObj[key];
-          }
-        }
-        // TODO: fix this part
-        return Object.keys(result).length > 0; // Only return if there are common properties
-      });
-
-      console.log("final result: ", filterReq);
-      return filterReq;
-    },
   },
   methods: {
     acceptRequest(item, isActive) {
