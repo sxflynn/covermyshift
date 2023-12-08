@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO Add authorization/authentication to this controller. All endpoints should require authentication.
+//TODO HIGH PRIORITY Add authorization/authentication to this controller. All endpoints should require authentication.
 
 @RestController
 @CrossOrigin

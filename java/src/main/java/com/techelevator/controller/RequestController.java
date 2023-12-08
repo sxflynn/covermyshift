@@ -15,7 +15,8 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
-//TODO Add authorization/authentication to this controller. All endpoints should require authentication.
+//TODO HIGH PRIORITY Add authorization/authentication to this controller. All endpoints should require authentication.
+// You know its correct if the bearer token is required to call a GET in postman
 //@PreAuthorize("isAuthenticated()")
 @RestController
 @CrossOrigin
@@ -61,35 +62,32 @@ public class RequestController {
 
     @RequestMapping(path = API_BASE_REQUEST_URL, method = RequestMethod.PUT)
     public Request updateRequest(@RequestBody Request request){
-        //teacher claiming shift
-         if (request.isPending() == false && request.isApproved() == true && request.isCovered() == false){
 
+        // no principal, so allowing anyone to approve a request
+        if (request.isApproved()) {
 //            String currentUsername = userDao.getUserFromPrincipal(principal).getUsername();
-            List<Shift> affectedShifts = shiftDao.getAllShiftsByEmployeeIdAndDate(request.getEmployeeId(),request.getDate());
-            for (Shift shift : affectedShifts){
-                shift.setCovered(true);
-                shift.setShiftVolunteerName("Steve C.");
-                shift.setShiftVolunteerId(1);
+            List<Shift> affectedShifts = shiftDao.getAllShiftsByEmployeeIdAndDate(request.getEmployeeId(), request.getDate());
+            for (Shift shift : affectedShifts) {
+                shift.setCovered(false);
                 shiftDao.updateShifts(shift);
             }
-            request.setCovered(true);
             return requestDao.updateRequest(request);
-
         }
 
-        //TODO implement the logic below
+
+        //TODO HIGH PRIORITY implement the logic below when principal works
 
         //admin approving request
-
-         else if(request.isApproved() == true){
-             shiftDao.updateListOfShiftsToUncoveredByRequest(request);
-             request.setPending(false);
-             return requestDao.updateRequest(request);
-         } else if (request.isApproved() == false) {
-             request.setPending((false));
-             return requestDao.updateRequest(request);
-
-         }
+//
+//         else if(request.isApproved() == true){
+//             shiftDao.updateListOfShiftsToUncoveredByRequest(request);
+//             request.setPending(false);
+//             return requestDao.updateRequest(request);
+//         } else if (request.isApproved() == false) {
+//             request.setPending((false));
+//             return requestDao.updateRequest(request);
+//
+//         }
 
             //this handles when an employee wants to give up a shift
 //            shiftDao.updateListOfShiftsToUncoveredByRequest(request);
