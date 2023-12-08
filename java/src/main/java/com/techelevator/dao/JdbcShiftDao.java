@@ -204,6 +204,7 @@ public class JdbcShiftDao implements ShiftDao {
 
     @Override
     public int updateListOfShiftsToUncoveredByRequest(Request request){
+
         //first get all the shifts by the request using getAllShiftsByRequest
         //create an updateCounter
         //foreach loop through the list

@@ -7,6 +7,7 @@ public class Employee {
     String username;
     String email;
 
+
     //TODO add string companyName
 
     public Employee(int employeeId, String employeeName, String username, String email) {
