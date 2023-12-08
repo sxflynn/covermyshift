@@ -8,7 +8,11 @@
           <div id="logo">Cover My Shift</div>
         </router-link>
         <v-spacer></v-spacer>
-
+        <v-textarea
+      label="User Information"
+      v-model="userInfo"
+      readonly
+    ></v-textarea>
         <router-link v-bind:to="{ name: 'form' }">
           <v-btn>Submit Request</v-btn>
         </router-link>
@@ -27,13 +31,21 @@
       </div>
       <v-divider :thickness="6" color="info"></v-divider>
   
-      <router-view />
+      <div class="router-view-container">
+        <router-view />
+      </div>
 </v-container>
   </v-app>
 </template>
 <script>
 export default {
   components: {},
+  computed:{
+    userInfo(){
+      const userObject = this.$store.state.user.id;
+    return JSON.stringify(userObject);
+    }
+  }
 };
 </script>
 <style>
@@ -48,4 +60,15 @@ export default {
   text-decoration: none;
   color: inherit; /* Inherits the color from the parent element */
 }
+
+.router-view-container {
+  margin-top: 64px; /* Adjust based on the actual height of your v-app-bar */
+  .centered-container {
+  max-width: 1280px; /* Set the maximum width */
+  margin-left: auto; /* Automatic margin on the left */
+  margin-right: auto; /* Automatic margin on the right */
+}
+
+}
+
 </style>

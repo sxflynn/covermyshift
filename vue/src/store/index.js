@@ -47,7 +47,7 @@ export function createStore(currentToken, currentUser) {
         state.user = {};
         axios.defaults.headers.common = {};
       },
-      // Remove the LISTREQUESTS mutation as it contains asynchronous code and should be in actions
+     
     },
     actions: {
       fetchListReqArr({commit}){

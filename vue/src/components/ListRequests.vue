@@ -12,54 +12,40 @@
     <v-divider></v-divider>
     <!-- TODO: Add custom headers using the headers prop -->
     <!-- TODO: Customize the items-per-page -->
-    <v-data-table v-model:search="search" 
-    :items="processedRequests" 
-    :headers="headers" 
-    :items-per-page="1000">
+    <v-data-table v-model:search="search" :items="processedRequests" :headers="headers" :items-per-page="100">
 
       <template v-slot:item.employeeName="{ item }">
-        <div class="text-end">
-          <v-chip variant="text" :text="item.employeeName" label size="large"></v-chip>
-        </div>
+        <v-chip variant="text" :text="item.employeeName" label size="large"></v-chip>
       </template>
 
       <template v-slot:item.date="{ item }">
-        <div class="text-end">
-          <v-chip variant="text" :text="item.date" class="text-lowercase" label size="large"></v-chip>
-        </div>
+        <v-chip variant="text" :text="item.date" class="text-lowercase" label size="large"></v-chip>
       </template>
 
       <template v-slot:item.employeeMessage="{ item }">
-        <div class="text-end">
+        <div class="text-start">
           <v-chip variant="text" :text="item.employeeMessage" label size="large"></v-chip>
         </div>
       </template>
 
       <template v-slot:item.emergency="{ item }">
-        <div class="text-end">
-          <v-chip :color="item.emergency ? 'red' : 'blue'" :text="item.emergency ? 'Emergency' : 'Vacation'"
-            class="text-uppercase" label size="large"></v-chip>
-        </div>
+        <v-chip :color="item.emergency ? 'red' : 'blue'" :text="item.emergency ? 'Emergency' : 'Vacation'"
+          class="text-uppercase" label size="large"></v-chip>
       </template>
 
       <template v-slot:item.approved="{ item }">
-        <div class="text-end">
-          <v-chip :color="item.approved ? 'green' : (item.pending ? 'orange' : 'red')"
-            :text="item.approved ? 'Approved' : (item.pending ? 'Not yet approved' : 'Unapproved')" class="text-uppercase"
-            label size="large"></v-chip>
-        </div>
+        <v-chip :color="item.approved ? 'green' : (item.pending ? 'orange' : 'red')"
+          :text="item.approved ? 'Approved' : (item.pending ? 'Not yet approved' : 'Unapproved')" class="text-uppercase"
+          label size="large"></v-chip>
       </template>
 
       <template v-slot:item.pending="{ item }">
-        <div class="text-end">
-          <v-chip :color="item.pending ? 'red' : 'green'" :text="item.pending ? 'Pending' : 'Finalized'"
-            class="text-uppercase" label size="large"></v-chip>
-        </div>
+        <v-chip :color="item.pending ? 'red' : 'green'" :text="item.pending ? 'Pending' : 'Finalized'"
+          class="text-uppercase" label size="large"></v-chip>
       </template>
 
 
       <template v-slot:item.action="{ item }">
-
         <v-dialog width="500">
           <template v-slot:activator="{ props }">
             <v-btn v-bind="props" :text="'Open'">
@@ -91,19 +77,11 @@
                     </v-chip>
                   </v-col>
                 </v-row>
-
-
                 <v-row>
                   <v-col cols="6" class="text-end"><strong>Employee Message:</strong></v-col>
                   <v-col cols="6" class="text-start">{{ item.employeeMessage }}</v-col>
                 </v-row>
-
-
               </v-container>
-
-
-
-
 
               <v-text-field label="Message to employee " outlined dense v-model="item.managerMessage"></v-text-field>
 
@@ -138,8 +116,8 @@ export default {
       headers: [
         // { title: "Request ID", key: "requestId", align: "start" },
         // { title: "Employee ID", key: "employeeId", align: "start" },
-        { title: "Employee Name", key: "employeeName", align: "start" },
-        { title: "Date", key: "date", align: "start" },
+        { title: "Employee Name", key: "employeeName", align: "center" },
+        { title: "Date", key: "date", align: "center" },
         { title: "Message", key: "employeeMessage", align: "start" },
         { title: "Emergency/Vacation", key: "emergency", align: "center" },
         { title: "Approved", key: "approved", align: "center" },
@@ -150,8 +128,8 @@ export default {
 
       requests: [
         {
-          requestId: 1,
-          employeeId: 1,
+          requestId: null,
+          employeeId: null,
           employeeName: "",
           date: "",
           employeeMessage: "",
