@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -86,6 +87,12 @@ public class JdbcUserDao implements UserDao {
             throw new DaoException("Data integrity violation", e);
         }
         return newUser;
+    }
+
+    @Override
+    public User getUserFromPrincipal(Principal principal) {
+        User user = getUserByUsername(principal.getName());
+        return user;
     }
 
     private User mapRowToUser(SqlRowSet rs) {

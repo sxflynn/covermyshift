@@ -105,6 +105,7 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
 
 
 
+
     private JdbcRequestDao dao;
 
     @Before

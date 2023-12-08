@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.Request;
 import com.techelevator.model.Shift;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -104,6 +105,10 @@ public class JdbcShiftDao implements ShiftDao {
         return listOfShift;
     }
 
+    @Override
+    public List<Shift> getAllShiftsByRequest(Request request) {
+        return null;
+    }
 
 
     @Override
@@ -198,15 +203,15 @@ public class JdbcShiftDao implements ShiftDao {
 
 
     @Override
-    public int updateListOfShiftsToUncoveredByRequestId(int requestId){
-        //first get all the shifts by the requestId using getAllShiftsByRequestId
-        // create an updateCounter
-        //loop through the list
-        //for each shift
-        // make a new variable using getShiftByShiftId
-        // set the iscovered to false
-        // use updateShifts on the object
-        // increment the updateCounter with the result of updateShifts
+    public int updateListOfShiftsToUncoveredByRequest(Request request){
+        //first get all the shifts by the request using getAllShiftsByRequest
+        //create an updateCounter
+        //foreach loop through the list
+            //for each shift
+                // make a new variable using getShiftByShiftId
+                // set the iscovered of the shift object to false
+                // use updateShifts on the object
+                // increment the updateCounter with the result of updateShifts
         // return the updateCounter
         return 0;
     }

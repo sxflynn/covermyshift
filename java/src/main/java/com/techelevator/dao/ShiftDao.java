@@ -1,6 +1,5 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.Employee;
 import com.techelevator.model.Request;
 import com.techelevator.model.Shift;
 
@@ -18,6 +17,7 @@ public interface ShiftDao {
     public List<Shift> getAllUncoveredShifts();
 
     public List<Shift> getAllShiftsByRequestId(int requestId);
+    public List<Shift> getAllShiftsByRequest(Request request);
 
     public Shift getShiftByShiftId(int shiftId);
 
@@ -25,7 +25,7 @@ public interface ShiftDao {
 
 public List<Shift> getAllShiftsByEmployeeIdAndDate(int employeeId, LocalDate date);
 
-public int updateListOfShiftsToUncoveredByRequestId(int requestId);
+public int updateListOfShiftsToUncoveredByRequest(Request request);
 
 
 

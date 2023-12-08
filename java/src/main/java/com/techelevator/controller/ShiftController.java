@@ -1,6 +1,8 @@
 package com.techelevator.controller;
 
+import com.techelevator.dao.RequestDao;
 import com.techelevator.dao.ShiftDao;
+import com.techelevator.model.Request;
 import com.techelevator.model.Shift;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
@@ -10,13 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO Add authorization/authentication to this controller. All endpoints should require authentication.
 @RestController
 @CrossOrigin
 public class ShiftController {
     private ShiftDao shiftDao;
+    private RequestDao requestDao;
 
-    public ShiftController(ShiftDao shiftDao){
+    public ShiftController(ShiftDao shiftDao, RequestDao requestDao){
         this.shiftDao = shiftDao;
+        this.requestDao = requestDao;
     }
 
     private final String API_BASE_SHIFT_URL = "/shift";
@@ -42,6 +47,7 @@ public class ShiftController {
     public Shift updateShifts(@RequestBody Shift shift){
         return shiftDao.updateShifts(shift);
     }
+
     @RequestMapping(path = API_BASE_SHIFT_URL + "/employee/{employeeId}", method = RequestMethod.GET)
     public ResponseEntity<List<Shift>> getAllShiftsByEmployeeId(@PathVariable("employeeId") int employeeId) {
         List<Shift> shiftList = shiftDao.getAllShiftsByEmployeeId(employeeId);
@@ -66,14 +72,16 @@ public class ShiftController {
     @RequestMapping(path = API_BASE_SHIFT_URL + "/uncovered", method = RequestMethod.GET)
     public ResponseEntity<List<Shift>> getAllUncoveredShifts() {
         List<Shift> shiftList = shiftDao.getAllUncoveredShifts();
-
         return ResponseEntity.ok(shiftList);
     }
 
     @RequestMapping(path = API_BASE_SHIFT_URL + "/request/{requestId}", method = RequestMethod.GET)
     public ResponseEntity<List<Shift>> getAllShiftsByRequestId(@PathVariable("requestId") int requestId) {
-        List<Shift> shiftList = shiftDao.getAllShiftsByRequestId(requestId);
-        return ResponseEntity.ok(shiftList);
+        //TODO get the Request from the request ID and then feed that into the shiftDao function below
+
+
+//        List<Shift> shiftList = shiftDao.getAllShiftsByRequest(request);
+        return ResponseEntity.ok(null);
     }
 
 

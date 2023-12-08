@@ -3,6 +3,7 @@ package com.techelevator.dao;
 import com.techelevator.model.RegisterUserDto;
 import com.techelevator.model.User;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface UserDao {
@@ -14,4 +15,6 @@ public interface UserDao {
     User getUserByUsername(String username);
 
     User createUser(RegisterUserDto user);
+
+    User getUserFromPrincipal(Principal principal);
 }

@@ -1,6 +1,5 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.Employee;
 import com.techelevator.model.Request;
 import com.techelevator.model.Shift;
 import org.junit.Assert;
@@ -91,6 +90,19 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
             LocalDateTime.parse("2025-12-08T11:00:00")
     );
 
+    private static final Request REQUEST_4 = new Request(
+            0,
+            2,
+            "Rachelle R.",
+            LocalDate.parse("2024-12-08"),
+            false,
+            true,
+            false,
+            "I need Dec 8th off",
+            false,
+            1
+    );
+
 
     @Before
     public void setup(){
@@ -132,15 +144,28 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
         assertShiftsMatch(testShift,realShift);
     }
 
-@Test
-    public void get_list_of_shifts_linked_to_request_id_returns_correct_list(){
+//@Test
+//    public void get_list_of_shifts_linked_to_request_id_returns_correct_list(){
+//        Shift test4 = SHIFT_4_SAME_DAY;
+//        Shift test5 = SHIFT_5_SAME_DAY;
+//        Shift test6 = SHIFT_6_SAME_DAY;
+//        int requestId = 4;
+//        List<Shift> realList = dao.getAllShiftsByRequestId(requestId);
+//        Assert.assertEquals(3,realList.size());
+//        assertShiftsMatch(test4,realList.get(0));
+//    }
+
+    @Test
+    public void get_list_of_shifts_by_request_returns_correct_list(){
         Shift test4 = SHIFT_4_SAME_DAY;
         Shift test5 = SHIFT_5_SAME_DAY;
         Shift test6 = SHIFT_6_SAME_DAY;
-        int requestId = 4;
-        List<Shift> realList = dao.getAllShiftsByRequestId(requestId);
+        Request request4 = REQUEST_4;
+        List<Shift> realList = dao.getAllShiftsByRequest(request4);
         Assert.assertEquals(3,realList.size());
         assertShiftsMatch(test4,realList.get(0));
+        assertShiftsMatch(test5,realList.get(1));
+        assertShiftsMatch(test6,realList.get(2));
     }
 
 
@@ -186,8 +211,7 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
 
     @Test
     public void update_list_of_shifts_to_uncovered_by_request_id_returns_correct_number(){
-       int requestId = 4;
-        int updateCount = dao.updateListOfShiftsToUncoveredByRequestId(requestId);
+        int updateCount = dao.updateListOfShiftsToUncoveredByRequest(REQUEST_4);
         Assert.assertEquals("Expected update count to be 3, but was " + updateCount,3,updateCount);
         Shift realShift4 = dao.getShiftByShiftId(4);
         Shift realShift5 = dao.getShiftByShiftId(5);
