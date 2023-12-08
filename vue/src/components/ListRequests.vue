@@ -3,8 +3,7 @@
     <v-card-title class="d-flex align-center pe-2">
       <v-icon icon="mdi-video-input-component"></v-icon> &nbsp;
 
-      <v-spacer></v-spacer>List of Requests (TODO: Headers issue, specific
-      column display, font and style change of data)
+      <v-spacer></v-spacer>
 
       <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" density="compact" label="Search" single-line flat
         hide-details variant="solo-filled"></v-text-field>
@@ -13,7 +12,10 @@
     <v-divider></v-divider>
     <!-- TODO: Add custom headers using the headers prop -->
     <!-- TODO: Customize the items-per-page -->
-    <v-data-table v-model:search="search" :items="processedRequests" :headers="headers" :items-per-page="1000">
+    <v-data-table v-model:search="search" 
+    :items="processedRequests" 
+    :headers="headers" 
+    :items-per-page="1000">
 
       <template v-slot:item.employeeName="{ item }">
         <div class="text-end">
@@ -29,7 +31,7 @@
 
       <template v-slot:item.employeeMessage="{ item }">
         <div class="text-end">
-          <v-chip :text="item.employeeMessage" label size="large"></v-chip>
+          <v-chip variant="text" :text="item.employeeMessage" label size="large"></v-chip>
         </div>
       </template>
 
