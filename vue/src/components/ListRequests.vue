@@ -93,12 +93,50 @@
       </template>
 
       <template v-slot:item.approved="{ item }">
+        <div class="text-end">
+          <v-chip
+            :color="item.approved ? 'green' : 'red'"
+            :text="item.approved ? 'Approved' : 'Unapproved'"
+            class="text-uppercase"
+            label
+            size="large"
+          ></v-chip>
+        </div>
+      </template>
+
+      <template v-slot:item.covered="{ item }">
+        <div class="text-end">
+          <v-chip
+            :color="item.covered ? 'green' : 'red'"
+            :text="item.covered ? 'Covered' : 'Uncovered'"
+            class="text-uppercase"
+            label
+            size="large"
+            variant="outlined"
+          ></v-chip>
+        </div>
+      </template>
+
+      <template v-slot:item.pending="{ item }">
+        <div class="text-end">
+          <v-chip
+            :color="item.pending ? 'red' : 'green'"
+            :text="item.pending ? 'Pending' : 'Finalized'"
+            class="text-uppercase"
+            label
+            size="large"
+          ></v-chip>
+        </div>
+      </template>
+
+
+      <template v-slot:item.action="{ item }">
+      
         <v-dialog width="500">
           <template v-slot:activator="{ props }">
             <v-btn
-              :color="item.approved ? 'green' : 'orange'"
               v-bind="props"
-              :text="item.approved ? 'Approved' : 'Accept / Decline'"
+              :text="'Open'"
             >
             </v-btn>
           </template>
@@ -185,31 +223,8 @@
             </v-card>
           </template>
         </v-dialog>
-      </template>
 
-      <template v-slot:item.covered="{ item }">
-        <div class="text-end">
-          <v-chip
-            :color="item.covered ? 'green' : 'red'"
-            :text="item.covered ? 'Covered' : 'Uncovered'"
-            class="text-uppercase"
-            label
-            size="large"
-            variant="outlined"
-          ></v-chip>
-        </div>
-      </template>
 
-      <template v-slot:item.pending="{ item }">
-        <div class="text-end">
-          <v-chip
-            :color="item.pending ? 'red' : 'green'"
-            :text="item.pending ? 'Pending' : 'Finalized'"
-            class="text-uppercase"
-            label
-            size="large"
-          ></v-chip>
-        </div>
       </template>
     </v-data-table>
   </v-card>
@@ -220,8 +235,8 @@ export default {
   data() {
     return {
       headers: [
-        { title: "Request ID", key: "requestId", align: "start" },
-        { title: "Employee ID", key: "employeeId", align: "start" },
+        // { title: "Request ID", key: "requestId", align: "start" },
+        // { title: "Employee ID", key: "employeeId", align: "start" },
         { title: "Employee Name", key: "employeeName", align: "start" },
         { title: "Date", key: "date", align: "start" },
         { title: "Message", key: "employeeMessage", align: "start" },
@@ -229,6 +244,7 @@ export default {
         { title: "Covered", key: "covered", align: "center" },
         { title: "Approved", key: "approved", align: "center" },
         { title: "Pending", key: "pending", align: "center" },
+        {title: "Approve/Deny", value:'action', align:"center"}
       ],
       search: "",
 

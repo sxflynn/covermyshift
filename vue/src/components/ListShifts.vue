@@ -13,7 +13,7 @@
     <v-divider></v-divider>
     <!-- TODO: Add custom headers using the headers prop -->
     <!-- TODO: Customize the items-per-page -->
-    <v-data-table v-model:search="search" :items="shifts" :items-per-page="1000">
+    <v-data-table v-model:search="search" :headers="headers" :items="processedRequests" :items-per-page="1000" class="elevation-1">
 
       <template v-slot:item.shiftId="{ item }">
         <div class="text-end">
@@ -21,9 +21,9 @@
         </div>
       </template>
 
-      <template v-slot:item.employeeId="{ item }">
+      <template v-slot:item.shiftOwnerId="{ item }">
         <div class="text-end">
-          <v-chip :text="item.employeeId" class="text-lowercase" label size="large"></v-chip>
+          <v-chip :text="item.shiftOwnerId" class="text-lowercase" label size="large"></v-chip>
         </div>
       </template>
 
@@ -59,6 +59,11 @@
             class="text-uppercase" label size="large"></v-chip>
         </div>
       </template>
+
+      <template v-slot:item.action="{ item }">
+      <v-btn color="primary" :disabled="item.covered" @click="onButtonClick(item)">{{ item.covered ? 'Already Claimed' : 'Claim This Shift' }}</v-btn>
+    </template>
+
     </v-data-table>
   </v-card>
 </template>
@@ -68,14 +73,15 @@ export default {
   data() {
     return {
       headers: [
-        { text: 'Shift ID', value: 'shiftId', align: 'start' },
-        { text: 'Shift Owner ID', value: 'shiftOwnerId', align: 'start' },
-        { text: 'Shift Owner Name', value: 'shiftOwnerName', align: 'start' },
-        { text: 'Shift Volunteer ID', value: 'shiftVolunteerId', align: 'start' },
-        { text: 'Shift Volunteer', value: 'shiftVolunteerName', align: 'start' },
-        { text: 'Start Time', value: 'startTime', align: 'center' },
-        { text: 'End Time', value: 'endTime', align: 'center' },
-        { text: 'Covered', value: 'covered', align: 'center' }
+        // { title: 'Shift ID', key: 'shiftId', align: 'start' },
+        // { title: 'Shift Owner ID', key: 'shiftOwnerId', align: 'start' },
+        { title: 'Shift Owner', key: 'shiftOwnerName', align: 'start' },
+        // { title: 'Shift Volunteer ID', key: 'shiftVolunteerId', align: 'start' },
+        { title: 'Shift Volunteer', key: 'shiftVolunteerName', align: 'start' },
+        { title: 'Start Time', key: 'startTime', align: 'center' },
+        { title: 'End Time', key: 'endTime', align: 'center' },
+        { title: 'Covered', key: 'covered', align: 'center' },
+        {title: 'Claim', value: 'action', sortable: false}
       ],
       search: "",
 
@@ -93,10 +99,15 @@ export default {
       ],
     }
   },
+  mounted() {
+    this.$store.dispatch("fetchListShiftArr");
+  },
   computed: {
-    reversedRequests() {
-      console.log(this.shifts);
-      return [this.shifts].reverse();
+    processedRequests() {
+      // Create a shallow copy of the array and reverse it
+      let reversedArray = [...this.$store.state.listShiftArr].reverse();
+      console.log("Reversed array is ", reversedArray); // Debugging line
+      return reversedArray;
     }
   }
 }
