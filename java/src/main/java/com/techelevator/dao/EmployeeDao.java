@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Employee;
 import com.techelevator.model.User;
 
 public interface EmployeeDao {
@@ -15,5 +16,7 @@ public interface EmployeeDao {
      *         It's important to handle this method's return value accordingly in the calling context.
      */
     public int getEmployeeIdFromUser(User user);
+
+    public Employee getEmployeeFromUser(User user);
 
 }

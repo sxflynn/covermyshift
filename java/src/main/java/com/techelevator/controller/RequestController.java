@@ -15,9 +15,8 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
-//TODO Add authorization/authentication to this controller. All endpoints should require authentication.
-//@PreAuthorize("isAuthenticated()")
 @RestController
+@PreAuthorize("isAuthenticated()")
 @CrossOrigin
 public class RequestController {
     private RequestDao requestDao;
@@ -26,9 +25,10 @@ public class RequestController {
 
     private EmployeeDao employeeDao;
 
-    public RequestController(RequestDao requestDao, ShiftDao shiftDao) {
+    public RequestController(RequestDao requestDao, ShiftDao shiftDao, UserDao userDao) {
         this.requestDao = requestDao;
         this.shiftDao = shiftDao;
+        this.userDao = userDao;
     }
 
     private final String API_BASE_REQUEST_URL = "/request";
@@ -59,54 +59,36 @@ public class RequestController {
         return requestDao.getCurrentAndFutureRequests();
     }
 
+
+//    was having issues with userDao.getUserFromPrincipal(principle). It threw a null pointer.
+//    so we broke the functionality into two endpoints. One for a teacher making a claim and one for an admin approving
+
     @RequestMapping(path = API_BASE_REQUEST_URL, method = RequestMethod.PUT)
-    public Request updateRequest(@RequestBody Request request){
-        //teacher claiming shift
-         if (request.isPending() == false && request.isApproved() == true && request.isCovered() == false){
+    public Request updateRequest(@RequestBody Request request, Principal principal){
 
-//            String currentUsername = userDao.getUserFromPrincipal(principal).getUsername();
-            List<Shift> affectedShifts = shiftDao.getAllShiftsByEmployeeIdAndDate(request.getEmployeeId(),request.getDate());
-            for (Shift shift : affectedShifts){
-                shift.setCovered(true);
-                shift.setShiftVolunteerName("Steve C.");
-                shift.setShiftVolunteerId(1);
-                shiftDao.updateShifts(shift);
-            }
-            request.setCovered(true);
-            return requestDao.updateRequest(request);
-
-        }
-
-        //TODO implement the logic below
-
-        //admin approving request
-
-         else if(request.isApproved() == true){
+        //if admin approved request
+         if(hasRoleAdmin(userDao.getUserFromPrincipal(principal).getAuthorities()) && request.isApproved()==true) {
              shiftDao.updateListOfShiftsToUncoveredByRequest(request);
-             request.setPending(false);
              return requestDao.updateRequest(request);
-         } else if (request.isApproved() == false) {
-             request.setPending((false));
+         }
+         // if admin denying request
+        if(hasRoleAdmin(userDao.getUserFromPrincipal(principal).getAuthorities()) && request.isApproved()==false) {
              return requestDao.updateRequest(request);
-
          }
 
-            //this handles when an employee wants to give up a shift
-//            shiftDao.updateListOfShiftsToUncoveredByRequest(request);
+        Request requestResponse = new Request();
+        //if a teacher is making a request
+        if(hasRoleUser(userDao.getUserFromPrincipal(principal).getAuthorities())) {
+            //TODO -- add a method to check that the request is the same as the principal's employee ID else throw error
 
-        //if isAdmin AND request.isApproved = false
-            // set request.ispending to false
-            // return requestDao.updateRequest(request);
-
-        // if NOT isAdmin
-        // instead of passing this request straight to the dao, we need to ensure only user fields are touched
-            // retrieve the request from the dao using the requestId and set to new variable like requestResponse
+            requestResponse = requestDao.getRequestByRequestId(request.getRequestId());
             // update each fields of the request manually using the incoming request object but exclude approved, pending, managerMessage
-            // return requestDao.updateRequest(requestResponse);
-
-        return requestDao.updateRequest(request);
+            requestResponse.setDate(request.getDate());
+            requestResponse.setEmployeeMessage(request.getEmployeeMessage());
+            requestResponse.setEmergency(request.isEmergency());
+        }
+        return requestDao.updateRequest(requestResponse);
     }
-
 
     public boolean hasRoleUser(Set<Authority> authorities) {
         for (Authority authority : authorities) {

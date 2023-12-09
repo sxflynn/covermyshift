@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Shift {
 
     int shiftId;
-    //TODO should this be true?
+    //TODO add String shiftName i.e. Math class, Front register, etc.
     boolean isCovered;
 
     int shiftOwnerId;

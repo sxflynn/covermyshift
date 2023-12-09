@@ -70,8 +70,9 @@ public class JdbcRequestDao implements RequestDao {
         return requestList;
     }
 
+    //TODO HIGH PRIORITY make this return a list of requests not a single one
     @Override
-    public Request getRequestByEmployeeId(int employeeId) {
+    public List<Request> getRequestsByEmployeeId(int employeeId) {
         Request requestById = new Request();
         String sql =  ALL_COLUMNS_WITH_EMPLOYEE_NAME + "WHERE request.employee_Id = ?;";
         try {
@@ -84,7 +85,7 @@ public class JdbcRequestDao implements RequestDao {
             throw new DaoException("Unable to connect to server or database", e);
         }
 
-        return requestById;
+        return new ArrayList<Request>();
     }
 
 

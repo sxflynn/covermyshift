@@ -197,6 +197,8 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
         Assert.assertNull(dao.getRequestByRequestId(testRequest.getRequestId()));
     }
 
+    //TODO make a test for getRequestsFromEmployeeId
+
     public void assertRequestsMatch(Request requestExpected, Request realRequest){
         Assert.assertEquals("Expected date: " + requestExpected.getDate() + ", but was: " + realRequest.getDate(), requestExpected.getDate(), realRequest.getDate());
         Assert.assertEquals("Expected employee ID: " + requestExpected.getEmployeeId() + ", but was: " + realRequest.getEmployeeId(), requestExpected.getEmployeeId(), realRequest.getEmployeeId());
