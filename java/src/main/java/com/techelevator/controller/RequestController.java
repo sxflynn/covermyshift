@@ -17,8 +17,9 @@ import java.util.Set;
 
 //TODO HIGH PRIORITY Add authorization/authentication to this controller. All endpoints should require authentication.
 // You know its correct if the bearer token is required to call a GET in postman
-//@PreAuthorize("isAuthenticated()")
+
 @RestController
+@PreAuthorize("isAuthenticated()")
 @CrossOrigin
 public class RequestController {
     private RequestDao requestDao;
@@ -60,34 +61,53 @@ public class RequestController {
         return requestDao.getCurrentAndFutureRequests();
     }
 
+
+//    was having issues with userDao.getUserFromPrincipal(principle). It threw a null pointer.
+//    so we broke the functionality into two endpoints. One for a teacher making a claim and one for an admin approving
+    @PreAuthorize("hasRole('USER')")
+    @RequestMapping(path = API_BASE_REQUEST_URL, method = RequestMethod.PUT)
+    public Request claimShift(@RequestBody Request request) {
+//        this is when a user claims a shift
+
+
+        return request;
+    }
+
+
+
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(path = API_BASE_REQUEST_URL, method = RequestMethod.PUT)
     public Request updateRequest(@RequestBody Request request){
 
-        // no principal, so allowing anyone to approve a request
-        if (request.isApproved()) {
-//            String currentUsername = userDao.getUserFromPrincipal(principal).getUsername();
-            List<Shift> affectedShifts = shiftDao.getAllShiftsByEmployeeIdAndDate(request.getEmployeeId(), request.getDate());
-            for (Shift shift : affectedShifts) {
-                shift.setCovered(false);
-                shiftDao.updateShifts(shift);
-            }
-            return requestDao.updateRequest(request);
-        }
+        System.out.println(request);
+//
+
+//        admin approving request
+
+//         if(hasRoleAdmin(userDao.getUserFromPrincipal(principal).getAuthorities()) && request.isApproved()==true)
+        if(request.isApproved() == true){
+             shiftDao.updateListOfShiftsToUncoveredByRequest(request);
+             return requestDao.updateRequest(request);
+
+//             admin denying request
+         } else if (request.isApproved()==false) {
+             return requestDao.updateRequest(request);
+         }
+//        System.out.println("You are not an admin.. so sorry");
+
+//        if (request.isApproved()) {
+////            String currentUsername = userDao.getUserFromPrincipal(principal).getUsername();
+//            List<Shift> affectedShifts = shiftDao.getAllShiftsByEmployeeIdAndDate(request.getEmployeeId(), request.getDate());
+//            for (Shift shift : affectedShifts) {
+//                shift.setCovered(false);
+//                shiftDao.updateShifts(shift);
+//            }
+//            return requestDao.updateRequest(request);
+//        }
 
 
         //TODO HIGH PRIORITY implement the logic below when principal works
 
-        //admin approving request
-//
-//         else if(request.isApproved() == true){
-//             shiftDao.updateListOfShiftsToUncoveredByRequest(request);
-//             request.setPending(false);
-//             return requestDao.updateRequest(request);
-//         } else if (request.isApproved() == false) {
-//             request.setPending((false));
-//             return requestDao.updateRequest(request);
-//
-//         }
 
             //this handles when an employee wants to give up a shift
 //            shiftDao.updateListOfShiftsToUncoveredByRequest(request);
