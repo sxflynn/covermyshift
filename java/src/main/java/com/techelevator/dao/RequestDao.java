@@ -24,8 +24,8 @@ public interface RequestDao {
     // DeleteRequestById
     public int deleteRequestById(int requestId);
 
-    // GetRequestByEmployeeId
-    public Request getRequestByEmployeeId(int employeeId);
+    // TODO HIGH PRIORITY GetRequestByEmployeeId
+    public List<Request> getRequestsByEmployeeId(int employeeId);
 
     //LATER -- GetAllRequestsByEmployee
     //LATER -- GetAllRequestByWorkplace
