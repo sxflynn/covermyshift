@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Employee;
+import com.techelevator.model.Request;
 import com.techelevator.model.User;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,11 +39,25 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
 
-    //TODO HIGH PRIORITY
+
     @Override
     public Employee getEmployeeFromUser(User user) {
-        return null;
+        Employee employee = new Employee();
+        String sql = "SELECT * FROM employee WHERE username = ?;";
+        SqlRowSet row = jdbcTemplate.queryForRowSet(sql,user.getUsername());
+        employee = mapRowsToEmployee(row);
+        return employee;
     }
 
-    //TODO HIGH PRIORITY create mapRowsToEmployee
+
+
+    private Employee mapRowsToEmployee(SqlRowSet rowSet) {
+       Employee employee = new Employee();
+        employee.setEmployeeId(rowSet.getInt("employee_id"));
+        employee.setEmployeeName(rowSet.getString("employee_name"));
+        employee.setUsername(rowSet.getString("username"));
+        employee.setEmail(rowSet.getString("email"));
+
+        return employee;
+    }
 }
