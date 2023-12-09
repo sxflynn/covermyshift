@@ -90,7 +90,7 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
             1
     );
 
-    private static final Request FUTURE_REQUEST_DENIED = new Request(
+    private static final Request FUTURE_REQUEST_3_DENIED = new Request(
             3,
             2,
             "Rachelle R.",
@@ -174,7 +174,7 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
     @Test
     public void update_future_request_to_denied_no_message(){
         Request testRequest = FUTURE_REQUEST;
-        Request deniedTestRequest = FUTURE_REQUEST_DENIED;
+        Request deniedTestRequest = FUTURE_REQUEST_3_DENIED;
         deniedTestRequest.setManagerMessage("No");
         Request realRequest = dao.getRequestByRequestId(deniedTestRequest.getRequestId());
         realRequest = dao.updateRequest(deniedTestRequest);
@@ -198,6 +198,14 @@ public class JdbcRequestDaoTests extends BaseDaoTests{
     }
 
     //TODO make a test for getRequestsFromEmployeeId
+
+    @Test
+    public void get_requests_from_employee_id_returns_correct_requests(){
+        int expectedResults = 2;
+        int employeeId = 2;
+        List<Request> realList = dao.getRequestsByEmployeeId(employeeId);
+        Assert.assertEquals(expectedResults,realList.size());
+    }
 
     public void assertRequestsMatch(Request requestExpected, Request realRequest){
         Assert.assertEquals("Expected date: " + requestExpected.getDate() + ", but was: " + realRequest.getDate(), requestExpected.getDate(), realRequest.getDate());

@@ -42,6 +42,8 @@ public class RequestController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(requestList);
+
+        //TODO HIGH PRIORITY REODO getAllRequests methods -- if a teacher calls this endpoint, it only returns their requests using getallrequestsfromemployeeid
 //        if(hasRoleAdmin(userDao.getUserFromPrincipal(principal).getAuthorities())){
 ////            return ResponseEntity.ok(request);
 //        } else if (hasRoleUser(userDao.getUserFromPrincipal(principal).getAuthorities())) {

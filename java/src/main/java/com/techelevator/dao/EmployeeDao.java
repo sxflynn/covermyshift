@@ -19,4 +19,5 @@ public interface EmployeeDao {
 
     public Employee getEmployeeFromUser(User user);
 
+    public Employee getEmployeeFromUsername(String username);
 }

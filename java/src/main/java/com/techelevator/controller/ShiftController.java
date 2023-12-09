@@ -78,7 +78,7 @@ public class ShiftController {
 
     @RequestMapping(path = API_BASE_SHIFT_URL + "/request/{requestId}", method = RequestMethod.GET)
     public ResponseEntity<List<Shift>> getAllShiftsByRequestId(@PathVariable("requestId") int requestId) {
-        //TODO get the Request from the request ID and then feed that into the shiftDao function below
+        //TODO HIGH PRIORITY get the Request from the request ID and then feed that into the shiftDao function below
 
 
 //        List<Shift> shiftList = shiftDao.getAllShiftsByRequest(request);
