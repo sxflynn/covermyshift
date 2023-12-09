@@ -35,6 +35,8 @@ public class JdbcEmployeeDaoTests extends BaseDaoTests {
         testUser = new User();
         testUser.setUsername("testUser");
     }
+
+    //TODO test getEmployeeFromUser method
 }
 
 //        @Test

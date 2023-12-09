@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO HIGH PRIORITY Add authorization/authentication to this controller. All endpoints should require authentication.
-
+@PreAuthorize("isAuthenticated()")
 @RestController
 @CrossOrigin
 public class ShiftController {
