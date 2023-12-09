@@ -41,6 +41,7 @@ export default {
   computed: {
     displayWelcome() {
     const user = this.$store.state.user;
+    console.log("token is " ,this.$store.state.token)
     if (user && user.username && user.authorities && user.authorities.length > 0) {
       const username = user.username;
       const authority = user.authorities[0].name;

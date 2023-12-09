@@ -30,28 +30,6 @@ export default {
     };
   },
   methods: {
-    // handleErrorResponse(error, verb) {
-    //   if (error.response) {
-    //     if (error.response.status == 404) {
-    //       this.$router.push({ name: "NotFoundView" });
-    //     } else {
-    //       this.$store.commit(
-    //         "SET_NOTIFICATION",
-    //         `Error ${verb} request. Response received was "${error.response.statusText}".`
-    //       );
-    //     }
-    //   } else if (error.request) {
-    //     this.$store.commit(
-    //       "SET_NOTIFICATION",
-    //       `Error ${verb} request. Server could not be reached.`
-    //     );
-    //   } else {
-    //     this.$store.commit(
-    //       "SET_NOTIFICATION",
-    //       `Error ${verb} request. Request could not be created.`
-    //     );
-    //   }
-    // },
     addRequest() {
       if (this.showForm) {
         this.buttonText = "Show Form";

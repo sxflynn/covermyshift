@@ -58,6 +58,8 @@ export function createStore(currentToken, currentUser) {
     },
     actions: {
       fetchListReqArr({commit}){
+
+        console.log(RequestService.list())
         return RequestService.list()
         .then(response =>{
           console.log("Fetched data:", response.data); // Debugging line
