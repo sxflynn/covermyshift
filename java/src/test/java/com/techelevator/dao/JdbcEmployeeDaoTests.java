@@ -1,20 +1,17 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Employee;
+import com.techelevator.model.Request;
 import com.techelevator.model.User;
+import org.junit.Assert;
 import org.junit.Before;
 import org.springframework.jdbc.core.JdbcTemplate;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.jdbc.CannotGetJdbcConnectionException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
+
 
 
 public class JdbcEmployeeDaoTests extends BaseDaoTests {
@@ -22,57 +19,32 @@ public class JdbcEmployeeDaoTests extends BaseDaoTests {
     private JdbcEmployeeDao dao;
     private User testUser;
 
+
+    private static final Employee emp1 = new Employee(1,"joe","stalin","communism@russia.rs");
+    private static final Employee emp2 = new Employee(2,"zac","attack","noob@russia.rs");
+    private static final Employee emp3 = new Employee(3,"jack","testUser","pickofdestiny@russia.rs");
+
+
     @Before
     public void setup() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         dao = new JdbcEmployeeDao(jdbcTemplate);
-    }
-
-    // TODO write a test that checks getEmployeeIdFromUser(User user)
-    //
-    @Before
-    public void setUp() {
         testUser = new User();
         testUser.setUsername("testUser");
     }
 
-    //TODO test getEmployeeFromUser method
-}
+    // TODO write a test that checks getEmployeeIdFromUser(User user)....help steve
+    //
 
-//        @Test
-//        public void testGetEmployeeIdFromUser() {
-//            // Mocking behavior of jdbcTemplate
-//            SqlRowSet mockRowSet = mock(SqlRowSet.class);
-//            when(jdbcTemplate.queryForRowSet(anyString(), eq(testUser.getUsername())))
-//                    .thenReturn(mockRowSet);
-//
-//            // Mocking result set
-//            when(mockRowSet.next()).thenReturn(true);
-//            when(mockRowSet.getInt("employee_id")).thenReturn(42);
-//
-//            // Call the method to test
-//            int result = yourClass.getEmployeeIdFromUser(testUser);
-//
-//            // Verify interactions
-//            verify(jdbcTemplate).queryForRowSet(anyString(), eq(testUser.getUsername()));
-//            verify(mockRowSet).next();
-//            verify(mockRowSet).getInt("employee_id");
-//
-//            // Assert the result
-//            assertEquals(42, result);
-//        }
-//
-//        @Test(expected = DaoException.class)
-//        public void testGetEmployeeIdFromUserException() {
-//            // Mocking behavior of jdbcTemplate to throw an exception
-//            when(jdbcTemplate.queryForRowSet(anyString(), eq(testUser.getUsername())))
-//                    .thenThrow(new CannotGetJdbcConnectionException("Test exception"));
-//
-//            // Call the method to test and expect an exception
-//            yourClass.getEmployeeIdFromUser(testUser);
-//        }
-//    }
-//
-//
-//
-//}
+
+        @Test
+        public void testGetEmployeeFromUser() {
+
+            Assert.assertEquals(emp3,dao.getEmployeeFromUser(testUser));
+        }
+            // Mocking behavior of jdbcTemplate
+
+
+
+
+}

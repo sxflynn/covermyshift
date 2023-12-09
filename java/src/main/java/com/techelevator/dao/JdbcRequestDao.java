@@ -70,22 +70,23 @@ public class JdbcRequestDao implements RequestDao {
         return requestList;
     }
 
-    //TODO HIGH PRIORITY make this return a list of requests not a single one
+
     @Override
     public List<Request> getRequestsByEmployeeId(int employeeId) {
-        Request requestById = new Request();
+        List<Request> requestList = new ArrayList<>();
         String sql =  ALL_COLUMNS_WITH_EMPLOYEE_NAME + "WHERE request.employee_Id = ?;";
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, employeeId);
-            if ((result.next())) {
-                requestById = mapRowsToRequests(result);
+            while ((result.next())) {
+                Request newRequest = mapRowsToRequests(result);
+                requestList.add(newRequest);
             }
 
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         }
 
-        return new ArrayList<Request>();
+        return requestList;
     }
 
 
