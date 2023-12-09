@@ -1,29 +1,26 @@
 import axios from 'axios';
 
-const http = axios.create({
-  baseURL: "http://localhost:9000/shift"
-});
 
 export default {
   getAllShifts() {
-    return http.get('/all');
+    return axios.get('/all');
   },
   getAllCurrentShifts() {
-    return http.get('/current');
+    return axios.get('/current');
   },
   updateShift(shift) {
-    return http.put('', shift);
+    return axios.put('', shift);
   },
   getAllShiftsByEmployeeId(employeeId) {
-    return http.get(`/employee/${employeeId}`);
+    return axios.get(`/employee/${employeeId}`);
   },
   getShiftByShiftId(shiftId) {
-    return http.get(`/shifts/${shiftId}`);
+    return axios.get(`/shifts/${shiftId}`);
   },
   getAllUncoveredShifts() {
-    return http.get('/uncovered');
+    return axios.get('/uncovered');
   },
   getAllShiftsByRequestId(requestId) {
-    return http.get(`/request/${requestId}`);
+    return axios.get(`/request/${requestId}`);
   }
 };
