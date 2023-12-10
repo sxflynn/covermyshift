@@ -3,8 +3,12 @@ version: '3.8'
 services:
   db:
     build: ./java/database
+    environment:
+      - POSTGRES_DB=final_capstone
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres1
     ports:
-      - "5433:5432" # Port mapping
+      - "5433:5432" # Map to 5433 so it doesn't conflict with your current psql server
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
@@ -23,7 +27,6 @@ services:
       context: ./vue
       dockerfile: Dockerfile
     volumes:
-      - ./vue:/srv/app
       - vue-node_modules:/srv/app/node_modules
     ports:
       - "5173:5173"
