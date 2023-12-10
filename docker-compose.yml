@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   db:
-    build: ./java/database
+    build:
+      context: ./java/database
+      dockerfile: DatabaseDockerfile
     environment:
       - POSTGRES_DB=final_capstone
       - POSTGRES_USER=postgres
@@ -14,7 +16,9 @@ services:
     networks:
       - capstone-network
   java-springboot:
-    build: ./java
+    build:
+      context: ./java
+      dockerfile: JavaDockerfile
     ports:
       - "9000:9000"
     environment:
@@ -25,7 +29,7 @@ services:
   vue-web:
     build:
       context: ./vue
-      dockerfile: Dockerfile
+      dockerfile: VueDockerfile
     volumes:
       - vue-node_modules:/srv/app/node_modules
     ports:
