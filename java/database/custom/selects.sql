@@ -4,9 +4,6 @@ FROM shift s
 LEFT JOIN employee e_owner ON s.shift_owner_id = e_owner.employee_id
 LEFT JOIN employee e_volunteer ON s.shift_volunteer_id = e_volunteer.employee_id;
 
-SELECT request_id, employee.employee_id, employee.employee_name, date, request.message,request.workplace_id is_emergency, is_pending, is_covered, is_approved from request
-JOIN employee ON employee.employee_id = request.employee_id
-
 SELECT
     s.shift_id AS shiftId,
     s.is_covered AS isCovered,
@@ -38,6 +35,14 @@ JOIN employee AS owner ON shift.shift_owner_id = owner.employee_id
 JOIN employee AS volunteer ON shift.shift_volunteer_id = volunteer.employee_id
 JOIN request ON owner.employee_id = request.employee_id
 WHERE request.request_id = 1;
+
+
+SELECT
+s.shift_id AS shiftId, s.is_covered AS isCovered, s.shift_owner_id AS shiftOwnerId, e_owner.employee_name AS shiftOwnerName, s.shift_volunteer_id AS shiftVolunteerId,
+e_volunteer.employee_name AS shiftVolunteerName, s.start_time AS startTime, s.end_time AS endTime
+FROM shift s
+LEFT JOIN employee e_owner ON s.shift_owner_id = e_owner.employee_id
+LEFT JOIN employee e_volunteer ON s.shift_volunteer_id = e_volunteer.employee_id
 
 
 

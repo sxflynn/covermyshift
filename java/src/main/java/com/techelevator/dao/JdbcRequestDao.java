@@ -25,7 +25,7 @@ public class JdbcRequestDao implements RequestDao {
     @Override
     public List<Request> getAllRequests() {
         List<Request> requestList = new ArrayList<>();
-        String sql = ALL_COLUMNS_WITH_EMPLOYEE_NAME;
+        String sql = ALL_COLUMNS_WITH_EMPLOYEE_NAME + "ORDER BY is_pending DESC, is_emergency DESC, date ASC;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -74,7 +74,7 @@ public class JdbcRequestDao implements RequestDao {
     @Override
     public List<Request> getRequestsByEmployeeId(int employeeId) {
         List<Request> requestList = new ArrayList<>();
-        String sql =  ALL_COLUMNS_WITH_EMPLOYEE_NAME + "WHERE request.employee_Id = ?;";
+        String sql =  ALL_COLUMNS_WITH_EMPLOYEE_NAME + "WHERE request.employee_Id = ? ORDER BY is_pending DESC, is_emergency DESC, date ASC;";
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, employeeId);
             while ((result.next())) {

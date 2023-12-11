@@ -21,32 +21,23 @@ public class JdbcEmployeeDao implements EmployeeDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
-    public int getEmployeeIdFromUser(User user) {
-        String sql = "SELECT employee_id FROM employee \n" +
-                "WHERE username = ?;";
-        try {
-            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, user.getUsername());
-            while (result.next()) {
-                int employeeId = result.getInt("employee_id");
-                return employeeId;
-            }
-
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
-
-        }
-        return 0;
-    }
-
-    @Override
-    public Employee getEmployeeFromUser(User user) {
-        Employee employee = new Employee();
-        String sql = ALL_EMPLOYEE_COLUMNS + "WHERE username = ?;";
-        SqlRowSet row = jdbcTemplate.queryForRowSet(sql,user.getUsername());
-        employee = mapRowsToEmployee(row);
-        return employee;
-    }
+//    @Override
+//    public int getEmployeeIdFromUser(User user) {
+//        String sql = "SELECT employee_id FROM employee \n" +
+//                "WHERE username = ?;";
+//        try {
+//            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, user.getUsername());
+//            while (result.next()) {
+//                int employeeId = result.getInt("employee_id");
+//                return employeeId;
+//            }
+//
+//        } catch (CannotGetJdbcConnectionException e) {
+//            throw new DaoException("Unable to connect to server or database", e);
+//
+//        }
+//        return 0;
+//    }
 
     @Override
     public Employee getEmployeeFromUsername(String username) {

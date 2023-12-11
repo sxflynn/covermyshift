@@ -25,6 +25,8 @@ public class JdbcShiftDao implements ShiftDao {
             "LEFT JOIN employee e_owner ON s.shift_owner_id = e_owner.employee_id\n" +
             "LEFT JOIN employee e_volunteer ON s.shift_volunteer_id = e_volunteer.employee_id\n ";
 
+
+
     public JdbcShiftDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -34,6 +36,38 @@ public class JdbcShiftDao implements ShiftDao {
         List<Shift> shiftsList = new ArrayList<>();
         String sql = ALL_COLUMN_WITH_THE_SHIFT +
                 "WHERE start_time >= CURRENT_TIMESTAMP";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+            while (results.next()) {
+                Shift shift = mapRowsToShifts(results);
+                shiftsList.add(shift);
+            }
+
+            if (shiftsList.isEmpty()) {
+                System.out.println("No shifts found for the specified criteria.");
+            }
+
+        } catch (CannotGetJdbcConnectionException e) {
+            System.err.println("Error connecting to the database: " + e.getMessage());
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred: " + e.getMessage());
+            e.printStackTrace();
+            throw new DaoException("An unexpected error occurred", e);
+        }
+        return shiftsList;
+    }
+
+    //TODO write test for this
+    @Override
+    public List<Shift> getAllCurrentUncoveredShifts() {
+        List<Shift> shiftsList = new ArrayList<>();
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE \n" +
+                " \tstart_time >= CURRENT_TIMESTAMP AND\n" +
+                "    (s.is_covered = FALSE OR s.shift_owner_id = 1 OR s.shift_volunteer_id = 1)\n" +
+                "ORDER BY \n" +
+                "    s.is_covered ASC,\n" +
+                "\ts.start_time ASC;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {

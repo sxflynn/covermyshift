@@ -10,6 +10,8 @@ public interface ShiftDao {
 
     public List<Shift> getAllCurrentShifts();
 
+    public List<Shift> getAllCurrentUncoveredShifts();
+
     public Shift updateShifts(Shift shift);
 
     public List<Shift> getAllShiftsByEmployeeId(int employeeId);

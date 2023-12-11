@@ -9,6 +9,7 @@ export default {
 
   // Create a new request
   create(request) {
+    console.log('the raw request is ', request)
     return axios.post('/request', request);
   },
 

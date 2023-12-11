@@ -13,7 +13,7 @@
     <v-divider></v-divider>
     <!-- TODO: Add custom headers using the headers prop -->
     <!-- TODO: Customize the items-per-page -->
-    <v-data-table v-model:search="search" :headers="headers" :items="processedRequests" :items-per-page="1000"
+    <v-data-table v-model:search="search" :headers="headers" :items="this.$store.state.listShiftArr" :items-per-page="1000" :sort-by="sortBy" :sort-desc="sortDesc"
       class="elevation-1">
 
       <template v-slot:item.shiftOwnerName="{ item }">
@@ -25,15 +25,15 @@
 
       <template v-slot:item.shiftVolunteerName="{ item }">
         <div class="text-center">
-          <v-chip variant="text" :text="item.shiftVolunteerName" class="text-lowercase" label size="large"></v-chip>
+          <v-chip variant="text" :text="item.shiftVolunteerName" label size="large"></v-chip>
         </div>
       </template>
 
       <template v-slot:item.startTime="{ item }">
-        <div class="text-center">
-          <v-chip variant="text" :text="formatDateTime(item.startTime, item.endTime)" label size="large"></v-chip>
-        </div>
-      </template>
+    <div class="text-center">
+      {{ formatDateTime(item.startTime, item.endTime) }}
+    </div>
+  </template>
 
 
       <template v-slot:item.covered="{ item }">
@@ -117,7 +117,8 @@ export default {
         { title: 'Claim', value: 'action', sortable: false }
       ],
       search: "",
-
+      sortBy: ['covered', 'startTime'],
+      sortDesc: [false, false],
       shifts: [
         {
           shiftId: 1,
@@ -136,18 +137,12 @@ export default {
     this.$store.dispatch("fetchListShiftArr");
   },
   computed: {
-    processedRequests() {
-      // Create a shallow copy of the array and reverse it
-      let reversedArray = [...this.$store.state.listShiftArr].reverse();
-      console.log("Reversed array is ", reversedArray); // Debugging line
-      return reversedArray;
-    },
 },
   methods: {
         formatDateTime(startTime, endTime) {
           const start = new Date(startTime);
           const end = new Date(endTime);
-          const dateOptions = { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true };
+          const dateOptions = { weekday: 'short', month: 'short', day: 'numeric', year: '2-digit', hour: 'numeric', minute: 'numeric', hour12: true };
           let formattedStart = new Intl.DateTimeFormat('en-US', dateOptions).format(start);
           const timeOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
           let formattedEnd = new Intl.DateTimeFormat('en-US', timeOptions).format(end);
@@ -156,7 +151,8 @@ export default {
         },
         updateShift(item, isActive){
           item.covered = true;
-          item.shiftVolunteerId = 1; // TODO CHANGE TO FUTURE STATE WHICH HAS EMPLOYEE INFO
+          item.shiftVolunteerId = this.$store.state.loggedInEmployee.employeeId; 
+          item.shiftVolunteerName = this.$store.state.loggedInEmployee.employeeName;
           this.$store
           .dispatch("updateShift", item)
           .then((response) =>{

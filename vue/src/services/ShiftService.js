@@ -3,13 +3,13 @@ import axios from 'axios';
 
 export default {
   getAllShifts() {
-    return axios.get('/all');
+    return axios.get('/shift/all');
   },
   getAllCurrentShifts() {
     return axios.get('/current');
   },
   updateShift(shift) {
-    return axios.put('', shift);
+    return axios.put('/shift', shift);
   },
   getAllShiftsByEmployeeId(employeeId) {
     return axios.get(`/employee/${employeeId}`);
