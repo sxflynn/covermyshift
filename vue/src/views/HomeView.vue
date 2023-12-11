@@ -1,13 +1,13 @@
 <template>
   <div id="login">
     <v-row>
-      <v-col cols="12" md="6">
+      <v-col cols="14" md="7">
         <v-img :width="700" aspect-ratio="16/9" cover src="../src/assets/coverlogosmall-cropped.png"></v-img>
        
         <!-- Left column with images -->
-        <v-img :width="700" aspect-ratio="16/9" cover src="../src/assets/classroomrounded.png" id="classroom" rounded="lg"></v-img>
+        <v-img :width="900" aspect-ratio="16/9" cover src="../src/assets/classroomrounded.png" id="classroom" rounded="lg"></v-img>
       </v-col>
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="5">
         <!-- Right column with form and content -->
 
         <div id="formWithLogo">
@@ -146,6 +146,6 @@ label {
 }
 
 #formWithLogo {
-  margin-top: 50px;
+  margin-top: 130px;
 }
 </style>
