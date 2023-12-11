@@ -9,7 +9,6 @@ import RegisterView from '../views/RegisterView.vue';
 import RequestView from '../views/RequestView.vue';
 import ListRequests from '../components/ListRequests.vue';
 import FormView from '../views/FormView.vue'
-import TestTabApp from '../components/TestTabApp.vue'
 import TeacherView from '../views/TeacherView.vue'
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -57,29 +56,24 @@ const routes = [
     name: "requestview",
     component: RequestView,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
-  },
-  {
-    path: "/request",
-    name: "request",
-    component: ListRequests
-
   },
   {
     path: "/form",
     name: "form",
-    component: FormView
-  },
-  {
-    path: "/test",
-    name: "test",
-    component: TestTabApp
+    component: FormView,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/teacherview",
     name: "teacherview",
-    component: TeacherView
+    component: TeacherView,
+    meta: {
+      requiresAuth: true
+    }
   }
 
 ];

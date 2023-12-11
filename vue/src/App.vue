@@ -5,29 +5,30 @@
       <div id="nav">
         <v-app-bar>
           <router-link class="no-link-style" v-bind:to="{ name: 'home' }">
-            <v-img :width="350" aspect-ratio="16/9" cover
-              src="../src/assets/coverlogosmall.png"
-              ></v-img>
+            <v-img :width="350" aspect-ratio="16/9" cover src="../src/assets/coverlogosmall.png"></v-img>
             <!-- <div id="logo">Cover My Shift</div> -->
           </router-link>
           <!-- <v-img :width="300" aspect-ratio="16/9" cover
               src="../src/assets/CoverMyShiftLOGO#1.png"></v-img> -->
           <v-spacer></v-spacer>
-         {{displayWelcome}}
-
-
-          <router-link v-bind:to="{ name: 'form' }">
+          <v-chip v-if="isLoggedIn" id="welcome">{{ displayWelcome }}</v-chip>
+          <router-link v-if="isLoggedIn" v-bind:to="{ name: 'form' }">
             <v-btn color="black" class="navBtn" size="large">Submit Request</v-btn>
           </router-link>
-          <router-link v-bind:to="{ name: 'requestview' }">
+          <router-link v-if="isLoggedIn" v-bind:to="{ name: 'requestview' }">
             <v-btn color="black" class="navBtn" size="large">View Requests</v-btn>
           </router-link>
-          <router-link v-bind:to="{ name: 'teacherview' }">
-            <v-btn color="black" class="font-weight-bold" size="large" >View Shifts</v-btn>
+          <router-link v-if="isLoggedIn" v-bind:to="{ name: 'teacherview' }">
+            <v-btn color="black" class="navBtn" size="large">View Shifts</v-btn>
           </router-link>
 
-          <router-link v-bind:to="{ name: $store.state.token != '' ? 'logout' : 'login' }">
-            <v-btn color="black" variant="outlined" class="navBtn" size="large">{{ $store.state.token != '' ? 'Logout' : 'Login' }}</v-btn>
+          <router-link v-if="isLoggedIn" v-bind:to="{ name: $store.state.token != '' ? 'logout' : 'login' }">
+            <v-btn color="black" variant="outlined" class="navBtn" size="large">{{ $store.state.token != '' ? 'Logout' :
+              'Login' }}</v-btn>
+          </router-link>
+
+          <router-link v-bind:to="{ name: 'register' }">
+            <v-btn color="blue" variant="outlined" class="navBtn">Sign Up</v-btn>
           </router-link>
         </v-app-bar>
 
@@ -44,32 +45,36 @@
 export default {
   components: {},
   computed: {
+    isLoggedIn() {
+      console.log("The username is ", this.$store.state.user.username)
+      return this.$store.state.user.username !== undefined;
+    },
     displayWelcome() {
-    const user = this.$store.state.user;
-    if (user && user.username && user.authorities && user.authorities.length > 0) {
-      return `Welcome ${this.displayEmployeeName}`
+      const user = this.$store.state.user;
+      if (user && user.username && user.authorities && user.authorities.length > 0) {
+        return `Welcome, ${this.displayEmployeeName}`
 
-      // const username = user.username;
-      // const authority = user.authorities[0].name;
-      // let role = '';
-      // if (authority === 'ROLE_USER') {
-      //   role = 'User';
-      // } else if (authority === 'ROLE_Admin') {
-      //   role = 'Admin';
-      // }
+        // const username = user.username;
+        // const authority = user.authorities[0].name;
+        // let role = '';
+        // if (authority === 'ROLE_USER') {
+        //   role = 'User';
+        // } else if (authority === 'ROLE_Admin') {
+        //   role = 'Admin';
+        // }
 
-      // return `Welcome! ${username}. You have access level ${role}.`;
-    }
-    return '';
-  },
-  displayEmployeeName(){
+        // return `Welcome! ${username}. You have access level ${role}.`;
+      }
+      return '';
+    },
+    displayEmployeeName() {
       // Check if user object exists and has a username property
       console.log("this.$store.state.loggedInEmployee: ", this.$store.state.loggedInEmployee)
       if (this.$store.state.loggedInEmployee) {
         return this.$store.state.loggedInEmployee.employeeName;
       }
       return '';
-  },
+    },
     displayUsername() {
       // Check if user object exists and has a username property
       if (this.$store.state.user && this.$store.state.user.username) {
@@ -78,15 +83,15 @@ export default {
       return '';
     },
     displayAuthority() {
-      if (this.$store.state.user && this.$store.state.user.authorities[0].name){
-      const authority = this.$store.state.user.authorities[0].name;
-      if (authority === 'ROLE_USER') {
-        return 'User';
+      if (this.$store.state.user && this.$store.state.user.authorities[0].name) {
+        const authority = this.$store.state.user.authorities[0].name;
+        if (authority === 'ROLE_USER') {
+          return 'User';
+        }
+        if (authority === 'ROLE_Admin') {
+          return 'Admin';
+        }
       }
-      if (authority === 'ROLE_Admin') {
-        return 'Admin';
-      }
-    }
       return '';
     },
   },
@@ -121,12 +126,18 @@ export default {
   }
 
 }
-.navBtn{
+
+.navBtn {
   font-family: "League Spartan";
 
   font-weight: bolder;
-  
 
-  
+}
+
+#welcome {
+  font-family: "League Spartan";
+  text-transform: uppercase;
 }
 </style>
+
+
