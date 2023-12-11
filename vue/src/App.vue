@@ -12,18 +12,21 @@
               src="../src/assets/CoverMyShiftLOGO#1.png"></v-img> -->
           <v-spacer></v-spacer>
           <div v-if="isLoggedIn">
-            <v-chip v-if="isLoggedIn" id="welcome">{{ displayWelcome }}</v-chip>
+            <v-avatar color="info">
+             {{displayAuthority}}
+            </v-avatar>
+            <v-chip variant="text" id="welcome">{{ displayWelcome }}</v-chip>
             <router-link v-if="isLoggedIn" v-bind:to="{ name: 'form' }">
               <v-btn color="black" class="navBtn" size="large">Request Off</v-btn>
             </router-link>
-            <router-link v-if="isLoggedIn" v-bind:to="{ name: 'requestview' }">
+            <router-link v-bind:to="{ name: 'requestview' }">
               <v-btn color="black" class="navBtn" size="large">View Requests</v-btn>
             </router-link>
-            <router-link v-if="isLoggedIn" v-bind:to="{ name: 'teacherview' }">
+            <router-link v-bind:to="{ name: 'teacherview' }">
               <v-btn color="black" class="navBtn" size="large">View Shifts</v-btn>
             </router-link>
-  
-            <router-link v-if="isLoggedIn" v-bind:to="{ name: $store.state.token != '' ? 'logout' : 'login' }">
+
+            <router-link v-bind:to="{ name: $store.state.token != '' ? 'logout' : 'login' }">
               <v-btn color="black" variant="outlined" class="navBtn" size="large">{{ $store.state.token != '' ? 'Logout' :
                 'Login' }}</v-btn>
             </router-link>
@@ -40,10 +43,10 @@
       <div class="router-view-container">
         <router-view />
       </div>
-    
-      
+
+
     </v-container>
-    
+
   </v-app>
 </template>
 <script>
@@ -93,8 +96,8 @@ export default {
         if (authority === 'ROLE_USER') {
           return 'User';
         }
-        if (authority === 'ROLE_Admin') {
-          return 'Admin';
+        if (authority === 'ROLE_ADMIN') {
+          return 'Boss';
         }
       }
       return '';
@@ -120,12 +123,12 @@ export default {
 .router-view-container {
   margin-top: 64px;
 
-  max-width: 1280px;
-    /* Set the maximum width */
-    margin-left: auto;
-    /* Automatic margin on the left */
-    margin-right: auto;
-    /* Automatic margin on the right */
+  max-width: 1350px;
+  /* Set the maximum width */
+  margin-left: auto;
+  /* Automatic margin on the left */
+  margin-right: auto;
+  /* Automatic margin on the right */
 
 }
 
