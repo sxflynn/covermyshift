@@ -14,7 +14,7 @@
           <div v-if="isLoggedIn">
             <v-chip v-if="isLoggedIn" id="welcome">{{ displayWelcome }}</v-chip>
             <router-link v-if="isLoggedIn" v-bind:to="{ name: 'form' }">
-              <v-btn color="black" class="navBtn" size="large">Submit Request</v-btn>
+              <v-btn color="black" class="navBtn" size="large">Request Off</v-btn>
             </router-link>
             <router-link v-if="isLoggedIn" v-bind:to="{ name: 'requestview' }">
               <v-btn color="black" class="navBtn" size="large">View Requests</v-btn>

@@ -2,15 +2,17 @@
   <div id="login">
     <v-row>
       <v-col cols="12" md="6">
+        <v-img :width="700" aspect-ratio="16/9" cover src="../src/assets/coverlogosmall-cropped.png"></v-img>
+       
         <!-- Left column with images -->
-        <v-img :width="700" aspect-ratio="16/9" cover src="../src/assets/TwirlBlue.png"></v-img>
+        <v-img :width="700" aspect-ratio="16/9" cover src="../src/assets/classroomrounded.png" id="classroom" rounded="lg"></v-img>
       </v-col>
       <v-col cols="12" md="6">
         <!-- Right column with form and content -->
 
         <div id="formWithLogo">
-          <v-img class="mx-auto pa-12 pb-8" max-width="700" max-height="800"
-            src="../src/assets/coverlogosmall-cropped.png"></v-img>
+          <v-img class="mx-auto pa-12 pb-8" max-width="450" max-height="1000"
+            src="../src/assets/slogancropped.png"></v-img>
 
           <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
             <div class="text-subtitle-1 text-medium-emphasis">Account</div>
@@ -29,10 +31,9 @@
               @click:append-inner="visible = !visible"></v-text-field>
 
             <v-card class="mb-12" color="surface-variant" variant="tonal">
-              <v-card-text class="allText">
+              <v-card-text class="text-subtitle-2">
                 Warning: After 3 consecutive failed login attempts, you account will
-                be temporarily locked for three hours. If you must login now, you can
-                also click "Forgot login password?" below to reset the login password.
+                be temporarily locked out for three hours
               </v-card-text>
             </v-card>
 
@@ -132,5 +133,19 @@ label {
 
 }
 
-#formWithLogo {}
+#classroom{
+  margin-top: -50px;
+  margin-left: -18px;
+  
+
+}
+#coverMessage{
+  font-family:"League Spartan" ;
+  font-size: xx-large;
+  font-weight: 600;
+}
+
+#formWithLogo {
+  margin-top: 50px;
+}
 </style>
