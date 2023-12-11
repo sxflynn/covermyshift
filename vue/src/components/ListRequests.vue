@@ -12,7 +12,8 @@
     <v-divider></v-divider>
     <!-- TODO: Add custom headers using the headers prop -->
     <!-- TODO: Customize the items-per-page -->
-    <v-data-table v-model:search="search" :items="processedRequests" :headers="headers" :items-per-page="100">
+    <v-data-table v-model:search="search" :items="this.$store.state.listReqArr" :headers="headers" :items-per-page="1000" :sort-by="sortBy" :sort-desc="sortDesc"
+      class="elevation-1">
 
       <template v-slot:item.employeeName="{ item }">
         <v-chip variant="text" :text="item.employeeName" label size="large"></v-chip>
@@ -114,7 +115,7 @@ export default {
   data() {
     return {
       headers: [
-        // { title: "Request ID", key: "requestId", align: "start" },
+        { title: "Request ID", key: "requestId", align: "start" },
         // { title: "Employee ID", key: "employeeId", align: "start" },
         { title: "Employee Name", key: "employeeName", align: "center" },
         { title: "Date", key: "date", align: "center" },
@@ -125,6 +126,8 @@ export default {
         { title: "Approve/Deny", value: 'action', align: "center" }
       ],
       search: "",
+      sortBy: ['pending', 'emergency', 'date'],
+      sortDesc: [true, true, false],
 
       requests: [
         {
@@ -145,12 +148,10 @@ export default {
     this.$store.dispatch("fetchListReqArr");
   },
   computed: {
-    processedRequests() {
-      // Create a shallow copy of the array and reverse it
-      let reversedArray = [...this.$store.state.listReqArr].reverse();
-      console.log("Reversed array is ", reversedArray); // Debugging line
-      return reversedArray;
-    },
+    displayRequests(){
+      let requestList = this.$store.state.listReqArr;
+      return requestList;
+    }
   },
   methods: {
     acceptRequest(item, isActive) {

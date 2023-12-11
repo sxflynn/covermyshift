@@ -4,9 +4,7 @@ import com.techelevator.dao.EmployeeDao;
 import com.techelevator.dao.RequestDao;
 import com.techelevator.dao.ShiftDao;
 import com.techelevator.dao.UserDao;
-import com.techelevator.model.Authority;
-import com.techelevator.model.Request;
-import com.techelevator.model.Shift;
+import com.techelevator.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +20,14 @@ public class RequestController {
     private RequestDao requestDao;
     private ShiftDao shiftDao;
     private UserDao userDao;
-
     private EmployeeDao employeeDao;
 
-    public RequestController(RequestDao requestDao, ShiftDao shiftDao, UserDao userDao) {
+
+    public RequestController(RequestDao requestDao, ShiftDao shiftDao, UserDao userDao, EmployeeDao employeeDao) {
         this.requestDao = requestDao;
         this.shiftDao = shiftDao;
         this.userDao = userDao;
+        this.employeeDao = employeeDao;
     }
 
     private final String API_BASE_REQUEST_URL = "/request";
@@ -38,14 +37,27 @@ public class RequestController {
     //TODO change this to ResponseEntity, look at shift controller for examples
     public ResponseEntity<List<Request>> getAllRequests(Principal principal){
 
-        List<Request> requestList = requestDao.getAllRequests();
-        if (requestList.isEmpty()){
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(requestList);
+        if (principalHasRole(principal, "ROLE_USER")){
+            User employeeUser = userDao.getUserFromPrincipal(principal);
+            String username = employeeUser.getUsername();
+           Employee employee = employeeDao.getEmployeeFromUsername(username);
 
-        //TODO HIGH PRIORITY REDO getAllRequests methods -- if a teacher calls this endpoint, it only returns their requests using getallrequestsfromemployeeid
-            //Use the principalHasRole method used below
+            List<Request> requestList = requestDao.getRequestsByEmployeeId(employee.getEmployeeId());
+            if (requestList.isEmpty()){
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(requestList);
+        }
+
+        else if (principalHasRole(principal, "ROLE_ADMIN")){
+            List<Request> requestList = requestDao.getAllRequests();
+            if (requestList.isEmpty()){
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(requestList);
+        }
+        //TODO what is the best way to return if either role is not present?
+        return ResponseEntity.noContent().build();
     }
     @RequestMapping(path = API_BASE_REQUEST_URL, method=RequestMethod.POST)
     public Request addRequest(@RequestBody Request request){

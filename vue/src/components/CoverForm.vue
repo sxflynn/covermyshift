@@ -46,9 +46,8 @@ export default {
     return {
       coverReq: {
         requestId: null,
-        // employeeId will come from principal *later*
-        employeeId: this.$store.state.employeeId,
-        employeeName: this.$store.state.employeeName,
+        employeeId: this.$store.state.loggedInEmployee.employeeId,
+        employeeName: this.$store.state.loggedInEmployee.employeeName,
         date: null,
         employeeMessage: "",
         covered: false,
@@ -60,6 +59,7 @@ export default {
   },
   methods: {
     submitForm() {
+      console.log('this.coverReq prior to dispatch is ',this.coverReq)
       this.$store.dispatch('createNewRequest', this.coverReq)
         .then(response => {
           this.$router.push({ name: 'requestview' });
