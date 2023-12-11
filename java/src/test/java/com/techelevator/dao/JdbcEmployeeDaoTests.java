@@ -35,11 +35,15 @@ public class JdbcEmployeeDaoTests extends BaseDaoTests {
         public void get_employee_from_username_returns_correct_employee() {
             Employee testEmployee = RACHELLE;
             Employee realEmployee = dao.getEmployeeFromUsername(RACHELLE.getUsername());
-            Assert.assertEquals("Email should be " + testEmployee.getEmail(),testEmployee.getEmail(),realEmployee.getEmail());
+            assertEmployeesMatch(testEmployee,realEmployee);
         }
-            // Mocking behavior of jdbcTemplate
 
-
+    public void assertEmployeesMatch(Employee expectedEmployee, Employee realEmployee) {
+        Assert.assertEquals("Expected employee ID: " + expectedEmployee.getEmployeeId() + ", but was: " + realEmployee.getEmployeeId(), expectedEmployee.getEmployeeId(), realEmployee.getEmployeeId());
+        Assert.assertEquals("Expected employee name: " + expectedEmployee.getEmployeeName() + ", but was: " + realEmployee.getEmployeeName(), expectedEmployee.getEmployeeName(), realEmployee.getEmployeeName());
+        Assert.assertEquals("Expected username: " + expectedEmployee.getUsername() + ", but was: " + realEmployee.getUsername(), expectedEmployee.getUsername(), realEmployee.getUsername());
+        Assert.assertEquals("Expected email: " + expectedEmployee.getEmail() + ", but was: " + realEmployee.getEmail(), expectedEmployee.getEmail(), realEmployee.getEmail());
+    }
 
 
 }

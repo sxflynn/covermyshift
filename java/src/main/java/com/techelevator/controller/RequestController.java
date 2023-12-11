@@ -37,19 +37,15 @@ public class RequestController {
     @RequestMapping(path = API_BASE_REQUEST_URL, method = RequestMethod.GET)
     //TODO change this to ResponseEntity, look at shift controller for examples
     public ResponseEntity<List<Request>> getAllRequests(Principal principal){
+
         List<Request> requestList = requestDao.getAllRequests();
         if (requestList.isEmpty()){
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(requestList);
 
-        //TODO HIGH PRIORITY REODO getAllRequests methods -- if a teacher calls this endpoint, it only returns their requests using getallrequestsfromemployeeid
-//        if(hasRoleAdmin(userDao.getUserFromPrincipal(principal).getAuthorities())){
-////            return ResponseEntity.ok(request);
-//        } else if (hasRoleUser(userDao.getUserFromPrincipal(principal).getAuthorities())) {
-//
-//        }
-//        return requestDao.getAllRequests();
+        //TODO HIGH PRIORITY REDO getAllRequests methods -- if a teacher calls this endpoint, it only returns their requests using getallrequestsfromemployeeid
+            //Use the principalHasRole method used below
     }
     @RequestMapping(path = API_BASE_REQUEST_URL, method=RequestMethod.POST)
     public Request addRequest(@RequestBody Request request){
@@ -61,30 +57,25 @@ public class RequestController {
         return requestDao.getCurrentAndFutureRequests();
     }
 
-
-//    was having issues with userDao.getUserFromPrincipal(principle). It threw a null pointer.
-//    so we broke the functionality into two endpoints. One for a teacher making a claim and one for an admin approving
-
     @RequestMapping(path = API_BASE_REQUEST_URL, method = RequestMethod.PUT)
     public Request updateRequest(@RequestBody Request request, Principal principal){
 
         //if admin approved request
-         if(hasRoleAdmin(userDao.getUserFromPrincipal(principal).getAuthorities()) && request.isApproved()==true) {
+         if(principalHasRole(principal,"ROLE_ADMIN") && request.isApproved()==true) {
              shiftDao.updateListOfShiftsToUncoveredByRequest(request);
              return requestDao.updateRequest(request);
          }
          // if admin denying request
-        if(hasRoleAdmin(userDao.getUserFromPrincipal(principal).getAuthorities()) && request.isApproved()==false) {
+        if(principalHasRole(principal,"ROLE_ADMIN") && request.isApproved()==false) {
              return requestDao.updateRequest(request);
          }
 
         Request requestResponse = new Request();
         //if a teacher is making a request
-        if(hasRoleUser(userDao.getUserFromPrincipal(principal).getAuthorities())) {
+        if(principalHasRole(principal,"ROLE_USER")) {
             //TODO -- add a method to check that the request is the same as the principal's employee ID else throw error
 
             requestResponse = requestDao.getRequestByRequestId(request.getRequestId());
-            // update each fields of the request manually using the incoming request object but exclude approved, pending, managerMessage
             requestResponse.setDate(request.getDate());
             requestResponse.setEmployeeMessage(request.getEmployeeMessage());
             requestResponse.setEmergency(request.isEmergency());
@@ -92,21 +83,15 @@ public class RequestController {
         return requestDao.updateRequest(requestResponse);
     }
 
-    public boolean hasRoleUser(Set<Authority> authorities) {
+
+    public boolean principalHasRole(Principal principal, String role) {
+        Set<Authority> authorities = userDao.getUserFromPrincipal(principal).getAuthorities();
         for (Authority authority : authorities) {
-            if ("ROLE_USER".equals(authority.getName())) {
+            if (role.equals(authority.getName())) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean hasRoleAdmin(Set<Authority> authorities) {
-        for (Authority authority : authorities) {
-            if ("ROLE_ADMIN".equals(authority.getName())) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

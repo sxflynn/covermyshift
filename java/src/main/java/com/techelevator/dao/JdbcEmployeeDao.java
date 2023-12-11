@@ -7,7 +7,9 @@ import com.techelevator.model.User;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JdbcEmployeeDao implements EmployeeDao {
 
     private final JdbcTemplate jdbcTemplate;
@@ -36,8 +38,6 @@ public class JdbcEmployeeDao implements EmployeeDao {
         }
         return 0;
     }
-
-
 
     @Override
     public Employee getEmployeeFromUser(User user) {
