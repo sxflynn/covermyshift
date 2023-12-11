@@ -8,7 +8,7 @@
             <div id="logo">Cover My Shift</div>
           </router-link>
           <v-spacer></v-spacer>
-         {{displayWelcome}}!
+         {{displayWelcome}}
 
 
           <router-link v-bind:to="{ name: 'form' }">
