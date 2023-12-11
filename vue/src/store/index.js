@@ -2,14 +2,17 @@ import { createStore as _createStore } from 'vuex';
 import axios from 'axios';
 import RequestService from '../services/RequestService';
 import ShiftService from '../services/ShiftService';
+import AuthService from '../services/AuthService';
 
-export function createStore(currentToken, currentUser) {
+export function createStore(currentToken, currentUser, currentEmployee) {
+
   let store = _createStore({
     state: {
       listReqArr: [],
       listShiftArr: [],
       token: currentToken || '',
-      user: currentUser || {}
+      user: currentUser || {},
+      loggedInEmployee: currentEmployee || {}
     },
     mutations: {
       SET_LIST_REQ_ARR(state,list){
@@ -38,6 +41,10 @@ export function createStore(currentToken, currentUser) {
       UPDATE_SHIFT_FAILURE(state, error) {
         console.error('Shift update failed:', error);
       },
+      SET_EMPLOYEE_INFO(state, employeeData){
+        state.loggedInEmployee = employeeData;
+        localStorage.setItem('loggedInEmployee', JSON.stringify(employeeData));
+      },
       SET_AUTH_TOKEN(state, token) {
         state.token = token;
         localStorage.setItem('token', token);
@@ -50,16 +57,27 @@ export function createStore(currentToken, currentUser) {
       LOGOUT(state) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        localStorage.removeItem('loggedInEmployee')
         state.token = '';
         state.user = {};
+        state.loggedInEmployee = {};
         axios.defaults.headers.common = {};
       },
      
     },
     actions: {
+      fetchMyIdentity({commit}){
+      return AuthService.whoami()
+      .then(response =>{
+        console.log("who am I:", response.data); // return employee object
+        commit('SET_EMPLOYEE_INFO', response.data);
+      })
+      .catch(error=>{
+        console.error('Error fetching identity:',error);
+        throw error;
+      })
+      },
       fetchListReqArr({commit}){
-
-        console.log(RequestService.list())
         return RequestService.list()
         .then(response =>{
           console.log("Fetched data:", response.data); // Debugging line

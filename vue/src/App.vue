@@ -8,7 +8,7 @@
             <div id="logo">Cover My Shift</div>
           </router-link>
           <v-spacer></v-spacer>
-         {{displayWelcome}}
+         {{displayWelcome}}!
 
 
           <router-link v-bind:to="{ name: 'form' }">
@@ -41,21 +41,29 @@ export default {
   computed: {
     displayWelcome() {
     const user = this.$store.state.user;
-    console.log("token is " ,this.$store.state.token)
     if (user && user.username && user.authorities && user.authorities.length > 0) {
-      const username = user.username;
-      const authority = user.authorities[0].name;
+      return `Welcome ${this.displayEmployeeName}`
 
-      let role = '';
-      if (authority === 'ROLE_USER') {
-        role = 'User';
-      } else if (authority === 'ROLE_Admin') {
-        role = 'Admin';
-      }
+      // const username = user.username;
+      // const authority = user.authorities[0].name;
+      // let role = '';
+      // if (authority === 'ROLE_USER') {
+      //   role = 'User';
+      // } else if (authority === 'ROLE_Admin') {
+      //   role = 'Admin';
+      // }
 
-      return `Welcome! ${username}. You have access level ${role}.`;
+      // return `Welcome! ${username}. You have access level ${role}.`;
     }
     return '';
+  },
+  displayEmployeeName(){
+      // Check if user object exists and has a username property
+      console.log("this.$store.state.loggedInEmployee: ", this.$store.state.loggedInEmployee)
+      if (this.$store.state.loggedInEmployee) {
+        return this.$store.state.loggedInEmployee.employeeName;
+      }
+      return '';
   },
     displayUsername() {
       // Check if user object exists and has a username property

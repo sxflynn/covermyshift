@@ -29,6 +29,7 @@ axios.defaults.baseURL = import.meta.env.VITE_REMOTE_API;
  */
 let currentToken = localStorage.getItem('token');
 let currentUser = JSON.parse(localStorage.getItem('user'));
+let currentEmployee = JSON.parse(localStorage.getItem('loggedInEmployee'));
 
 if (currentToken) {
   // Set token axios requests
@@ -36,7 +37,7 @@ if (currentToken) {
 }
 
 // Create the Vuex store passing in the stored credentials
-const store = createStore(currentToken, currentUser);
+const store = createStore(currentToken, currentUser, currentEmployee);
 
 const app = createApp(CapstoneApp)
 app.use(store);

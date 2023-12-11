@@ -45,6 +45,19 @@ export default {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
+
+            authService.whoami()
+            .then(employeeResponse => {
+              if (employeeResponse.status === 200) {
+                this.$store.commit("SET_EMPLOYEE_INFO", employeeResponse.data);
+              }
+            })
+            .catch(employeeError => {
+              console.error('Error fetching employee info:', employeeError);
+              // Handle error (e.g., show notification or log error)
+            });
+
+
             this.$router.push("/");
           }
         })
