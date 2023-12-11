@@ -11,23 +11,25 @@
           <!-- <v-img :width="300" aspect-ratio="16/9" cover
               src="../src/assets/CoverMyShiftLOGO#1.png"></v-img> -->
           <v-spacer></v-spacer>
-          <v-chip v-if="isLoggedIn" id="welcome">{{ displayWelcome }}</v-chip>
-          <router-link v-if="isLoggedIn" v-bind:to="{ name: 'form' }">
-            <v-btn color="black" class="navBtn" size="large">Submit Request</v-btn>
-          </router-link>
-          <router-link v-if="isLoggedIn" v-bind:to="{ name: 'requestview' }">
-            <v-btn color="black" class="navBtn" size="large">View Requests</v-btn>
-          </router-link>
-          <router-link v-if="isLoggedIn" v-bind:to="{ name: 'teacherview' }">
-            <v-btn color="black" class="navBtn" size="large">View Shifts</v-btn>
-          </router-link>
+          <div v-if="isLoggedIn">
+            <v-chip v-if="isLoggedIn" id="welcome">{{ displayWelcome }}</v-chip>
+            <router-link v-if="isLoggedIn" v-bind:to="{ name: 'form' }">
+              <v-btn color="black" class="navBtn" size="large">Submit Request</v-btn>
+            </router-link>
+            <router-link v-if="isLoggedIn" v-bind:to="{ name: 'requestview' }">
+              <v-btn color="black" class="navBtn" size="large">View Requests</v-btn>
+            </router-link>
+            <router-link v-if="isLoggedIn" v-bind:to="{ name: 'teacherview' }">
+              <v-btn color="black" class="navBtn" size="large">View Shifts</v-btn>
+            </router-link>
+  
+            <router-link v-if="isLoggedIn" v-bind:to="{ name: $store.state.token != '' ? 'logout' : 'login' }">
+              <v-btn color="black" variant="outlined" class="navBtn" size="large">{{ $store.state.token != '' ? 'Logout' :
+                'Login' }}</v-btn>
+            </router-link>
+          </div>
 
-          <router-link v-if="isLoggedIn" v-bind:to="{ name: $store.state.token != '' ? 'logout' : 'login' }">
-            <v-btn color="black" variant="outlined" class="navBtn" size="large">{{ $store.state.token != '' ? 'Logout' :
-              'Login' }}</v-btn>
-          </router-link>
-
-          <router-link v-bind:to="{ name: 'register' }">
+          <router-link v-else v-bind:to="{ name: 'register' }">
             <v-btn color="blue" variant="outlined" class="navBtn">Sign Up</v-btn>
           </router-link>
         </v-app-bar>
