@@ -134,7 +134,7 @@ label {
 }
 
 #classroom{
-  margin-top: -50px;
+  margin-top: -100px;
   margin-left: -18px;
   
 
@@ -146,6 +146,6 @@ label {
 }
 
 #formWithLogo {
-  margin-top: 130px;
+  margin-top: 30px;
 }
 </style>
