@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import com.techelevator.dao.EmployeeDao;
 import com.techelevator.dao.RequestDao;
 import com.techelevator.dao.ShiftDao;
 import com.techelevator.dao.UserDao;
@@ -22,18 +23,21 @@ public class ShiftController {
     private ShiftDao shiftDao;
     private RequestDao requestDao;
     private UserDao userDao;
+    private EmployeeDao employeeDao;
 
-    public ShiftController(ShiftDao shiftDao, RequestDao requestDao, UserDao userDao){
+    public ShiftController(ShiftDao shiftDao, RequestDao requestDao, UserDao userDao, EmployeeDao employeeDao){
         this.shiftDao = shiftDao;
         this.requestDao = requestDao;
         this.userDao = userDao;
+        this.employeeDao = employeeDao;
     }
 
     private final String API_BASE_SHIFT_URL = "/shift";
     @RequestMapping(path = API_BASE_SHIFT_URL + "/all", method = RequestMethod.GET)
     public ResponseEntity<List<Shift>> getAllShifts(Principal principal){
+        int employeeId = employeeDao.getEmployeeFromUsername(userDao.getUserFromPrincipal(principal).getUsername()).getEmployeeId();
         if (principalHasRole(principal, "ROLE_USER")){
-            List<Shift> shiftList = shiftDao.getAllCurrentUncoveredShifts();
+            List<Shift> shiftList = shiftDao.getAllCurrentUncoveredShifts(employeeId);
             if (shiftList.isEmpty()){
                 return ResponseEntity.noContent().build();
             }
@@ -91,13 +95,7 @@ public class ShiftController {
         List<Shift> shiftList = shiftDao.getAllUncoveredShifts();
         return ResponseEntity.ok(shiftList);
     }
-
-    @RequestMapping(path = API_BASE_SHIFT_URL + "/uncovered/now", method = RequestMethod.GET)
-    public ResponseEntity<List<Shift>> getAllCurrentUncoveredShifts() {
-        List<Shift> shiftList = shiftDao.getAllCurrentUncoveredShifts();
-        return ResponseEntity.ok(shiftList);
-    }
-
+    
     @RequestMapping(path = API_BASE_SHIFT_URL + "/request/{requestId}", method = RequestMethod.GET)
     public ResponseEntity<List<Shift>> getAllShiftsByRequestId(@PathVariable("requestId") int requestId) {
         //TODO HIGH PRIORITY get the Request from the request ID and then feed that into the shiftDao function below

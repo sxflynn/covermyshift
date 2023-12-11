@@ -60,16 +60,16 @@ public class JdbcShiftDao implements ShiftDao {
 
     //TODO write test for this
     @Override
-    public List<Shift> getAllCurrentUncoveredShifts() {
+    public List<Shift> getAllCurrentUncoveredShifts(int employeeId) {
         List<Shift> shiftsList = new ArrayList<>();
         String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE \n" +
                 " \tstart_time >= CURRENT_TIMESTAMP AND\n" +
-                "    (s.is_covered = FALSE OR s.shift_owner_id = 1 OR s.shift_volunteer_id = 1)\n" +
+                "    (s.is_covered = FALSE OR s.shift_owner_id = ? OR s.shift_volunteer_id = ?)\n" +
                 "ORDER BY \n" +
                 "    s.is_covered ASC,\n" +
                 "\ts.start_time ASC;";
         try {
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, employeeId, employeeId);
             while (results.next()) {
                 Shift shift = mapRowsToShifts(results);
                 shiftsList.add(shift);

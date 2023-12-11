@@ -1,49 +1,65 @@
 BEGIN TRANSACTION;
 
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,password_hash,role) VALUES ('rauh','rauh','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('rauh','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('john','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('laura','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
-
-INSERT INTO users (username, password_hash, role) VALUES ('user1', 'user1', 'ROLE_USER');
 
 INSERT INTO employee (employee_name, username, email)
 VALUES ('Steve C.', 'user', 'steve@te.com'),
 ('Rachelle R.', 'rauh', 'rachelle@te.com'),
+('John F.', 'john','john@te.com'),
+('Laura C.', 'laura','laura@te.com'),
 ('Kevin G.', 'admin', 'kevin@tes.com');
 
 INSERT INTO request (employee_id, date, is_emergency, is_pending, is_covered, is_approved, message, workplace_id)
-VALUES (1, '2023-12-01 00:00:00', false, true, false, false, 'My message',1),
-(1, '2023-12-02 00:00:00', false, true, false, false, 'I want to chill on the beach this day',1),
-(2, '2024-12-02 00:00:00', false, true, false, false, 'My message',1),
-(2, '2024-12-08 00:00:00', false, true, false, false, 'I need Dec 8th off',1),
-(1, '2023-01-04', true, true, false, false, 'Regular shift swap request', 4),
-(2, '2023-01-05', false, true, false, false, 'Vacation leave request', 5),
-(2, '2023-01-06', true, true, false, false, 'Emergency shift coverage needed', 6),
-(1, '2023-01-07', false, true, false, false, 'Can I leave early today?', 7),
-(2, '2023-01-08', false, true, false, false, 'Shift swap request', 8),
-(2, '2023-01-09', false, true, false, false, 'Regular day off request', 9),
-(1, '2023-01-10', true, true, false, false, 'Emergency shift coverage needed', 10),
-(2, '2023-01-11', false, true, false, false, 'Can I work an extra shift?', 11),
-(2, '2023-01-12', false, true, false, false, 'Regular shift swap request', 12),
-(1, '2023-01-13', false, true, false, false, 'Shift swap request', 13);
+VALUES
+(1, '2023-12-12', true, true, false, false, 'Emergency: Family situation', 1),
+(1, '2023-12-14', false, true, false, false, 'Need day off for rest', 1),
+
+(2, '2023-12-13', true, true, false, false, 'Urgent: Medical appointment', 1),
+(2, '2023-12-15', false, true, false, false, 'Personal day required', 1),
+
+(3, '2023-12-18', true, true, false, false, 'Emergency: Car repair needed', 1),
+(3, '2023-12-20', false, true, false, false, 'Requesting off for event', 1),
+
+(4, '2023-12-19', true, true, false, false, 'Urgent: Childcare issue', 1),
+(4, '2023-12-21', false, true, false, false, 'Day off for relaxation', 1);
+
 
 INSERT INTO Shift (is_covered, shift_owner_id, start_time, end_time, shift_volunteer_id)
 VALUES
-(TRUE, 1, '2022-12-05 08:00:00', '2022-12-05 16:00:00', null),
-(TRUE, 1, '2023-12-16 08:00:00', '2023-12-16 16:00:00',2),
-(TRUE, 2, '2024-12-07 08:00:00', '2024-12-07 16:00:00', null),
-(FALSE, 2, '2025-12-08 08:00:00', '2025-12-08 09:00:00', null),
-(TRUE, 2, '2025-12-08 09:00:00', '2025-12-08 10:00:00', 1),
-(FALSE, 2, '2025-12-08 10:00:00', '2025-12-08 11:00:00', null),
-(TRUE, 1, '2025-12-08 10:00:00', '2025-12-08 11:00:00', 2),
-(false, 2, '2023-01-05 12:00:00', '2023-01-05 20:00:00', null),
-        (false, 1, '2024-01-06 09:00:00', '2024-01-06 17:00:00', null),
-        (true, 1, '2024-01-07 08:00:00', '2024-01-07 16:00:00', null),
-        (false, 2, '2024-01-08 12:00:00', '2024-01-08 20:00:00', null),
-        (false, 2, '2024-01-09 09:00:00', '2024-01-09 17:00:00', null),
-        (true, 1, '2024-01-10 08:00:00', '2024-01-10 16:00:00', null),
-        (false, 2, '2024-01-11 12:00:00', '2024-01-11 20:00:00', null),
-        (true, 1, '2024-01-12 09:00:00', '2024-01-12 17:00:00', null),
-        (true, 1, '2024-01-13 08:00:00', '2024-01-13 16:00:00', null);
+(TRUE, 1, '2023-12-11 08:00:00', '2023-12-11 11:00:00', null),
+(TRUE, 1, '2023-12-13 08:00:00', '2023-12-13 11:00:00', null),
+(TRUE, 1, '2023-12-15 08:00:00', '2023-12-15 11:00:00', null),
 
+(TRUE, 2, '2023-12-11 12:00:00', '2023-12-11 15:00:00', null),
+(TRUE, 2, '2023-12-13 12:00:00', '2023-12-13 15:00:00', null),
+(TRUE, 2, '2023-12-15 12:00:00', '2023-12-15 15:00:00', null),
+
+(TRUE, 3, '2023-12-12 08:00:00', '2023-12-12 11:00:00', null),
+(TRUE, 3, '2023-12-14 08:00:00', '2023-12-14 11:00:00', null),
+(TRUE, 3, '2023-12-15 08:00:00', '2023-12-15 11:00:00', null),
+
+(TRUE, 4, '2023-12-12 12:00:00', '2023-12-12 15:00:00', null),
+(TRUE, 4, '2023-12-14 12:00:00', '2023-12-14 15:00:00', null),
+(TRUE, 4, '2023-12-15 12:00:00', '2023-12-15 15:00:00', null),
+
+-- Continuing for the next week
+(TRUE, 1, '2023-12-18 08:00:00', '2023-12-18 11:00:00', null),
+(TRUE, 1, '2023-12-20 08:00:00', '2023-12-20 11:00:00', null),
+(TRUE, 1, '2023-12-22 08:00:00', '2023-12-22 11:00:00', null),
+
+(TRUE, 2, '2023-12-18 12:00:00', '2023-12-18 15:00:00', null),
+(TRUE, 2, '2023-12-20 12:00:00', '2023-12-20 15:00:00', null),
+(TRUE, 2, '2023-12-22 12:00:00', '2023-12-22 15:00:00', null),
+
+(TRUE, 3, '2023-12-19 08:00:00', '2023-12-19 11:00:00', null),
+(TRUE, 3, '2023-12-21 08:00:00', '2023-12-21 11:00:00', null),
+(TRUE, 3, '2023-12-22 08:00:00', '2023-12-22 11:00:00', null),
+
+(TRUE, 4, '2023-12-19 12:00:00', '2023-12-19 15:00:00', null),
+(TRUE, 4, '2023-12-21 12:00:00', '2023-12-21 15:00:00', null),
+(TRUE, 4, '2023-12-22 12:00:00', '2023-12-22 15:00:00', null);
 COMMIT TRANSACTION;

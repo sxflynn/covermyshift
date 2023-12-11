@@ -1,26 +1,28 @@
 <template>
-  <div id="register" class="text-center">
-    <form v-on:submit.prevent="register">
-      <h1>Create Account</h1>
-      <div role="alert" v-if="registrationErrors">
-        {{ registrationErrorMsg }}
-      </div>
-      <div class="form-input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
-      </div>
-      <div class="form-input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
-      </div>
-      <div class="form-input-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
-      </div>
-      <button type="submit">Create Account</button>
-      <p><router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
-    </form>
-  </div>
+  <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
+    <h1>Create Account</h1>
+    <v-alert v-if="registrationErrors" type="error">{{ registrationErrorMsg }}</v-alert>
+
+    <div v-on:submit.prevent="register">
+      <v-text-field
+        v-model="user.username" label="Username"  dense placeholder="Enter your username" outlined required
+        autofocus
+          ></v-text-field>
+
+      <v-text-field
+        v-model="user.password" label="Password" dense
+        placeholder="Enter your password" outlined
+        type="password" required
+      ></v-text-field>
+
+      <v-text-field  v-model="user.confirmPassword" label="Confirm Password" dense
+        placeholder="Confirm your password" outlined type="password" required
+      ></v-text-field>
+
+      <v-btn type="submit" color="primary">Create Account</v-btn>
+      <p><router-link v-bind:to="{ name: 'home' }">Already have an account? Log in</router-link></p>
+    </div>
+  </v-card>
 </template>
 
 <script>
