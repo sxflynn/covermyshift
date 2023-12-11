@@ -5,24 +5,29 @@
       <div id="nav">
         <v-app-bar>
           <router-link class="no-link-style" v-bind:to="{ name: 'home' }">
-            <div id="logo">Cover My Shift</div>
+            <v-img :width="350" aspect-ratio="16/9" cover
+              src="../src/assets/coverlogosmall.png"
+              ></v-img>
+            <!-- <div id="logo">Cover My Shift</div> -->
           </router-link>
+          <!-- <v-img :width="300" aspect-ratio="16/9" cover
+              src="../src/assets/CoverMyShiftLOGO#1.png"></v-img> -->
           <v-spacer></v-spacer>
          {{displayWelcome}}
 
 
           <router-link v-bind:to="{ name: 'form' }">
-            <v-btn>Submit Request</v-btn>
+            <v-btn color="black" class="navBtn" size="large">Submit Request</v-btn>
           </router-link>
           <router-link v-bind:to="{ name: 'requestview' }">
-            <v-btn>View Requests</v-btn>
+            <v-btn color="black" class="navBtn" size="large">View Requests</v-btn>
           </router-link>
           <router-link v-bind:to="{ name: 'teacherview' }">
-            <v-btn>View Shifts</v-btn>
+            <v-btn color="black" class="font-weight-bold" size="large" >View Shifts</v-btn>
           </router-link>
 
           <router-link v-bind:to="{ name: $store.state.token != '' ? 'logout' : 'login' }">
-            <v-btn variant="outlined">{{ $store.state.token != '' ? 'Logout' : 'Login' }}</v-btn>
+            <v-btn color="black" variant="outlined" class="navBtn" size="large">{{ $store.state.token != '' ? 'Logout' : 'Login' }}</v-btn>
           </router-link>
         </v-app-bar>
 
@@ -115,5 +120,13 @@ export default {
     /* Automatic margin on the right */
   }
 
+}
+.navBtn{
+  font-family: "League Spartan";
+
+  font-weight: bolder;
+  
+
+  
 }
 </style>
