@@ -120,15 +120,12 @@ export default {
 .router-view-container {
   margin-top: 64px;
 
-  /* Adjust based on the actual height of your v-app-bar */
-  .centered-container {
-    max-width: 1280px;
+  max-width: 1280px;
     /* Set the maximum width */
     margin-left: auto;
     /* Automatic margin on the left */
     margin-right: auto;
     /* Automatic margin on the right */
-  }
 
 }
 
