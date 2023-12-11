@@ -30,6 +30,7 @@ VALUES
 
 INSERT INTO Shift (is_covered, shift_owner_id, start_time, end_time, shift_volunteer_id)
 VALUES
+(TRUE, 1, '2022-12-11 08:00:00', '2022-12-11 11:00:00', null),
 (TRUE, 1, '2023-12-11 08:00:00', '2023-12-11 11:00:00', null),
 (TRUE, 1, '2023-12-13 08:00:00', '2023-12-13 11:00:00', null),
 (TRUE, 1, '2023-12-15 08:00:00', '2023-12-15 11:00:00', null),
