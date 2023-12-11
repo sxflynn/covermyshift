@@ -40,7 +40,10 @@
       <div class="router-view-container">
         <router-view />
       </div>
+    
+      
     </v-container>
+    
   </v-app>
 </template>
 <script>

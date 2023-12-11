@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-center align-center">
-    <v-form v-on:submit.prevent="submitForm">
+    <v-form v-on:submit.prevent="submitForm" :rules="dateRules">
       <v-container>
         <v-row>
           <v-col cols="12" md="8">
@@ -31,7 +31,12 @@
 
 
           <v-col cols="12" md="4">
-            <v-date-picker elevation="5" show-adjacent-months color="primary" v-model="coverReq.date">
+            <v-date-picker 
+            elevation="5" 
+            show-adjacent-months 
+            color="primary" 
+            :rules="dateRules"
+            v-model="coverReq.date">
             </v-date-picker>
           </v-col>
         </v-row>
@@ -54,8 +59,14 @@ export default {
         approved: false,
         emergency: false,
         pending: true,
-      }
-    };
+      },
+      dateRules: [
+        value =>{
+          if (value) return true;
+          return 'A date is required';
+        }
+      ],
+    }
   },
   methods: {
     submitForm() {
