@@ -10,7 +10,8 @@
     <v-card-text>
       <v-window v-model="tab">
         <v-window-item value="shifts">
-          <list-shifts-to-cover/>
+          
+          <list-shifts-to-cover />
         </v-window-item>
 
         <v-window-item value="myshifts">

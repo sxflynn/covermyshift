@@ -2,7 +2,7 @@
   <v-card flat>
     <v-card-title class="d-flex align-center pe-2">
       <v-icon icon="mdi-video-input-component"></v-icon> &nbsp;
-      List of Shifts
+      My Shifts
 
       <v-spacer></v-spacer>
 

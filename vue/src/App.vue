@@ -6,31 +6,24 @@
         <v-app-bar>
           <router-link class="no-link-style" v-bind:to="{ name: 'home' }">
             <v-img :width="350" aspect-ratio="16/9" cover src="../src/assets/coverlogosmall.png"></v-img>
-            <!-- <div id="logo">Cover My Shift</div> -->
           </router-link>
-          <!-- <v-img :width="300" aspect-ratio="16/9" cover
-              src="../src/assets/CoverMyShiftLOGO#1.png"></v-img> -->
           <v-spacer></v-spacer>
           <div v-if="isLoggedIn">
             <v-avatar color="info">
-             {{displayAuthority}}
+              {{ displayAuthority }}
             </v-avatar>
             <v-chip variant="text" id="welcome">{{ displayWelcome }}</v-chip>
             <router-link v-if="isLoggedIn" v-bind:to="{ name: 'form' }">
               <v-btn color="black" class="navBtn" size="large">Request Off</v-btn>
             </router-link>
-            <!-- <router-link v-bind:to="{ name: 'requestview' }">
-              <v-btn color="black" class="navBtn" size="large">View Requests</v-btn>
-            </router-link>
-            <router-link v-bind:to="{ name: 'teacherview' }">
-              <v-btn color="black" class="navBtn" size="large">View Shifts</v-btn>
-            </router-link> -->
             <router-link v-bind:to="{ name: 'dashboard' }">
               <v-btn color="black" class="navBtn" size="large">Dashboard</v-btn>
+              <v-badge v-if="numberOfUncoveredShifts>0" :content="numberOfUncoveredShifts" offset-y="-20" offset-x="10" bordered="true" color="red">
+              </v-badge>
             </router-link>
 
             <router-link v-bind:to="{ name: $store.state.token != '' ? 'logout' : 'login' }">
-              <v-btn color="black" variant="outlined" class="navBtn" size="large">{{ $store.state.token != '' ? 'Logout' :
+              <v-btn color="black" variant="" class="navBtn" size="large">{{ $store.state.token != '' ? 'Logout' :
                 'Login' }}</v-btn>
             </router-link>
           </div>
@@ -56,6 +49,10 @@
 export default {
   components: {},
   computed: {
+    numberOfUncoveredShifts(){
+      console.log("this.$store.state.listUncoveredShiftsArr.length is", this.$store.state.listUncoveredShiftsArr.length);
+      return this.$store.state.listUncoveredShiftsArr.length;
+        },
     isLoggedIn() {
       console.log("The username is ", this.$store.state.user.username)
       return this.$store.state.user.username !== undefined;
@@ -131,6 +128,9 @@ export default {
   font-weight: bolder;
 
 }
+
+
+
 
 #welcome {
   font-family: "League Spartan";
