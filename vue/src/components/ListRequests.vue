@@ -15,7 +15,7 @@
     <v-data-table v-model:search="search" :items="this.$store.state.listReqArr" :headers="headers" :items-per-page="1000" :sort-by="sortBy" :sort-desc="sortDesc"
       class="elevation-1">
 
-      <template v-if="!isUser" v-slot:item.employeeName="{ item }">
+      <template v-show="!isUser" v-slot:item.employeeName="{ item }">
         <v-chip variant="text" :text="item.employeeName" label size="large"></v-chip>
       </template>
 
