@@ -94,10 +94,10 @@ export default {
             const authority = this.$store.state.user.authorities[0].name;
             if (authority === 'ROLE_USER') {
 
-              this.$router.push("/teacherview");
+              this.$router.push("/dashboard");
             } else if (authority === 'ROLE_ADMIN') {
 
-              this.$router.push("/requestview");
+              this.$router.push("/dashboard");
             }
             
           }
