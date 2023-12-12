@@ -27,6 +27,9 @@
           </v-col>
 
           <v-col cols="12" md="4">
+<<<<<<< HEAD
+            <v-date-picker elevation="5" show-adjacent-months color="primary" :rules="dateRules" v-model="coverReq.date">
+=======
             <v-date-picker
               elevation="5"
               show-adjacent-months
@@ -34,6 +37,7 @@
               :rules="dateRules"
               v-model="coverReq.date"
             >
+>>>>>>> 62b2fd6758afcb2a8dc4bf263981a33700141513
             </v-date-picker>
           </v-col>
         </v-row>
@@ -43,6 +47,9 @@
 </template>
 
 <script>
+import emailjs from '@emailjs/browser';
+
+
 export default {
   data() {
     return {
@@ -58,6 +65,7 @@ export default {
         pending: true,
       },
       dateRules: [
+        value => {
         (value) => {
           if (value) return true;
           return "A date is required";
@@ -66,12 +74,43 @@ export default {
     };
   },
   methods: {
+    sendRequestEmail() {
+
+      const fromName = this.$store.state.employeeName; // Example: this.userName or this.form.name
+      const emergency = this.coverReq.emergency ? "This is an emergency request!" : ""
+      const message = "The employee, " + this.$store.state.employeeName + "has requested time off for the day of " +
+        this.date +
+        ". They have included the following message: " +
+        this.coverReq.message + ". " + emergency; // Example: this.form.message
+      const replyTo = this.$store.state.loggedInEmployee.email; // Example: this.form.email
+      const templateParams = {
+        from_name: fromName,
+        message: message,
+        reply_to: replyTo
+      };
+
+
+      emailjs.send('service_xsowi2y', 'template_r7geovx', templateParams)
+        .then(function (response) {
+          console.log('SUCCESS!', response.status, response.text);
+        }, function (error) {
+          console.log('FAILED...', error);
+        });
+    },
     submitForm() {
+<<<<<<< HEAD
+      console.log('this.coverReq prior to dispatch is ', this.coverReq)
+      this.$store.dispatch('createNewRequest', this.coverReq)
+        .then(response => {
+          this.sendRequestEmail();
+          this.$router.push({ name: 'dashboard' });
+=======
       console.log("this.coverReq prior to dispatch is ", this.coverReq);
       this.$store
         .dispatch("createNewRequest", this.coverReq)
         .then((response) => {
           this.$router.push({ name: "dashboard" });
+>>>>>>> 62b2fd6758afcb2a8dc4bf263981a33700141513
         })
         .catch((error) => {
           console.error("Failed to submit", error);
