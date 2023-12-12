@@ -10,6 +10,7 @@ import RequestView from '../views/RequestView.vue';
 import ListRequests from '../components/ListRequests.vue';
 import FormView from '../views/FormView.vue'
 import TeacherView from '../views/TeacherView.vue'
+import DashboardView from '../views/DashboardView.vue'
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
  * inside of App.vue depending on the URL.
@@ -55,6 +56,14 @@ const routes = [
     path: "/requestview",
     name: "requestview",
     component: RequestView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: DashboardView,
     meta: {
       requiresAuth: true
     }

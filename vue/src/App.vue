@@ -19,11 +19,14 @@
             <router-link v-if="isLoggedIn" v-bind:to="{ name: 'form' }">
               <v-btn color="black" class="navBtn" size="large">Request Off</v-btn>
             </router-link>
-            <router-link v-bind:to="{ name: 'requestview' }">
+            <!-- <router-link v-bind:to="{ name: 'requestview' }">
               <v-btn color="black" class="navBtn" size="large">View Requests</v-btn>
             </router-link>
             <router-link v-bind:to="{ name: 'teacherview' }">
               <v-btn color="black" class="navBtn" size="large">View Shifts</v-btn>
+            </router-link> -->
+            <router-link v-bind:to="{ name: 'dashboard' }">
+              <v-btn color="black" class="navBtn" size="large">Dashboard</v-btn>
             </router-link>
 
             <router-link v-bind:to="{ name: $store.state.token != '' ? 'logout' : 'login' }">
@@ -62,16 +65,6 @@ export default {
       if (user && user.username && user.authorities && user.authorities.length > 0) {
         return `Welcome, ${this.displayEmployeeName}`
 
-        // const username = user.username;
-        // const authority = user.authorities[0].name;
-        // let role = '';
-        // if (authority === 'ROLE_USER') {
-        //   role = 'User';
-        // } else if (authority === 'ROLE_Admin') {
-        //   role = 'Admin';
-        // }
-
-        // return `Welcome! ${username}. You have access level ${role}.`;
       }
       return '';
     },

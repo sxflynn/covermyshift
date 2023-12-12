@@ -115,7 +115,7 @@ export default {
   data() {
     return {
       headers: [
-        { title: "Request ID", key: "requestId", align: "start" },
+        // { title: "Request ID", key: "requestId", align: "start" },
         // { title: "Employee ID", key: "employeeId", align: "start" },
         { title: "Employee Name", key: "employeeName", align: "center" },
         { title: "Date", key: "date", align: "center" },
