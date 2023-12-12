@@ -42,12 +42,26 @@
 
 
     </v-container>
-
-  </v-app>
+    <footer @click="handleClick" style="color: rgb(40, 56, 61); cursor: pointer; display: flex; justify-content: space-evenly; word-spacing: 5px; padding: 20px; font-size: 10px;">
+      <p>Copyright</p>
+      <p>Information</p>
+      <p>Privacy</p>
+      <p>Tech Elevator</p>
+      <p>Contact</p>
+    </footer>
+     </v-app>
 </template>
 <script>
 export default {
   components: {},
+  methods: {
+    handleClick() {
+      console.log("Paragraph clicked!");
+    },
+    printPage() {
+      window.print();
+    },
+  },
   computed: {
     numberOfUncoveredShifts(){
       console.log("this.$store.state.listUncoveredShiftsArr.length is", this.$store.state.listUncoveredShiftsArr.length);
@@ -93,6 +107,8 @@ export default {
       return '';
     },
   },
+
+
 
 };
 </script>
