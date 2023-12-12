@@ -7,11 +7,11 @@ INSERT INTO users (username,password_hash,role) VALUES ('laura','$2a$08$UkVvwpUL
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
 INSERT INTO employee (employee_name, username, email)
-VALUES ('Steve C.', 'user', 'steve@te.com'),
-('Rachelle R.', 'rauh', 'rachelle@te.com'),
-('John F.', 'john','john@te.com'),
-('Laura C.', 'laura','laura@te.com'),
-('Kevin G.', 'admin', 'kevin@tes.com');
+VALUES ('Steve C.', 'user', 'stephenxflynn+steve@gmail.com'),
+('Rachelle R.', 'rauh', 'stephenxflynn+rauh@gmail.com'),
+('John F.', 'john','stephenxflynn+john@gmail.com'),
+('Laura C.', 'laura','stephenxflynn+laura@gmail.com'),
+('Kevin G.', 'admin', 'stephenxflynn+admin@gmail.com');
 
 INSERT INTO request (employee_id, date, is_emergency, is_pending, is_covered, is_approved, message, workplace_id)
 VALUES
