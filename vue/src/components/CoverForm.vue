@@ -5,38 +5,35 @@
         <v-row>
           <v-col cols="12" md="8">
             <v-row>
-              <v-container fluid>
-                <v-row>
-                  <v-col cols="6" class="text-start"><strong>Employee Name:</strong></v-col>
-                  <v-col cols="6" class="text-start">{{ this.$store.state.loggedInEmployee.employeeName }}</v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col cols="6" class="text-start"><strong>ID:</strong></v-col>
-                  <v-col cols="6" class="text-start">{{ this.$store.state.loggedInEmployee.employeeId }}</v-col>
-                </v-row>
-
-              </v-container>
               <v-col cols="12">
-                <v-checkbox label="Is this an emergency?" v-model="coverReq.emergency"></v-checkbox>
-                <v-text-field label="Reason for request (optional)" v-model="coverReq.employeeMessage" outlined
-                  dense></v-text-field>
+                <v-textarea
+                  label="Reason for request (optional)"
+                  v-model="coverReq.employeeMessage"
+                  outlined
+                  dense
+                ></v-textarea>
+                <v-checkbox
+                  label="Is this an emergency?"
+                  v-model="coverReq.emergency"
+                ></v-checkbox>
               </v-col>
               <v-col cols="12">
                 <v-btn class="mr-4" color="primary" type="submit">Submit</v-btn>
-                <v-btn color="error" type="button" v-on:click="cancelForm">Cancel</v-btn>
+                <v-btn color="error" type="button" v-on:click="cancelForm"
+                  >Cancel</v-btn
+                >
               </v-col>
             </v-row>
           </v-col>
 
-
           <v-col cols="12" md="4">
-            <v-date-picker 
-            elevation="5" 
-            show-adjacent-months 
-            color="primary" 
-            :rules="dateRules"
-            v-model="coverReq.date">
+            <v-date-picker
+              elevation="5"
+              show-adjacent-months
+              color="primary"
+              :rules="dateRules"
+              v-model="coverReq.date"
+            >
             </v-date-picker>
           </v-col>
         </v-row>
@@ -61,25 +58,25 @@ export default {
         pending: true,
       },
       dateRules: [
-        value =>{
+        (value) => {
           if (value) return true;
-          return 'A date is required';
-        }
+          return "A date is required";
+        },
       ],
-    }
+    };
   },
   methods: {
     submitForm() {
-      console.log('this.coverReq prior to dispatch is ',this.coverReq)
-      this.$store.dispatch('createNewRequest', this.coverReq)
-        .then(response => {
-          this.$router.push({ name: 'dashboard' });
+      console.log("this.coverReq prior to dispatch is ", this.coverReq);
+      this.$store
+        .dispatch("createNewRequest", this.coverReq)
+        .then((response) => {
+          this.$router.push({ name: "dashboard" });
         })
-        .catch(error => {
-          console.error('Failed to submit', error)
+        .catch((error) => {
+          console.error("Failed to submit", error);
         }),
-        this.$store.dispatch('fetchListReqArr');
-
+        this.$store.dispatch("fetchListReqArr");
     },
     cancelForm() {
       // Go back to previous page
@@ -96,7 +93,6 @@ export default {
         pending: true,
       };
     },
-
   },
 };
 </script>
