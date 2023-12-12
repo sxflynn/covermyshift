@@ -58,9 +58,6 @@ export default {
     handleClick() {
       console.log("Paragraph clicked!");
     },
-    printPage() {
-      window.print();
-    },
   },
   computed: {
     numberOfUncoveredShifts(){
