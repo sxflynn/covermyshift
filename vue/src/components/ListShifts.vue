@@ -117,6 +117,14 @@
                 </v-row>
               </v-container>
               <v-card-actions>
+                <v-btn
+                  variant="tonal"
+                  color="green"
+                  rounded
+                  text="Claim Shift"
+                  @click="updateShift(item, isActive)"
+                  class="ma-1"
+                ></v-btn>
                 <v-btn v-if="isMyOwnShift===false" variant="tonal" color="green" rounded text="Claim Shift" @click="updateShift(item, isActive)"
                   class="ma-1">
                   Claim Shift
@@ -171,7 +179,6 @@ export default {
   mounted() {
     this.$store.dispatch("fetchListShiftArr");
   },
-
   computed: {
     isMyOwnShift(item){
       console.log("Is this item mine? ", item.employeeId === this.$store.state.loggedInEmployee.employeeId)
