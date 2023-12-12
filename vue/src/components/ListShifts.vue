@@ -117,6 +117,7 @@
                 </v-row>
               </v-container>
               <v-card-actions>
+<<<<<<< HEAD
                 <v-btn
                   variant="tonal"
                   color="green"
@@ -125,6 +126,10 @@
                   @click="updateShift(item, isActive)"
                   class="ma-1"
                 >
+=======
+                <v-btn v-if="isMyOwnShift===false" variant="tonal" color="green" rounded text="Claim Shift" @click="updateShift(item, isActive)"
+                  class="ma-1">
+>>>>>>> 139e0ef612bbf2fdfd7a8ef1f79c644a1b00ed89
                   Claim Shift
                 </v-btn>
                 <v-spacer></v-spacer>
@@ -177,7 +182,16 @@ export default {
   mounted() {
     this.$store.dispatch("fetchListShiftArr");
   },
+<<<<<<< HEAD
   computed: {},
+=======
+  computed: {
+    isMyOwnShift(item){
+      console.log("Is this item mine? ", item.employeeId === this.$store.state.loggedInEmployee.employeeId)
+      return item.employeeId === this.$store.state.loggedInEmployee.employeeId;
+    }
+},
+>>>>>>> 139e0ef612bbf2fdfd7a8ef1f79c644a1b00ed89
   methods: {
     formatDateTime(startTime, endTime) {
       const start = new Date(startTime);
