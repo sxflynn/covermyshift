@@ -1,4 +1,5 @@
 <template>
+
   <v-card>
     <v-tabs v-model="tab" bg-color="primary">
       <v-tab value="shifts">Shifts to Cover</v-tab>
@@ -6,6 +7,9 @@
       <v-tab v-if="isUser" value="myrequests">My Requests</v-tab>
       <v-tab v-else value="myrequests">All Requests</v-tab>
     </v-tabs>
+
+   
+  
 
     <v-card-text>
       <v-window v-model="tab">
@@ -15,6 +19,7 @@
 
         <v-window-item value="myshifts">
           <list-shifts />
+          
         </v-window-item>
 
         <v-window-item value="myrequests">
@@ -29,6 +34,15 @@ import ListShifts from "../components/ListShifts.vue";
 import ListRequests from "../components/ListRequests.vue";
 import ListShiftsToCover from "../components/ListShiftsToCover.vue";
 
+const gradients = [
+    ['#222'],
+    ['#42b3f4'],
+    ['red', 'orange', 'yellow'],
+    ['purple', 'violet'],
+    ['#00c6ff', '#F0F', '#FF0'],
+    ['#f72047', '#ffd200', '#1feaea']
+  ]
+
 export default {
   components: {
     ListShifts,
@@ -37,7 +51,36 @@ export default {
   },
 
   data() {
+    
     return {
+      width: 2,
+      radius: 10,
+      padding: 8,
+      lineCap: 'round',
+      gradient: gradients[5],
+      value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0],
+      gradientDirection: 'top',
+      gradients,
+      labels: [
+        '12am',
+        '3am',
+        '6am',
+        '9am',
+        '12pm',
+        '3pm',
+        '6pm',
+        '9pm'
+      ],
+      value: [
+        200,
+        675,
+        410,
+        390,
+        310,
+        460,
+        250,
+        240
+      ],
       tab: null,
       showShifts: true,
       showForm: false,
@@ -63,4 +106,8 @@ export default {
   }
 }
 </script>
-<style></style>
+<style>
+ .v-sheet--offset {
+    top: -24px;
+    position: relative;
+  }</style>

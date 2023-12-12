@@ -2,7 +2,7 @@
   <div id="login">
     <v-row>
       <v-col cols="14" md="7">
-        <v-img :width="700" aspect-ratio="16/9" cover src="../src/assets/coverlogosmall-cropped.png"></v-img>
+        <v-img :width="700" aspect-ratio="16/9" cover src="../src/assets/coverlogosmall-cropped.png" id="logo"></v-img>
        
         <!-- Left column with images -->
         <v-img :width="900" aspect-ratio="16/9" cover src="../src/assets/classroomrounded.png" id="classroom" rounded="lg"></v-img>
@@ -135,7 +135,7 @@ label {
 
 #classroom{
   margin-top: -100px;
-  margin-left: -18px;
+  margin-left: 25px;
   
 
 }
@@ -146,6 +146,9 @@ label {
 }
 
 #formWithLogo {
-  margin-top: 30px;
+  margin-top: 45px;
+}
+#logo{
+  
 }
 </style>
