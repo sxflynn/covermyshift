@@ -139,6 +139,10 @@ export default {
     this.$store.dispatch("fetchListShiftArr");
   },
   computed: {
+    isUser() {
+      console.log("My authority is ", this.$store.state.user.authorities[0].name)
+      return this.$store.state.user.authorities[0].name === 'ROLE_USER';
+    },
 },
   methods: {
         formatDateTime(startTime, endTime) {
