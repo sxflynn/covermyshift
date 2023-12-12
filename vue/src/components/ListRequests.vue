@@ -15,7 +15,7 @@
     <v-data-table v-model:search="search" :items="this.$store.state.listReqArr" :headers="headers" :items-per-page="1000" :sort-by="sortBy" :sort-desc="sortDesc"
       class="elevation-1">
 
-      <template v-slot:item.employeeName="{ item }">
+      <template v-show="!isUser" v-slot:item.employeeName="{ item }">
         <v-chip variant="text" :text="item.employeeName" label size="large"></v-chip>
       </template>
 
@@ -49,7 +49,9 @@
       <template v-slot:item.action="{ item }">
         <v-dialog width="500">
           <template v-slot:activator="{ props }">
-            <v-btn v-bind="props" :text="'Open'">
+            <span v-if="isUser"></span>
+            <span v-else></span>
+            <v-btn v-bind="props" :text="isUser ? 'Edit' : 'Open'">
             </v-btn>
           </template>
 
@@ -84,9 +86,13 @@
                 </v-row>
               </v-container>
 
-              <v-text-field label="Message to employee " outlined dense v-model="item.managerMessage"></v-text-field>
+              <v-text-field v-if="!isUser" label="Message to employee " outlined dense v-model="item.managerMessage"></v-text-field>
+              
 
               <v-card-actions>
+                <v-btn v-if="isUser" variant="tonal" color="blue" rounded text="Edit" @click="editRequest(item, isActive)" class="ma-1">
+                  Edit</v-btn>
+                  <div v-else>
                 <v-btn variant="tonal" color="green" rounded text="Accept" @click="acceptRequest(item, isActive)"
                   class="ma-1">
                   Accept
@@ -95,6 +101,7 @@
                   class="ma-1">
                   {{ item.managerMessage ? 'Decline with Message' : 'Decline' }}
                 </v-btn>
+              </div>
                 <v-spacer></v-spacer>
                 <v-btn text="Cancel" @click="isActive.value = false" class="ma-1"></v-btn>
               </v-card-actions>
@@ -122,8 +129,8 @@ export default {
         { title: "Message", key: "employeeMessage", align: "start" },
         { title: "Emergency/Vacation", key: "emergency", align: "center" },
         { title: "Approved", key: "approved", align: "center" },
-        { title: "Pending", key: "pending", align: "center" },
-        { title: "Approve/Deny", value: 'action', align: "center" }
+        { title: "Approve/Deny", value: 'action', align: "center" },
+        
       ],
       search: "",
       sortBy: ['pending', 'emergency', 'date'],
@@ -151,9 +158,14 @@ export default {
     displayRequests(){
       let requestList = this.$store.state.listReqArr;
       return requestList;
-    }
+    },
+    isUser() {
+      console.log("My authority is ", this.$store.state.user.authorities[0].name)
+      return this.$store.state.user.authorities[0].name === 'ROLE_USER';
+    },
   },
   methods: {
+    //TODO CREATE EDIT REQUEST FUNCTION
     acceptRequest(item, isActive) {
       item.approved = true;
       item.pending = false;

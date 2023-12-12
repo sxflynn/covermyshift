@@ -11,6 +11,7 @@
         <!-- Right column with form and content -->
 
         <div id="formWithLogo">
+          <v-form @submit.prevent="login">
           <v-img class="mx-auto pa-12 pb-8" max-width="450" max-height="1000"
             src="../src/assets/slogancropped.png"></v-img>
 
@@ -47,6 +48,7 @@
               </a>
             </v-card-text>
           </v-card>
+        </v-form>
         </div>
       </v-col>
     </v-row>
@@ -90,7 +92,7 @@ export default {
                 // Handle error (e.g., show notification or log error)
               });
 
-            const username = this.$store.state.user.username;
+            
             const authority = this.$store.state.user.authorities[0].name;
             if (authority === 'ROLE_USER') {
 

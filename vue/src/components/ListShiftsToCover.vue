@@ -46,7 +46,7 @@
       <template v-slot:item.action="{ item }">
         <v-dialog width="500">
           <template v-slot:activator="{ props }">
-            <v-btn color="primary" v-bind="props" :disabled="item.covered">{{ item.covered ? 'Already Claimed' :
+            <v-btn color="green-accent-2" v-bind="props" :disabled="item.covered">{{ item.covered ? 'Already Claimed' :
           'Claim This Shift' }}</v-btn>
           </template>
 
