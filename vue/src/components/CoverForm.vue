@@ -73,7 +73,7 @@ export default {
       console.log('this.coverReq prior to dispatch is ',this.coverReq)
       this.$store.dispatch('createNewRequest', this.coverReq)
         .then(response => {
-          this.$router.push({ name: 'requestview' });
+          this.$router.push({ name: 'dashboard' });
         })
         .catch(error => {
           console.error('Failed to submit', error)
