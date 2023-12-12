@@ -15,12 +15,12 @@ export default {
     return axios.get(`/employee/${employeeId}`);
   },
   getShiftByShiftId(shiftId) {
-    return axios.get(`/shifts/${shiftId}`);
+    return axios.get(`/shift/${shiftId}`);
   },
   getAllUncoveredShifts() {
-    return axios.get('/uncovered');
+    return axios.get('/shift/uncovered');
   },
   getAllShiftsByRequestId(requestId) {
-    return axios.get(`/request/${requestId}`);
+    return axios.get(`shift/request/${requestId}`);
   }
 };

@@ -13,7 +13,7 @@
     <v-divider></v-divider>
     <!-- TODO: Add custom headers using the headers prop -->
     <!-- TODO: Customize the items-per-page -->
-    <v-data-table v-model:search="search" :headers="headers" :items="this.$store.state.listShiftArr" :items-per-page="1000" :sort-by="sortBy" :sort-desc="sortDesc"
+    <v-data-table v-model:search="search" :headers="headers" :items="this.$store.state.listUncoveredShiftsArr" :items-per-page="1000" :sort-by="sortBy" :sort-desc="sortDesc"
       class="elevation-1">
 
       <template v-slot:item.shiftOwnerName="{ item }">
@@ -116,7 +116,7 @@ export default {
         { title: 'Date/Time', key: 'startTime', align: 'center' },
         // { title: 'End Time', key: 'endTime', align: 'center' },
         { title: 'Covered', key: 'covered', align: 'center' },
-        // { title: 'Claim', value: 'action', sortable: false }
+        { title: 'Claim', value: 'action', sortable: false }
       ],
       search: "",
       sortBy: ['covered', 'startTime'],
@@ -136,7 +136,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("fetchListShiftArr");
+    this.$store.dispatch("fetchAllUncoveredShifts");
   },
   computed: {
 },

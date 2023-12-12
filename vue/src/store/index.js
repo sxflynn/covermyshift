@@ -10,11 +10,15 @@ export function createStore(currentToken, currentUser, currentEmployee) {
     state: {
       listReqArr: [],
       listShiftArr: [],
+      listUncoveredShiftsArr:[],
       token: currentToken || '',
       user: currentUser || {},
       loggedInEmployee: currentEmployee || {}
     },
     mutations: {
+      SET_UNCOVERED_SHIFTS_ARR(state, uncoveredShifts) {
+        state.listUncoveredShiftsArr = uncoveredShifts;
+      },
       SET_LIST_REQ_ARR(state, list) {
         state.listReqArr = list;
         console.log("listReqArr is now size ", state.listReqArr.length)
@@ -66,6 +70,16 @@ export function createStore(currentToken, currentUser, currentEmployee) {
 
     },
     actions: {
+      fetchAllUncoveredShifts({ commit }) {
+        return ShiftService.getAllUncoveredShifts()
+          .then(response => {
+            commit('SET_UNCOVERED_SHIFTS_ARR', response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching uncovered shifts:', error);
+            throw error;
+          });
+      },
       fetchMyIdentity({ commit }) {
         return AuthService.whoami()
           .then(response => {
