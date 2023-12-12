@@ -43,6 +43,9 @@
 </template>
 
 <script>
+// import emailjs from '@emailjs/browser';
+
+
 export default {
   data() {
     return {
@@ -66,6 +69,29 @@ export default {
     };
   },
   methods: {
+    sendRequestEmail() {
+
+      const fromName = this.$store.state.employeeName; // Example: this.userName or this.form.name
+      const emergency = this.coverReq.emergency ? "This is an emergency request!" : ""
+      const message = "The employee, " + this.$store.state.employeeName + "has requested time off for the day of " +
+        this.date +
+        ". They have included the following message: " +
+        this.coverReq.message + ". " + emergency; // Example: this.form.message
+      const replyTo = this.$store.state.loggedInEmployee.email; // Example: this.form.email
+      const templateParams = {
+        from_name: fromName,
+        message: message,
+        reply_to: replyTo
+      };
+
+
+      emailjs.send('service_xsowi2y', 'template_r7geovx', templateParams)
+        .then(function (response) {
+          console.log('SUCCESS!', response.status, response.text);
+        }, function (error) {
+          console.log('FAILED...', error);
+        });
+    },
     submitForm() {
       console.log("this.coverReq prior to dispatch is ", this.coverReq);
       this.$store

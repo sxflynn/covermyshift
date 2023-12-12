@@ -29,7 +29,7 @@
           </div>
 
           <router-link v-else v-bind:to="{ name: 'register' }">
-            <v-btn color="blue" variant="outlined" class="navBtn">Sign Up</v-btn>
+            <v-btn color="teal-accent-3" variant="outlined" size="large" class="navBtn">Sign Up</v-btn>
           </router-link>
         </v-app-bar>
 

@@ -117,7 +117,7 @@
                 </v-row>
               </v-container>
               <v-card-actions>
-                <v-btn
+                <v-btngit 
                   variant="tonal"
                   color="green"
                   rounded
