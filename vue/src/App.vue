@@ -9,7 +9,7 @@
           </router-link>
           <v-spacer></v-spacer>
           <div v-if="isLoggedIn">
-            <v-avatar color="info">
+            <v-avatar color="light-blue-lighten-4">
               {{ displayAuthority }}
             </v-avatar>
             <v-chip variant="text" id="welcome">{{ displayWelcome }}</v-chip>
@@ -29,7 +29,7 @@
           </div>
 
           <router-link v-else v-bind:to="{ name: 'register' }">
-            <v-btn color="teal-accent-3" variant="outlined" size="large" class="navBtn">Sign Up</v-btn>
+            <v-btn color="black" variant="outlined" size="large" class="navBtn">Sign Up</v-btn>
           </router-link>
         </v-app-bar>
 
