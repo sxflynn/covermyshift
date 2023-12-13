@@ -14,6 +14,7 @@ export function createStore(currentToken, currentUser, currentEmployee) {
         timeout: 2000
       },
       listReqArr: [],
+      listAllShiftArr:[],
       listShiftArr: [],
       listUncoveredShiftsArr: [],
       token: currentToken || '',
@@ -21,6 +22,9 @@ export function createStore(currentToken, currentUser, currentEmployee) {
       loggedInEmployee: currentEmployee || {}
     },
     mutations: {
+      SET_ALL_CURRENT_SHIFTS_ARR(state, allShifts){
+        state.listAllShiftArr = allShifts;
+      },
       SET_UNCOVERED_SHIFTS_ARR(state, uncoveredShifts) {
         state.listUncoveredShiftsArr = uncoveredShifts;
       },
@@ -179,6 +183,16 @@ export function createStore(currentToken, currentUser, currentEmployee) {
         return ShiftService.getAllShifts()
           .then(response => {
             commit('SET_LIST_SHIFT_ARR', response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching shifts:', error);
+            throw error;
+          });
+      },
+      fetchCurrentListShiftArr({ commit }) {
+        return ShiftService.getAllCurrentShifts()
+          .then(response => {
+            commit('SET_ALL_CURRENT_SHIFTS_ARR', response.data);
           })
           .catch(error => {
             console.error('Error fetching shifts:', error);

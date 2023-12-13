@@ -2,55 +2,27 @@
   <v-container v-if="!isUser" id="data">
     <v-row justify="center">
       <v-col cols="12" sm="3">
-        <v-card
-          height="8rem"
-          elevation="3"
-          color="orange"
-          class="text-h3 text-center"
-          title="Emergency Requests"
-        >
-          <v-card-text
-            class="text-h3 mt-4"
-            style="display: flex; align-items: center; justify-content: center"
-            >{{ calcEmergencies() }}</v-card-text
-          >
+        <v-card height="8rem" elevation="3" color="orange" class="text-h3 text-center" title="Emergency Requests">
+          <v-card-text class="text-h3 mt-4" style="display: flex; align-items: center; justify-content: center">
+          {{ calcEmergencies }}</v-card-text>
         </v-card>
       </v-col>
       <v-col elevation="3" cols="12" sm="3">
-        <v-card
-          class="text-center"
-          height="8rem"
-          color="red"
-          title="Unclaimed Shifts"
-        >
-          <v-card-text
-            class="text-h3 mt-4"
-            style="display: flex; align-items: center; justify-content: center"
-            >{{ calcUnclaimedShifts() }}</v-card-text
-          >
+        <v-card class="text-center" height="8rem" color="red" title="Unclaimed Shifts">
+          <v-card-text class="text-h3 mt-4" style="display: flex; align-items: center; justify-content: center">{{
+            calcUnclaimedShifts }}</v-card-text>
         </v-card>
       </v-col>
       <v-col elevation="3" cols="12" sm="3">
         <v-card class="text-center" height="8rem" title="Percent called off">
-          <v-card-text
-            class="text-h3 mt-4"
-            style="display: flex; align-items: center; justify-content: center"
-            >12%</v-card-text
-          >
+          <v-card-text class="text-h3 mt-4"
+            style="display: flex; align-items: center; justify-content: center">12%</v-card-text>
         </v-card>
       </v-col>
       <v-col elevation="3" cols="12" sm="3">
-        <v-card
-          class="text-center"
-          height="8rem"
-          color="yellow"
-          title="Rejected Requests"
-        >
-          <v-card-text
-            class="text-h3 mt-4"
-            style="display: flex; align-items: center; justify-content: center"
-            >2</v-card-text
-          >
+        <v-card class="text-center" height="8rem" color="yellow" title="Rejected Requests">
+          <v-card-text class="text-h3 mt-4"
+            style="display: flex; align-items: center; justify-content: center">2</v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -123,16 +95,9 @@ export default {
     isUser() {
       return this.$store.state.user.authorities[0].name === "ROLE_USER";
     },
-    calcAdminData() {
-      console.log("calcAdminData is working");
-      return this.calcEmergencies();
-    },
-  },
-  methods: {
     calcEmergencies() {
       let reqArr = this.$store.state.listReqArr;
       let emergencyCounter = 0;
-
       reqArr.forEach((req) => {
         if (req.emergency === true) {
           emergencyCounter++;
@@ -140,14 +105,16 @@ export default {
       });
       return emergencyCounter;
     },
-
     calcUnclaimedShifts() {
-      let shiftArr = this.$store.state.listShiftArr;
-      console.log("Shifts Arr " + shiftArr);
+      return this.$store.state.listUncoveredShiftsArr.length;
     },
+    calcPercentOfTotalShiftsHaveVolunteer(){
+      return null;
+    }
   },
   mounted() {
-    this.calcUnclaimedShifts();
+    this.$store.dispatch("fetchAllUncoveredShifts");
+    this.$store.dispatch("fetchCurrentListShiftArr");
   },
   watch: {},
 };
