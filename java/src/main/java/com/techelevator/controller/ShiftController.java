@@ -37,7 +37,8 @@ public class ShiftController {
     public ResponseEntity<List<Shift>> getAllShifts(Principal principal){
         int employeeId = employeeDao.getEmployeeFromUsername(userDao.getUserFromPrincipal(principal).getUsername()).getEmployeeId();
         if (principalHasRole(principal, "ROLE_USER")){
-            List<Shift> shiftList = shiftDao.getAllCurrentUncoveredShifts(employeeId);
+
+            List<Shift> shiftList = shiftDao.getAllCurrentShiftsByEmployeeId(employeeId);
             if (shiftList.isEmpty()){
                 return ResponseEntity.noContent().build();
             }
@@ -90,9 +91,18 @@ public class ShiftController {
         return ResponseEntity.ok(shift);
     }
 
+    // Use this for the Shift claiming interface in the frontend
     @RequestMapping(path = API_BASE_SHIFT_URL + "/uncovered", method = RequestMethod.GET)
-    public ResponseEntity<List<Shift>> getAllUncoveredShifts() {
-        List<Shift> shiftList = shiftDao.getAllUncoveredShifts();
+    public ResponseEntity<List<Shift>> getAllUncoveredShifts(Principal principal) {
+        List<Shift> shiftList = new ArrayList<>();
+        int employeeId = employeeDao.getEmployeeFromUsername(userDao.getUserFromPrincipal(principal).getUsername()).getEmployeeId();
+        if (principalHasRole(principal, "ROLE_USER")){
+            shiftList = shiftDao.getAllCurrentUncoveredShiftsNotEmployeeId(employeeId);
+            return ResponseEntity.ok(shiftList);
+        } else if (principalHasRole(principal, "ROLE_ADMIN")){
+            shiftList = shiftDao.getAllCurrentUncoveredShifts();
+        }
+        // TODO error handling?
         return ResponseEntity.ok(shiftList);
     }
 
@@ -115,6 +125,9 @@ public class ShiftController {
         }
         return false;
     }
+
+
+
 
 
 

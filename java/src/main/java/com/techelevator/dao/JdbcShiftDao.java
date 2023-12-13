@@ -10,6 +10,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.security.AlgorithmConstraints;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,11 +61,11 @@ public class JdbcShiftDao implements ShiftDao {
 
     //TODO write test for this
     @Override
-    public List<Shift> getAllCurrentUncoveredShifts(int employeeId) {
+    public List<Shift> getAllCurrentShiftsByEmployeeId(int employeeId) {
         List<Shift> shiftsList = new ArrayList<>();
         String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE \n" +
                 " \tstart_time >= CURRENT_TIMESTAMP AND\n" +
-                "    (s.is_covered = FALSE OR s.shift_owner_id = ? OR s.shift_volunteer_id = ?)\n" +
+                "    (s.shift_owner_id = ? OR s.shift_volunteer_id = ?)\n" +
                 "ORDER BY \n" +
                 "    s.is_covered ASC,\n" +
                 "\ts.start_time ASC;";
@@ -129,7 +130,7 @@ public class JdbcShiftDao implements ShiftDao {
                 listOfShift.add(newshift);
             }
             if (listOfShift.isEmpty()) {
-                Shift newShift = createNewShift();
+                Shift newShift = new Shift();
                 listOfShift.add(newShift);
             }
 
@@ -163,11 +164,28 @@ public class JdbcShiftDao implements ShiftDao {
     }
 
     @Override
-    public List<Shift> getAllUncoveredShifts() {
+    public List<Shift> getAllCurrentUncoveredShifts() {
         List<Shift> uncoveredShiftList;
-        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE s.is_covered = false;";
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE s.is_covered = false AND start_time >= CURRENT_TIMESTAMP;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+            uncoveredShiftList = new ArrayList<>();
+            while (results.next()) {
+                Shift shift = mapRowsToShifts(results);
+                uncoveredShiftList.add(shift);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return uncoveredShiftList;
+    }
+
+    @Override
+    public List<Shift> getAllCurrentUncoveredShiftsNotEmployeeId(int employeeId) {
+        List<Shift> uncoveredShiftList;
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE s.is_covered = false AND start_time >= CURRENT_TIMESTAMP AND s.shift_owner_id != ?;";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, employeeId);
             uncoveredShiftList = new ArrayList<>();
             while (results.next()) {
                 Shift shift = mapRowsToShifts(results);
@@ -196,10 +214,15 @@ public class JdbcShiftDao implements ShiftDao {
         return shiftById;
     }
 
+    //SHOULD BE RENAMED TO getAllCurrentShifts
     @Override
     public List<Shift> getAllShifts() {
         List<Shift> shiftsList = new ArrayList<>();
-        String sql = ALL_COLUMN_WITH_THE_SHIFT;
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE \n" +
+                " \tstart_time >= CURRENT_TIMESTAMP\n" +
+                "ORDER BY \n" +
+                "    s.is_covered ASC,\n" +
+                "\ts.start_time ASC;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -284,10 +307,4 @@ public class JdbcShiftDao implements ShiftDao {
         }
         return shift;
     };
-    public Shift createNewShift() {
-        return new Shift(); // Assuming the Shift constructor sets default values
-    }
-
-
-
 }
