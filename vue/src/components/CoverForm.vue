@@ -18,8 +18,8 @@
                 ></v-checkbox>
               </v-col>
               <v-col cols="12">
-                <v-btn class="mr-4" color="primary" type="submit">Submit</v-btn>
-                <v-btn color="error" type="button" v-on:click="cancelForm"
+                <v-btn variant="tonal" class="mr-4" color="green" type="submit">Submit</v-btn>
+                <v-btn  color="error" type="button" v-on:click="cancelForm"
                   >Cancel</v-btn
                 >
               </v-col>
@@ -30,7 +30,7 @@
             <v-date-picker
               elevation="5"
               show-adjacent-months
-              color="primary"
+              color="light-blue-lighten-4"
               :rules="dateRules"
               v-model="coverReq.date"
             >

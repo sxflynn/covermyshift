@@ -1,7 +1,7 @@
 <template>
 
-  <v-card>
-    <v-tabs v-model="tab" bg-color="primary">
+  <v-card color="light-blue-lighten-5">
+    <v-tabs v-model="tab" bg-color="light-blue-lighten-4">
       <v-tab value="shifts">Shifts to Cover</v-tab>
       <v-tab v-if="isUser" value="myshifts">My Shifts</v-tab>
       <v-tab v-if="isUser" value="myrequests">My Requests</v-tab>
@@ -24,7 +24,7 @@
         </v-window-item>
 
         <v-window-item value="myrequests">
-          <list-requests />
+          <my-requests />
         </v-window-item>
       </v-window>
     </v-card-text>
@@ -34,12 +34,14 @@
 import ListShifts from "../components/ListShifts.vue";
 import ListRequests from "../components/ListRequests.vue";
 import ListShiftsToCover from "../components/ListShiftsToCover.vue";
+import MyRequests from "../components/MyRequests.vue";
 
 export default {
   components: {
     ListShifts,
     ListRequests,
-    ListShiftsToCover
+    ListShiftsToCover,
+    MyRequests
   },
 
   data() {
