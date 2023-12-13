@@ -86,15 +86,41 @@
       </v-col>
     </v-row>
 
+
+  
     <v-card-actions>
       <v-btn v-if="isUser" variant="tonal" color="green"
         @click="editRequest(item, isActive)" class="ma-1">
-        Save
-      </v-btn>
-      <v-btn v-if="isUser" variant="tonal" color="red" rounded text="Delete Now"
+        Update & Save
+      </v-btn> 
+      <v-dialog width="500">
+  <template v-slot:activator="{ props }">
+    <v-btn variant="tonal" color="red" v-bind="props" text="Delete"> </v-btn>
+  </template>
+
+  <template v-slot:default="{ isActive }">
+    <v-card title="Confirmation">
+      <v-card-text>
+        ARE YOU SURE YOU WANT TO DELETE THIS REQUEST?
+      </v-card-text>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn v-if="isUser" variant="tonal" color="red" rounded text="Delete Now"
         @click="deleteRequest(item.requestId, isActive)" class="ma-1">
-        Delete Now
-      </v-btn>
+        Yes, Delete
+        </v-btn>
+
+        <v-btn
+          text="Cancel"
+          @click="isActive.value = false"
+        ></v-btn>
+      </v-card-actions>
+    </v-card>
+  </template>
+</v-dialog>
+
+ 
       <v-spacer></v-spacer>
       <v-btn text="Cancel" @click="isActive.value = false" class="ma-1"></v-btn>
     </v-card-actions>

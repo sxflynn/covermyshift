@@ -9,11 +9,6 @@ export function createStore(currentToken, currentUser, currentEmployee) {
 
   let store = _createStore({
     state: {
-      snackbar: {
-        display: false,
-        text: "Snackbar message",
-        timeout: 2000
-      },
       listReqArr: [],
       listAllShiftArr:[],
       listShiftArr: [],

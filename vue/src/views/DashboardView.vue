@@ -99,7 +99,7 @@ import ListShifts from "../components/ListShifts.vue";
 import ListRequests from "../components/ListRequests.vue";
 import ListShiftsToCover from "../components/ListShiftsToCover.vue";
 import MyRequests from "../components/MyRequests.vue";
-import DataPoints from "../components/DataPoints.vue";
+import DataPoints from "../components/Datapoints.vue";
 
 
 export default {
@@ -174,6 +174,7 @@ export default {
   mounted() {
     this.$store.dispatch("fetchAllUncoveredShifts");
     this.$store.dispatch("fetchCurrentListShiftArr");
+    this.$store.dispatch("fetchCurrentAndFutureRequests");
   },
   watch: {},
 };
