@@ -9,7 +9,7 @@
     </v-tabs>
     <v-card-text>
       <v-window v-model="tab">
-        <v-window-item value="allrequests">
+        <v-window-item v-if="!isUser" value="allrequests">
           <list-requests/>
         </v-window-item>
         <v-window-item value="shifts">
