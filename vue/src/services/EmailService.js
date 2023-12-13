@@ -24,6 +24,7 @@ export default {
           return emailjs.send(serviceId, templateId, templateParams,publicKey)
             .then(function (response) {
               // Fire notification that email was sent
+              console.log("Email sent!");
             }, function (error) {
               console.error('Email failed to send', error);
             });
