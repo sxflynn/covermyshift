@@ -90,7 +90,7 @@
               
 
               <v-card-actions>
-                <v-btn v-if="isUser" variant="tonal" color="blue" rounded text="Edit" @click="editRequest(item, isActive)" class="ma-1">
+                <v-btn v-if="isUser" variant="tonal" color="light-blue" rounded text="Edit" @click="editRequest(item, isActive)" class="ma-1">
                   Edit</v-btn>
                   <div v-else>
                 <v-btn variant="tonal" color="green" rounded text="Accept" @click="acceptRequest(item, isActive)"

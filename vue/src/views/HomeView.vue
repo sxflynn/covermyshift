@@ -99,7 +99,7 @@ export default {
               this.$router.push("/dashboard");
             } else if (authority === 'ROLE_ADMIN') {
 
-              this.$router.push("/dashboard");
+              this.$router.push("/dashboard#allrequests");
             }
             
           }
