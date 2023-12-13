@@ -49,7 +49,7 @@
           <v-card-text
             class="text-h3 mt-4"
             style="display: flex; align-items: center; justify-content: center"
-            >2</v-card-text
+            >{{ calcRejectedReqs() }}</v-card-text
           >
         </v-card>
       </v-col>
@@ -125,7 +125,7 @@ export default {
     },
     calcAdminData() {
       console.log("calcAdminData is working");
-      return this.calcEmergencies();
+      return this.calcEmergencies(), this.rejectedReqs();
     },
   },
   methods: {
@@ -140,7 +140,17 @@ export default {
       });
       return emergencyCounter;
     },
+    calcRejectedReqs() {
+      let reqArr = this.$store.state.listReqArr;
+      let rejectCounter = 0;
 
+      reqArr.forEach((req) => {
+        if (req.approved === false && req.pending === false) {
+          rejectCounter++;
+        }
+      });
+      return rejectCounter;
+    },
     calcUnclaimedShifts() {
       let shiftArr = this.$store.state.listShiftArr;
       console.log("Shifts Arr " + shiftArr);
