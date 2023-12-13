@@ -12,7 +12,7 @@
               </v-col>
               <v-col cols="12">
                 <v-btn variant="tonal" class="mr-4" color="green" type="submit">Submit</v-btn>
-                <v-btn  color="error" type="button" v-on:click="cancelForm"
+                <v-btn color="error" type="button" v-on:click="cancelForm"
                   >Cancel</v-btn
                 >
               </v-col>
@@ -93,6 +93,6 @@ export default {
 
 <style>
 .v-selection-control__input input {
-  opacity: 0.5 !important;
+  opacity: 1 !important;
 }
 </style>

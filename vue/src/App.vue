@@ -23,7 +23,7 @@
             </router-link>
 
             <router-link v-bind:to="{ name: $store.state.token != '' ? 'logout' : 'login' }">
-              <v-btn color="black" variant="" class="navBtn" size="large">{{ $store.state.token != '' ? 'Logout' :
+              <v-btn color="black" class="navBtn" size="large">{{ $store.state.token != '' ? 'Logout' :
                 'Login' }}</v-btn>
             </router-link>
           </div>
