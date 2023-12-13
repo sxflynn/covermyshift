@@ -36,7 +36,7 @@ public class JdbcShiftDao implements ShiftDao {
     public List<Shift> getAllCurrentShifts() {
         List<Shift> shiftsList = new ArrayList<>();
         String sql = ALL_COLUMN_WITH_THE_SHIFT +
-                "WHERE start_time >= CURRENT_TIMESTAMP";
+                "WHERE start_time >= CURRENT_TIMESTAMP  order by start_time;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -122,7 +122,7 @@ public class JdbcShiftDao implements ShiftDao {
                 "JOIN employee AS owner ON shift.shift_owner_id = owner.employee_id\n" +
                 "JOIN employee AS volunteer ON shift.shift_volunteer_id = volunteer.employee_id\n" +
                 "JOIN request ON owner.employee_id = request.employee_id\n" +
-                "WHERE request.request_id = ?;";
+                "WHERE request.request_id = ?  order by start_time;";
         try{
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, requestId);
             while(results.next()){
@@ -149,7 +149,7 @@ public class JdbcShiftDao implements ShiftDao {
     @Override
     public List<Shift> getAllShiftsByEmployeeId(int employeeId) {
         List<Shift> getAllShiftsOfAllEmployees = new ArrayList<>();
-        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE e_owner.employee_id = ? OR e_volunteer.employee_id = ?";
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE e_owner.employee_id = ? OR e_volunteer.employee_id = ?  order by start_time";
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, employeeId, employeeId);
             while (result.next()) {
@@ -166,7 +166,7 @@ public class JdbcShiftDao implements ShiftDao {
     @Override
     public List<Shift> getAllCurrentUncoveredShifts() {
         List<Shift> uncoveredShiftList;
-        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE s.is_covered = false AND start_time >= CURRENT_TIMESTAMP;";
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE s.is_covered = false AND start_time >= CURRENT_TIMESTAMP  order by start_time;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             uncoveredShiftList = new ArrayList<>();
@@ -183,7 +183,7 @@ public class JdbcShiftDao implements ShiftDao {
     @Override
     public List<Shift> getAllCurrentUncoveredShiftsNotEmployeeId(int employeeId) {
         List<Shift> uncoveredShiftList;
-        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE s.is_covered = false AND start_time >= CURRENT_TIMESTAMP AND s.shift_owner_id != ?;";
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE s.is_covered = false AND start_time >= CURRENT_TIMESTAMP AND s.shift_owner_id != ?  order by start_time;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, employeeId);
             uncoveredShiftList = new ArrayList<>();
@@ -245,7 +245,7 @@ public class JdbcShiftDao implements ShiftDao {
                 "        DATE(s.start_time) = ? OR\n" +
                 "        DATE(s.end_time) = ? OR\n" +
                 "        ? BETWEEN DATE(s.start_time) AND DATE(s.end_time)\n" +
-                "    );";
+                "    )  order by start_time;";
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, employeeId, date, date, date);
             while (result.next()) {
