@@ -10,6 +10,7 @@ import RequestView from '../views/RequestView.vue';
 import FormView from '../views/FormView.vue'
 import TeacherView from '../views/TeacherView.vue'
 import DashboardView from '../views/DashboardView.vue'
+import Datapoints from '../components/Datapoints.vue'
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
  * inside of App.vue depending on the URL.
@@ -25,6 +26,14 @@ const routes = [
     component: HomeView,
     meta: {
       requiresAuth: false
+    }
+  },
+  {
+    path: '/datapoints',
+    name: 'datapoints',
+    component: Datapoints,
+    meta: {
+      requiresAuth: true
     }
   },
   {

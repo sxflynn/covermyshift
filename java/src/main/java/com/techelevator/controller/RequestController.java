@@ -5,6 +5,7 @@ import com.techelevator.dao.RequestDao;
 import com.techelevator.dao.ShiftDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.model.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +69,29 @@ public class RequestController {
         return requestDao.getCurrentAndFutureRequests();
     }
 
+
+    @RequestMapping(path = API_BASE_REQUEST_URL + "/delete/{requestId}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteRequestById(@PathVariable("requestId") int requestId, Principal principal) {
+        int numberOfRows = 0;
+
+        if (principalHasRole(principal, "ROLE_USER") && !requestBelongsToPrincipal(principal, requestId)) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("You do not have authority to delete the request");
+        }
+
+        if (principalHasRole(principal, "ROLE_ADMIN") || requestBelongsToPrincipal(principal, requestId)) {
+            numberOfRows = requestDao.deleteRequestById(requestId);
+            if (numberOfRows == 1) {
+                return ResponseEntity.ok(numberOfRows);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");
+        }
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body("You do not have authority to delete the request");
+    }
+
     @RequestMapping(path = API_BASE_REQUEST_URL, method = RequestMethod.PUT)
     public Request updateRequest(@RequestBody Request request, Principal principal){
 
@@ -104,5 +128,23 @@ public class RequestController {
         }
         return false;
     }
+
+    public boolean requestBelongsToPrincipal(Principal principal, int requestId) {
+        Request request = requestDao.getRequestByRequestId(requestId);
+        if (request == null) {
+            return false;
+        }
+
+        Employee employee = employeeDao.getEmployeeFromUsername(principal.getName());
+        if (employee == null) {
+            return false;
+        }
+
+        int principalEmployeeId = employee.getEmployeeId();
+        int requestEmployeeId = request.getEmployeeId();
+
+        return principalEmployeeId == requestEmployeeId;
+    }
+
 
 }

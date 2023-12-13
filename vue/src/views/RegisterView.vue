@@ -19,7 +19,7 @@
         placeholder="Confirm your password" outlined type="password" required
       ></v-text-field>
 
-      <v-btn type="submit" color="primary">Create Account</v-btn>
+      <v-btn @click="register" type="submit" color="primary">Create Account</v-btn>
       <p><router-link v-bind:to="{ name: 'home' }">Already have an account? Log in</router-link></p>
     </div>
   </v-card>
@@ -52,7 +52,7 @@ export default {
           .then((response) => {
             if (response.status == 201) {
               this.$router.push({
-                path: '/login',
+                name: 'home',
                 query: { registration: 'success' },
               });
             }

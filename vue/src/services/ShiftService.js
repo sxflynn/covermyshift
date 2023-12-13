@@ -6,7 +6,7 @@ export default {
     return axios.get('/shift/all');
   },
   getAllCurrentShifts() {
-    return axios.get('/current');
+    return axios.get('/shift/current');
   },
   updateShift(shift) {
     return axios.put('/shift', shift);

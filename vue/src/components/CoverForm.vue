@@ -1,5 +1,7 @@
 <template>
   <div class="d-flex justify-center align-center">
+   
+
     <v-form v-on:submit.prevent="submitForm" :rules="dateRules">
       <v-container>
         <v-row>
@@ -32,6 +34,7 @@
         </v-row>
       </v-container>
     </v-form>
+    
   </div>
 </template>
 
@@ -43,7 +46,7 @@ export default {
         requestId: null,
         employeeId: this.$store.state.loggedInEmployee.employeeId,
         employeeName: this.$store.state.loggedInEmployee.employeeName,
-        date: null,
+        date: new Date(Date.now()),
         employeeMessage: "",
         covered: false,
         approved: false,
@@ -60,11 +63,9 @@ export default {
   },
   methods: {
     submitForm() {
-      console.log("this.coverReq prior to dispatch is ", this.coverReq);
       this.$store
         .dispatch("createNewRequest", this.coverReq)
         .then((response) => {
-          console.log("this is the .then after the dispatch")
           this.$router.push({ name: "dashboard" });
         })
         .catch((error) => {
@@ -73,8 +74,6 @@ export default {
         this.$store.dispatch("fetchListReqArr");
     },
     cancelForm() {
-      // Go back to previous page
-      // this.$router.back();
       this.coverReq = {
         requestId: null,
         employeeId: this.$store.state.employeeId,
@@ -93,6 +92,8 @@ export default {
 
 <style>
 .v-selection-control__input input {
+  /* checkbox hack do not change */
   opacity: 1 !important;
+  /* checkbox hack do not change */
 }
 </style>

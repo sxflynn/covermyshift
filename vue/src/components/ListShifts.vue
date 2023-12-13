@@ -125,8 +125,15 @@
                   @click="updateShift(item, isActive)"
                   class="ma-1"
                 ></v-btn>
-                <v-btn v-if="isMyOwnShift===false" variant="tonal" color="green" rounded text="Claim Shift" @click="updateShift(item, isActive)"
-                  class="ma-1">
+                <v-btn
+                  v-if="isMyOwnShift === false"
+                  variant="tonal"
+                  color="green"
+                  rounded
+                  text="Claim Shift"
+                  @click="updateShift(item, isActive)"
+                  class="ma-1"
+                >
                   Claim Shift
                 </v-btn>
                 <v-spacer></v-spacer>
@@ -151,9 +158,9 @@ export default {
       headers: [
         // { title: 'Shift ID', key: 'shiftId', align: 'start' },
         // { title: 'Shift Owner ID', key: 'shiftOwnerId', align: 'start' },
-        { title: "Shift Owner", key: "shiftOwnerName", align: "start" },
+        { title: "Shift Owner", key: "shiftOwnerName", align: "center" },
         // { title: 'Shift Volunteer ID', key: 'shiftVolunteerId', align: 'start' },
-        { title: "Shift Volunteer", key: "shiftVolunteerName", align: "start" },
+        { title: "Shift Volunteer", key: "shiftVolunteerName", align: "center" },
         { title: "Date/Time", key: "startTime", align: "center" },
         // { title: 'End Time', key: 'endTime', align: 'center' },
         { title: "Covered", key: "covered", align: "center" },
@@ -186,8 +193,8 @@ export default {
         item.employeeId === this.$store.state.loggedInEmployee.employeeId
       );
       return item.employeeId === this.$store.state.loggedInEmployee.employeeId;
-    }
-},
+    },
+  },
   methods: {
     formatDateTime(startTime, endTime) {
       const start = new Date(startTime);
