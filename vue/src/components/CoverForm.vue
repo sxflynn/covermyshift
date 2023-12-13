@@ -61,7 +61,7 @@ export default {
         })
         .catch((error) => {
           console.error("Failed to submit", error);
-        }),
+        });
         this.$store.dispatch("fetchListReqArr");
     },
     cancelForm() {

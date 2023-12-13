@@ -3,7 +3,6 @@ import axios from 'axios';
 import RequestService from '../services/RequestService';
 import ShiftService from '../services/ShiftService';
 import AuthService from '../services/AuthService';
-import emailjs from '@emailjs/browser';
 
 export function createStore(currentToken, currentUser, currentEmployee) {
 
@@ -122,12 +121,12 @@ export function createStore(currentToken, currentUser, currentEmployee) {
             const publicKey = 'VZnKmVeJRMukHAUH0';
             const templateId = 'template_r7geovx';
             const serviceId = 'service_xsowi2y';
-            emailjs.send(serviceId, templateId, templateParams,publicKey)
-              .then(function (response) {
-                // Fire notification that email was sent
-              }, function (error) {
-                console.error('Email failed to send', error);
-              });
+            // emailjs.send(serviceId, templateId, templateParams,publicKey)
+            //   .then(function (response) {
+            //     // Fire notification that email was sent
+            //   }, function (error) {
+            //     console.error('Email failed to send', error);
+            //   });
 
             commit('UPDATE_REQUEST_SUCCESS', response.data);
             return response;
