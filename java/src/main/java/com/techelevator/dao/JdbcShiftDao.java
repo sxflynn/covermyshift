@@ -130,7 +130,7 @@ public class JdbcShiftDao implements ShiftDao {
                 listOfShift.add(newshift);
             }
             if (listOfShift.isEmpty()) {
-                Shift newShift = createNewShift();
+                Shift newShift = new Shift();
                 listOfShift.add(newShift);
             }
 
@@ -163,10 +163,11 @@ public class JdbcShiftDao implements ShiftDao {
 
     }
 
+    //TODO SHOULD BE RENAMED TO getAllCurrentUncoveredShifts
     @Override
     public List<Shift> getAllUncoveredShifts() {
         List<Shift> uncoveredShiftList;
-        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE s.is_covered = false;";
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE s.is_covered = false AND start_time >= CURRENT_TIMESTAMP;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             uncoveredShiftList = new ArrayList<>();
@@ -290,10 +291,4 @@ public class JdbcShiftDao implements ShiftDao {
         }
         return shift;
     };
-    public Shift createNewShift() {
-        return new Shift(); // Assuming the Shift constructor sets default values
-    }
-
-
-
 }

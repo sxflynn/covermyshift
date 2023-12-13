@@ -91,8 +91,14 @@ public class ShiftController {
         return ResponseEntity.ok(shift);
     }
 
+    // Use this for the Shift claiming interface in the frontend
     @RequestMapping(path = API_BASE_SHIFT_URL + "/uncovered", method = RequestMethod.GET)
-    public ResponseEntity<List<Shift>> getAllUncoveredShifts() {
+    public ResponseEntity<List<Shift>> getAllUncoveredShifts(Principal principal) {
+        if (principalHasRole(principal, "ROLE_USER")){
+            // call the DAO for all uncovered shifts not mine
+        } else if (principalHasRole(principal, "ROLE_ADMIN")){
+            // call the DAO for all uncovered shifts
+        }
         List<Shift> shiftList = shiftDao.getAllUncoveredShifts();
         return ResponseEntity.ok(shiftList);
     }
