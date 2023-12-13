@@ -23,4 +23,9 @@ export default {
     return axios.get('/request/current');
   },
 
+  deleteRequestById(requestId){
+    return axios.delete(`/request/delete/${requestId}`);
+}
+
+
 };
