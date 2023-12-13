@@ -124,23 +124,9 @@
                   text="Claim Shift"
                   @click="updateShift(item, isActive)"
                   class="ma-1"
-<<<<<<< HEAD
-                >
-                </v-btn>
-                <v-btn
-                  v-if="isMyOwnShift === false"
-                  variant="tonal"
-                  color="green"
-                  rounded
-                  text="Claim Shift"
-                  @click="updateShift(item, isActive)"
-                  class="ma-1"
-                >
-=======
                 ></v-btn>
                 <v-btn v-if="isMyOwnShift===false" variant="tonal" color="green" rounded text="Claim Shift" @click="updateShift(item, isActive)"
                   class="ma-1">
->>>>>>> c731ff55c866c58666efe6cc2b075381bf2ee8c2
                   Claim Shift
                 </v-btn>
                 <v-spacer></v-spacer>
@@ -200,13 +186,8 @@ export default {
         item.employeeId === this.$store.state.loggedInEmployee.employeeId
       );
       return item.employeeId === this.$store.state.loggedInEmployee.employeeId;
-<<<<<<< HEAD
-    },
-  },
-=======
     }
 },
->>>>>>> c731ff55c866c58666efe6cc2b075381bf2ee8c2
   methods: {
     formatDateTime(startTime, endTime) {
       const start = new Date(startTime);
