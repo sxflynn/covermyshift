@@ -3,6 +3,7 @@ import axios from 'axios';
 import RequestService from '../services/RequestService';
 import ShiftService from '../services/ShiftService';
 import AuthService from '../services/AuthService';
+import EmailService from '../services/EmailService'
 
 export function createStore(currentToken, currentUser, currentEmployee) {
 

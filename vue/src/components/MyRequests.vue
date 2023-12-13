@@ -159,7 +159,6 @@ export default {
     },
   },
   methods: {
-    //TODO CREATE EDIT REQUEST FUNCTION
     editRequest(item, isActive) {
       this.$store
         .dispatch("updateRequest", item)
