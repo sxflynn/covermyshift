@@ -37,6 +37,7 @@ public class ShiftController {
     public ResponseEntity<List<Shift>> getAllShifts(Principal principal){
         int employeeId = employeeDao.getEmployeeFromUsername(userDao.getUserFromPrincipal(principal).getUsername()).getEmployeeId();
         if (principalHasRole(principal, "ROLE_USER")){
+
             List<Shift> shiftList = shiftDao.getAllCurrentUncoveredShifts(employeeId);
             if (shiftList.isEmpty()){
                 return ResponseEntity.noContent().build();

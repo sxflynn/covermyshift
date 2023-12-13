@@ -59,12 +59,13 @@ public class JdbcShiftDao implements ShiftDao {
     }
 
     //TODO write test for this
+    //TODO Should be renamed getAllCurrentShiftsByEmployeeId
     @Override
     public List<Shift> getAllCurrentUncoveredShifts(int employeeId) {
         List<Shift> shiftsList = new ArrayList<>();
         String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE \n" +
                 " \tstart_time >= CURRENT_TIMESTAMP AND\n" +
-                "    (s.is_covered = FALSE OR s.shift_owner_id = ? OR s.shift_volunteer_id = ?)\n" +
+                "    (s.shift_owner_id = ? OR s.shift_volunteer_id = ?)\n" +
                 "ORDER BY \n" +
                 "    s.is_covered ASC,\n" +
                 "\ts.start_time ASC;";
@@ -196,10 +197,15 @@ public class JdbcShiftDao implements ShiftDao {
         return shiftById;
     }
 
+    //SHOULD BE RENAMED TO getAllCurrentShifts
     @Override
     public List<Shift> getAllShifts() {
         List<Shift> shiftsList = new ArrayList<>();
-        String sql = ALL_COLUMN_WITH_THE_SHIFT;
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE \n" +
+                " \tstart_time >= CURRENT_TIMESTAMP\n" +
+                "ORDER BY \n" +
+                "    s.is_covered ASC,\n" +
+                "\ts.start_time ASC;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {

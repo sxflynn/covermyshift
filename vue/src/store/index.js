@@ -10,7 +10,7 @@ export function createStore(currentToken, currentUser, currentEmployee) {
     state: {
       listReqArr: [],
       listShiftArr: [],
-      listUncoveredShiftsArr:[],
+      listUncoveredShiftsArr: [],
       token: currentToken || '',
       user: currentUser || {},
       loggedInEmployee: currentEmployee || {}
@@ -22,7 +22,6 @@ export function createStore(currentToken, currentUser, currentEmployee) {
       SET_LIST_REQ_ARR(state, list) {
         state.listReqArr = list;
         console.log("listReqArr is now size ", state.listReqArr.length)
-        console.log('this.$store.state.listReqArr is ', state.listReqArr);
       },
       UPDATE_REQUEST_SUCCESS(state, responseData) {
         state.listReqArr.push(responseData);
@@ -34,7 +33,6 @@ export function createStore(currentToken, currentUser, currentEmployee) {
         state.listShiftArr = list;
       },
       UPDATE_SHIFT_SUCCESS(state, responseData) {
-        console.log("UPDATE_SHIFT_SUCCESS responseData is ", responseData)
         const index = state.listShiftArr.findIndex(shift => shift.id === responseData.id);
         if (index !== -1) {
           state.listShiftArr.splice(index, 1, responseData);
@@ -83,7 +81,7 @@ export function createStore(currentToken, currentUser, currentEmployee) {
       fetchMyIdentity({ commit }) {
         return AuthService.whoami()
           .then(response => {
-            console.log("who am I:", response.data); // return employee object
+
             commit('SET_EMPLOYEE_INFO', response.data);
           })
           .catch(error => {
@@ -94,7 +92,7 @@ export function createStore(currentToken, currentUser, currentEmployee) {
       fetchListReqArr({ commit }) {
         return RequestService.list()
           .then(response => {
-            console.log("Fetched data:", response.data); // Debugging line
+
 
             commit('SET_LIST_REQ_ARR', response.data);
           })
@@ -106,8 +104,31 @@ export function createStore(currentToken, currentUser, currentEmployee) {
       createNewRequest({ commit }, requestData) {
         return RequestService.create(requestData)
           .then(response => {
+            
+  
+            const email = {
+              fromName: this.state.loggedInEmployee.employeeName,
+              message: `The employee, ${this.state.loggedInEmployee.employeeName} has requested time off for the day of ${response.data.date}. They have included the following message: ${response.data.employeeMessage}` + (response.data.emergency ? " This is an emergency request!" : ""),
+              replyTo: this.state.loggedInEmployee.email
+            }
+            
+            const templateParams = {
+              from_name: email.fromName,
+              message: email.message,
+              reply_to: email.replyTo
+            };
+            
+            const publicKey = 'VZnKmVeJRMukHAUH0';
+            const templateId = 'template_r7geovx';
+            const serviceId = 'service_xsowi2y';
+            // emailjs.send(serviceId, templateId, templateParams,publicKey)
+            //   .then(function (response) {
+            //     // Fire notification that email was sent
+            //   }, function (error) {
+            //     console.error('Email failed to send', error);
+            //   });
+
             commit('UPDATE_REQUEST_SUCCESS', response.data);
-            console.log("createNewRequest response is ", response)
             return response;
           })
           .catch(error => {
@@ -159,7 +180,7 @@ export function createStore(currentToken, currentUser, currentEmployee) {
             throw error;
           });
       },
-      // Correctly placed the fetchCurrentAndFutureRequests action within the actions object
+
       fetchCurrentAndFutureRequests({ commit }) {
         return RequestService.getCurrentAndFutureRequests()
           .then(response => {
@@ -170,7 +191,7 @@ export function createStore(currentToken, currentUser, currentEmployee) {
             throw error;
           });
       },
-      // other actions...
+
     },
   });
   return store;

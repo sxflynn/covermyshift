@@ -7,10 +7,6 @@
       <v-tab v-if="isUser" value="myrequests">My Requests</v-tab>
       <v-tab v-else value="myrequests">All Requests</v-tab>
     </v-tabs>
-
-   
-  
-
     <v-card-text>
       <v-window v-model="tab">
         <v-window-item value="shifts">
@@ -66,7 +62,6 @@ export default {
   },
   computed: {
     isUser() {
-      console.log("My authority is ", this.$store.state.user.authorities[0].name)
       return this.$store.state.user.authorities[0].name === 'ROLE_USER';
     },
   }

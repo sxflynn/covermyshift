@@ -61,11 +61,10 @@ export default {
   },
   computed: {
     numberOfUncoveredShifts(){
-      console.log("this.$store.state.listUncoveredShiftsArr.length is", this.$store.state.listUncoveredShiftsArr.length);
+      console.log("badge icon now ", this.$store.state.listUncoveredShiftsArr.length);
       return this.$store.state.listUncoveredShiftsArr.length;
         },
     isLoggedIn() {
-      console.log("The username is ", this.$store.state.user.username)
       return this.$store.state.user.username !== undefined;
     },
     displayWelcome() {
@@ -77,8 +76,6 @@ export default {
       return '';
     },
     displayEmployeeName() {
-      // Check if user object exists and has a username property
-      console.log("this.$store.state.loggedInEmployee: ", this.$store.state.loggedInEmployee)
       if (this.$store.state.loggedInEmployee) {
         return this.$store.state.loggedInEmployee.employeeName;
       }
