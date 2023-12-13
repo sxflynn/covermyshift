@@ -12,7 +12,7 @@
           <v-card-text
             class="text-h3 mt-4"
             style="display: flex; align-items: center; justify-content: center"
-            >{{ this.$store.state.listReqArr.length }}</v-card-text
+            >{{ calcEmergencies() }}</v-card-text
           >
         </v-card>
       </v-col>
@@ -26,7 +26,7 @@
           <v-card-text
             class="text-h3 mt-4"
             style="display: flex; align-items: center; justify-content: center"
-            >0</v-card-text
+            >{{ calcUnclaimedShifts() }}</v-card-text
           >
         </v-card>
       </v-col>
@@ -99,6 +99,9 @@ export default {
 
   data() {
     return {
+      unclaimedShifts: null,
+      emergencyReqs: null,
+      rejectedReqs: null,
       tab: null,
       showShifts: true,
       showForm: false,
@@ -120,10 +123,33 @@ export default {
     isUser() {
       return this.$store.state.user.authorities[0].name === "ROLE_USER";
     },
+    calcAdminData() {
+      console.log("calcAdminData is working");
+      return this.calcEmergencies();
+    },
   },
-  mounted() {},
+  methods: {
+    calcEmergencies() {
+      let reqArr = this.$store.state.listReqArr;
+      let emergencyCounter = 0;
+
+      reqArr.forEach((req) => {
+        if (req.emergency === true) {
+          emergencyCounter++;
+        }
+      });
+      return emergencyCounter;
+    },
+
+    calcUnclaimedShifts() {
+      let shiftArr = this.$store.state.listShiftArr;
+      console.log("Shifts Arr " + shiftArr);
+    },
+  },
+  mounted() {
+    this.calcUnclaimedShifts();
+  },
   watch: {},
-  methods: {},
 };
 </script>
 <style>
