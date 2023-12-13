@@ -18,7 +18,8 @@
             </router-link>
             <router-link v-bind:to="{ name: 'dashboard' }">
               <v-btn color="black" class="navBtn" size="large">Dashboard</v-btn>
-              <v-badge v-if="numberOfUncoveredShifts>0" :content="numberOfUncoveredShifts" offset-y="-20" offset-x="10" bordered="true" color="red">
+              <v-badge v-if="numberOfUncoveredShifts > 0" :content="numberOfUncoveredShifts" offset-y="-20" offset-x="10"
+                bordered="true" color="red">
               </v-badge>
             </router-link>
 
@@ -42,14 +43,17 @@
 
 
     </v-container>
-    <footer @click="handleClick" style="color: rgb(40, 56, 61); cursor: pointer; display: flex; justify-content: space-evenly; word-spacing: 5px; padding: 20px; font-size: 10px;">
-      <p>Copyright</p>
-      <p>Information</p>
-      <p>Privacy</p>
-      <p>Tech Elevator</p>
-      <p>Contact</p>
-    </footer>
-     </v-app>
+    <v-footer color="primary" id="footer">
+      <ul class="footer-list">
+        <li>Copyright</li>
+      <li>Information</li>
+      <li>Privacy</li>
+      <li>Tech Elevator</li>
+      <li>Contact</li>
+      </ul>
+
+    </v-footer>
+  </v-app>
 </template>
 <script>
 export default {
@@ -60,10 +64,10 @@ export default {
     },
   },
   computed: {
-    numberOfUncoveredShifts(){
+    numberOfUncoveredShifts() {
       console.log("badge icon now ", this.$store.state.listUncoveredShiftsArr.length);
       return this.$store.state.listUncoveredShiftsArr.length;
-        },
+    },
     isLoggedIn() {
       return this.$store.state.user.username !== undefined;
     },
@@ -139,13 +143,44 @@ export default {
 
 }
 
+#footer {
+  font-family: "League Spartan";
+  
+  color: rgb(40, 56, 61);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-evenly;
+  word-spacing: 5px;
+  padding: 20px;
+  font-size: 1rem;
+}
 
+  /* Additional styles for the horizontal list */
+  .footer-list {
+    list-style: none; /* Removes bullet points */
+    display: flex; /* Enables flexbox */
+    justify-content: center; /* Centers the list items */
+    align-items: center; /* Aligns items vertically */
+    padding: 0; /* Removes default padding */
+    margin: 0; /* Removes default margin */
+  }
+
+  .footer-list li {
+    margin-right: 30px; /* Adds spacing between list items */
+  }
+
+  .footer-list li:last-child {
+    margin-right: 0; /* Removes margin for the last list item */
+  }
 
 
 #welcome {
   font-family: "League Spartan";
   text-transform: uppercase;
 }
+
+
+
 </style>
 
 
