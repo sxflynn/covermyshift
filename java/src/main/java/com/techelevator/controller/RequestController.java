@@ -34,7 +34,6 @@ public class RequestController {
 
 
     @RequestMapping(path = API_BASE_REQUEST_URL, method = RequestMethod.GET)
-    //TODO change this to ResponseEntity, look at shift controller for examples
     public ResponseEntity<List<Request>> getAllRequests(Principal principal){
 
         if (principalHasRole(principal, "ROLE_USER")){

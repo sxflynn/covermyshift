@@ -10,6 +10,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.security.AlgorithmConstraints;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,9 +60,8 @@ public class JdbcShiftDao implements ShiftDao {
     }
 
     //TODO write test for this
-    //TODO Should be renamed getAllCurrentShiftsByEmployeeId
     @Override
-    public List<Shift> getAllCurrentUncoveredShifts(int employeeId) {
+    public List<Shift> getAllCurrentShiftsByEmployeeId(int employeeId) {
         List<Shift> shiftsList = new ArrayList<>();
         String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE \n" +
                 " \tstart_time >= CURRENT_TIMESTAMP AND\n" +
@@ -163,13 +163,29 @@ public class JdbcShiftDao implements ShiftDao {
 
     }
 
-    //TODO SHOULD BE RENAMED TO getAllCurrentUncoveredShifts
     @Override
-    public List<Shift> getAllUncoveredShifts() {
+    public List<Shift> getAllCurrentUncoveredShifts() {
         List<Shift> uncoveredShiftList;
         String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE s.is_covered = false AND start_time >= CURRENT_TIMESTAMP;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+            uncoveredShiftList = new ArrayList<>();
+            while (results.next()) {
+                Shift shift = mapRowsToShifts(results);
+                uncoveredShiftList.add(shift);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return uncoveredShiftList;
+    }
+
+    @Override
+    public List<Shift> getAllCurrentUncoveredShiftsNotEmployeeId(int employeeId) {
+        List<Shift> uncoveredShiftList;
+        String sql = ALL_COLUMN_WITH_THE_SHIFT + "WHERE s.is_covered = false AND start_time >= CURRENT_TIMESTAMP AND s.shift_owner_id != ?;";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, employeeId);
             uncoveredShiftList = new ArrayList<>();
             while (results.next()) {
                 Shift shift = mapRowsToShifts(results);

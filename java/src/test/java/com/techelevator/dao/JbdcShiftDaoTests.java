@@ -172,7 +172,7 @@ public class JbdcShiftDaoTests extends BaseDaoTests {
     public void get_all_uncovered_shifts(){
         Shift testShift = SHIFT_2;
         List<Shift> realList = new ArrayList<>();
-        realList = dao.getAllUncoveredShifts();
+        realList = dao.getAllCurrentUncoveredShifts();
         assertShiftsMatch(realList.get(0),SHIFT_1);
         assertShiftsMatch(realList.get(1),SHIFT_3);
     }
