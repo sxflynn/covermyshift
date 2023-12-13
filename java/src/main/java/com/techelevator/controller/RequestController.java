@@ -5,6 +5,7 @@ import com.techelevator.dao.RequestDao;
 import com.techelevator.dao.ShiftDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.model.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -66,6 +67,18 @@ public class RequestController {
     //TODO change this to ResponseEntity
     public List<Request> getPresentAndFutureRequests(){
         return requestDao.getCurrentAndFutureRequests();
+    }
+
+
+    @RequestMapping(path = API_BASE_REQUEST_URL + "/delete/{requestId}", method = RequestMethod.DELETE)
+    public ResponseEntity <Integer> deleteRequestById(@PathVariable("requestId") int requestId){
+        int numberOfRows = 0;
+
+        numberOfRows = requestDao.deleteRequestById(requestId);
+        if (numberOfRows == 1){
+            return ResponseEntity.ok(numberOfRows);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(0); // Return 404 Not Found if nothing was deleted
     }
 
     @RequestMapping(path = API_BASE_REQUEST_URL, method = RequestMethod.PUT)
