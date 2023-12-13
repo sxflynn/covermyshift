@@ -41,12 +41,12 @@
             <v-btn @click="login" block="" color="green" size="large" variant="tonal" type="submit" class="allText">
               Log In
             </v-btn>
-
+            <router-link v-bind:to="{ name: 'register' }">
             <v-card-text class="text-center">
-              <a class="text-blue text-decoration-none" href="#" rel="noopener noreferrer" target="_blank">
                 Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
-              </a>
+              
             </v-card-text>
+            </router-link>
           </v-card>
         </v-form>
         </div>
