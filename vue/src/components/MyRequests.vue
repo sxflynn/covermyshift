@@ -81,15 +81,19 @@
       <!-- Right side with date picker -->
       <v-col cols="auto">
      // TODO fix the Type bug when you try to edit the date
-          <v-date-picker v-model="item.date" />
+          <!-- <v-date-picker v-model="item.date" /> -->
    
       </v-col>
     </v-row>
 
     <v-card-actions>
-      <v-btn v-if="isUser" variant="tonal" color="green" rounded text="Edit"
+      <v-btn v-if="isUser" variant="tonal" color="green"
         @click="editRequest(item, isActive)" class="ma-1">
         Save
+      </v-btn>
+      <v-btn v-if="isUser" variant="tonal" color="red" rounded text="Delete Now"
+        @click="deleteRequest(item.requestId, isActive)" class="ma-1">
+        Delete Now
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn text="Cancel" @click="isActive.value = false" class="ma-1"></v-btn>
@@ -106,6 +110,8 @@
 </template>
   
 <script>
+import RequestService from '../services/RequestService';
+
 export default {
   data() {
     return {
@@ -177,6 +183,17 @@ export default {
         .catch((error) => {
           console.error("Error updating shift: ", error);
         });
+    },
+    deleteRequest(requestId, isActive){
+      console.log("Request Id in delete method is ", requestId);
+      this.$store.dispatch("deleteRequestById",requestId)
+      .then((response)=>{
+        isActive.value = false;
+        console.log("Successfully deleted request ID ", requestId);
+      })
+      .catch((error)=>{
+        console.error("Error deleting shift: ",error);
+      })
     }
 
   },

@@ -9,9 +9,9 @@ export function createStore(currentToken, currentUser, currentEmployee) {
   let store = _createStore({
     state: {
       snackbar: {
-        display:false,
+        display: false,
         text: "Snackbar message",
-        timeout:2000
+        timeout: 2000
       },
       listReqArr: [],
       listShiftArr: [],
@@ -48,6 +48,14 @@ export function createStore(currentToken, currentUser, currentEmployee) {
       UPDATE_SHIFT_FAILURE(state, error) {
         console.error('Shift update failed:', error);
       },
+      DELETE_REQUEST(state, requestId) {
+        const index = state.listReqArr.findIndex(req => req.requestId === requestId);
+        if (index !== -1) {
+          state.listReqArr.splice(index, 1);
+        } else {
+          console.error('Request not found: ', requestId);
+        }
+      },
       SET_EMPLOYEE_INFO(state, employeeData) {
         state.loggedInEmployee = employeeData;
         localStorage.setItem('loggedInEmployee', JSON.stringify(employeeData));
@@ -73,7 +81,16 @@ export function createStore(currentToken, currentUser, currentEmployee) {
 
     },
     actions: {
-   
+      deleteRequestById({ commit }, requestId) {
+        return RequestService.deleteRequestById(requestId)
+          .then(response => {
+            commit('DELETE_REQUEST', requestId);
+          })
+          .catch(error => {
+            console.error('Error deleting request', error);
+            throw error;
+          });
+      },
       fetchAllUncoveredShifts({ commit }) {
         return ShiftService.getAllUncoveredShifts()
           .then(response => {
@@ -108,20 +125,20 @@ export function createStore(currentToken, currentUser, currentEmployee) {
       createNewRequest({ commit }, requestData) {
         return RequestService.create(requestData)
           .then(response => {
-            
-  
+
+
             const email = {
               fromName: this.state.loggedInEmployee.employeeName,
               message: `The employee, ${this.state.loggedInEmployee.employeeName} has requested time off for the day of ${response.data.date}. They have included the following message: ${response.data.employeeMessage}` + (response.data.emergency ? " This is an emergency request!" : ""),
               replyTo: this.state.loggedInEmployee.email
             }
-            
+
             const templateParams = {
               from_name: email.fromName,
               message: email.message,
               reply_to: email.replyTo
             };
-            
+
             const publicKey = 'VZnKmVeJRMukHAUH0';
             const templateId = 'template_r7geovx';
             const serviceId = 'service_xsowi2y';

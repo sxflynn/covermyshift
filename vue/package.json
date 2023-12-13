@@ -14,7 +14,9 @@
     "@syncfusion/ej2-vue-charts": "^23.2.7",
     "@vuelidate/core": "^2.0.3",
     "axios": "^0.21.4",
+    "chart.js": "^4.4.1",
     "vue": "^3.3.4",
+    "vue-chartjs": "^5.2.0",
     "vue-router": "^4.2.1",
     "vuetify": "^3.4.5",
     "vuex": "^4.1.0"
