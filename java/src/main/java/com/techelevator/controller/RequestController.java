@@ -64,9 +64,20 @@ public class RequestController {
         return requestDao.createRequest(request);
     }
     @RequestMapping(path = API_BASE_REQUEST_URL + "/current", method = RequestMethod.GET)
-    //TODO change this to ResponseEntity
-    public List<Request> getPresentAndFutureRequests(){
-        return requestDao.getCurrentAndFutureRequests();
+    public ResponseEntity <List<Request>> getPresentAndFutureRequests(Principal principal){
+        if (principalHasRole(principal, "ROLE_USER")){
+            User employeeUser = userDao.getUserFromPrincipal(principal);
+            String username = employeeUser.getUsername();
+            Employee employee = employeeDao.getEmployeeFromUsername(username);
+
+            List<Request> requestList = requestDao.getRequestsByEmployeeId(employee.getEmployeeId());
+            if (requestList.isEmpty()){
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(requestList);
+        }
+
+        return ResponseEntity.ok(requestDao.getCurrentAndFutureRequests());
     }
 
 
