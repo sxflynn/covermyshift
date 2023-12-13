@@ -5,7 +5,7 @@
         <v-card
           height="8rem"
           elevation="3"
-          color="orange"
+          color="red-lighten-1"
           class="text-h3 text-center"
           title="Emergency Requests"
         >
@@ -21,7 +21,7 @@
         <v-card
           class="text-center"
           height="8rem"
-          color="red"
+          color="blue-lighten-4"
           title="Unclaimed Shifts"
         >
           <v-card-text
@@ -37,7 +37,7 @@
           class="text-center"
           height="8rem"
           title="Shifts Covered"
-          color="green"
+          color="grey-lighten-4"
         >
           <v-card-text
             class="text-h3 mt-4"
@@ -50,7 +50,7 @@
         <v-card
           class="text-center"
           height="8rem"
-          color="yellow"
+          color="blue-grey-lighten-3"
           title="Rejected Requests"
         >
           <v-card-text
