@@ -125,8 +125,15 @@
                   @click="updateShift(item, isActive)"
                   class="ma-1"
                 ></v-btn>
-                <v-btn v-if="isMyOwnShift===false" variant="tonal" color="green" rounded text="Claim Shift" @click="updateShift(item, isActive)"
-                  class="ma-1">
+                <v-btn
+                  v-if="isMyOwnShift === false"
+                  variant="tonal"
+                  color="green"
+                  rounded
+                  text="Claim Shift"
+                  @click="updateShift(item, isActive)"
+                  class="ma-1"
+                >
                   Claim Shift
                 </v-btn>
                 <v-spacer></v-spacer>
@@ -186,8 +193,8 @@ export default {
         item.employeeId === this.$store.state.loggedInEmployee.employeeId
       );
       return item.employeeId === this.$store.state.loggedInEmployee.employeeId;
-    }
-},
+    },
+  },
   methods: {
     formatDateTime(startTime, endTime) {
       const start = new Date(startTime);
