@@ -2,13 +2,16 @@
 
   <v-card color="light-blue-lighten-5">
     <v-tabs v-model="tab" bg-color="light-blue-lighten-4">
+      <v-tab v-if="!isUser" value="allrequests">All Requests</v-tab>
       <v-tab value="shifts">Shifts to Cover</v-tab>
       <v-tab v-if="isUser" value="myshifts">My Shifts</v-tab>
       <v-tab v-if="isUser" value="myrequests">My Requests</v-tab>
-      <v-tab v-else value="allrequests">All Requests</v-tab>
     </v-tabs>
     <v-card-text>
       <v-window v-model="tab">
+        <v-window-item value="allrequests">
+          <list-requests/>
+        </v-window-item>
         <v-window-item value="shifts">
           
           <list-shifts-to-cover />
@@ -19,9 +22,7 @@
           
         </v-window-item>
 
-        <v-window-item value="allrequests">
-          <list-requests/>
-        </v-window-item>
+
 
         <v-window-item value="myrequests">
           <my-requests />
