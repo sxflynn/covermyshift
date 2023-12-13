@@ -160,6 +160,7 @@ export default {
           .then((response) =>{
             isActive.value = false;
             console.log("response is ", response);
+            this.$store.dispatch("fetchAllUncoveredShifts");
           })
           .catch((error) => {
           console.error("Error updating shift: ", error);
