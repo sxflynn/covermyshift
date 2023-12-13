@@ -80,11 +80,16 @@ public class RequestController {
                     .body("You do not have authority to delete the request");
         }
 
-        numberOfRows = requestDao.deleteRequestById(requestId);
-        if (numberOfRows == 1) {
-            return ResponseEntity.ok(numberOfRows);
+        if (principalHasRole(principal, "ROLE_ADMIN") || requestBelongsToPrincipal(principal, requestId)) {
+            numberOfRows = requestDao.deleteRequestById(requestId);
+            if (numberOfRows == 1) {
+                return ResponseEntity.ok(numberOfRows);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found"); // Return 404 Not Found if nothing was deleted
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body("You do not have authority to delete the request");
     }
 
     @RequestMapping(path = API_BASE_REQUEST_URL, method = RequestMethod.PUT)
