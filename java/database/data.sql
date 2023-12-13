@@ -15,17 +15,16 @@ VALUES ('Steve C.', 'user', 'stephenxflynn+steve@gmail.com'),
 
 INSERT INTO request (employee_id, date, is_emergency, is_pending, is_covered, is_approved, message, workplace_id)
 VALUES
-(1, '2023-12-12', true, true, false, false, 'Emergency: Family situation', 1),
-(1, '2023-12-14', false, true, false, false, 'Need day off for rest', 1),
+(1, '2023-12-26', false, true, false, false, 'Need day off for rest', 1),
 
 (2, '2023-12-13', true, true, false, false, 'Urgent: Medical appointment', 1),
-(2, '2023-12-15', false, true, false, false, 'Personal day required', 1),
+(2, '2023-12-15', false, false, true, true, 'Personal day required', 1),
 
 (3, '2023-12-18', true, true, false, false, 'Emergency: Car repair needed', 1),
 (3, '2023-12-20', false, true, false, false, 'Requesting off for event', 1),
 
 (4, '2023-12-19', true, true, false, false, 'Urgent: Childcare issue', 1),
-(4, '2023-12-21', false, true, false, false, 'Day off for relaxation', 1);
+(4, '2023-12-20', false, false, false, true, 'Day off for relaxation', 1);
 
 
 INSERT INTO Shift (is_covered, shift_owner_id, start_time, end_time, shift_volunteer_id)
@@ -37,10 +36,11 @@ VALUES
   (TRUE, 1, '2023-12-07 08:00:00', '2023-12-07 12:00:00', null),
   (TRUE, 1, '2023-12-08 10:00:00', '2023-12-08 14:00:00', null),
   (TRUE, 1, '2023-12-11 09:00:00', '2023-12-11 13:00:00', null),
+  (TRUE, 1, '2023-12-12 09:00:00', '2023-12-12 13:00:00', null),
 
   (TRUE, 1, '2023-12-13 08:00:00', '2023-12-13 12:00:00', null),
 
-  (TRUE, 1, '2023-12-15 09:00:00', '2023-12-15 13:00:00', null),
+
   (TRUE, 1, '2023-12-18 08:00:00', '2023-12-18 12:00:00', null),
   (TRUE, 1, '2023-12-19 10:00:00', '2023-12-19 14:00:00', null),
   (TRUE, 1, '2023-12-20 09:00:00', '2023-12-20 13:00:00', null),
@@ -84,6 +84,7 @@ VALUES
   (TRUE, 3, '2023-12-11 08:00:00', '2023-12-11 12:00:00', null), -- Monday
   (TRUE, 3, '2023-12-12 08:00:00', '2023-12-12 12:00:00', null), -- Tuesday
   (TRUE, 3, '2023-12-14 08:00:00', '2023-12-14 12:00:00', null), -- Thursday
+  (TRUE, 2, '2023-12-15 09:00:00', '2023-12-15 13:00:00', 3),
 
 
   (TRUE, 3, '2023-12-21 08:00:00', '2023-12-21 12:00:00', null), -- Thursday
@@ -96,7 +97,7 @@ VALUES
   (TRUE, 4, '2023-12-08 08:00:00', '2023-12-08 12:00:00', null), -- Friday
   (TRUE, 4, '2023-12-13 08:00:00', '2023-12-13 12:00:00', null), -- Wednesday
   (TRUE, 4, '2023-12-15 08:00:00', '2023-12-15 12:00:00', null), -- Friday
-  (TRUE, 4, '2023-12-20 08:00:00', '2023-12-20 12:00:00', null), -- Wednesday
+  (FALSE, 4, '2023-12-20 08:00:00', '2023-12-20 12:00:00', null), -- Wednesday
   (TRUE, 4, '2023-12-22 08:00:00', '2023-12-22 12:00:00', null), -- Friday
   (TRUE, 4, '2023-12-06 08:00:00', '2023-12-06 12:00:00', null), -- Wednesday
   (TRUE, 4, '2023-12-08 08:00:00', '2023-12-08 12:00:00', null), -- Friday
