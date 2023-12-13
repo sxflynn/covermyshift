@@ -55,29 +55,37 @@
 
           <template v-slot:default="{ isActive }">
   <v-card class="ma-2">
-    <v-card-title class="headline">Time Off Request</v-card-title>
+    <v-card-title class="headline">Edit Time Off Request</v-card-title>
+    <v-card-title subtitle="Edit"></v-card-title>
     
     <v-row>
       <!-- Left side content -->
       <v-col>
-        <v-container fluid>
-          <v-row justify="center">
-            <v-radio-group v-model="item.emergency">
-              <v-col>
-                <v-radio label="Emergency" value="true"></v-radio>
-              </v-col>
-              <v-col>
-                <v-radio label="Vacation" value="false"></v-radio>
-              </v-col>
-            </v-radio-group>
-          </v-row>
-          <v-row>
-            <v-text-field label="Message" outlined dense v-model="item.employeeMessage"></v-text-field>
-          </v-row>
-        </v-container>
-        <v-text-field v-if="!isUser" label="Message to employee" outlined dense v-model="item.managerMessage"></v-text-field>
-      </v-col>
-
+    <v-container fluid>
+      <v-row>
+        <v-radio-group v-model="item.emergency">
+          <v-col style="display: inline-block;">
+            <v-radio
+              label="Emergency"
+              value="true"
+              color="red"
+            ></v-radio>
+          </v-col>
+          <v-col style="display: inline-block;">
+            <v-radio
+              label="Vacation"
+              value="false"
+              color="blue"
+            ></v-radio>
+          </v-col>
+        </v-radio-group>
+      </v-row>
+      <v-row>
+        <v-text-field label="Message" outlined dense v-model="item.employeeMessage"></v-text-field>
+      </v-row>
+    </v-container>
+    <v-text-field v-if="!isUser" label="Message to employee" outlined dense v-model="item.managerMessage"></v-text-field>
+  </v-col>
       <!-- Right side with date picker -->
       <v-col cols="auto">
      // TODO fix the Type bug when you try to edit the date
