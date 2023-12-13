@@ -7,7 +7,6 @@ import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import RequestView from '../views/RequestView.vue';
-import ListRequests from '../components/ListRequests.vue';
 import FormView from '../views/FormView.vue'
 import TeacherView from '../views/TeacherView.vue'
 import DashboardView from '../views/DashboardView.vue'
@@ -103,7 +102,7 @@ router.beforeEach((to) => {
 
   // If it does and they are not logged in, send the user to "/login"
   if (requiresAuth && store.state.token === '') {
-    return { name: "login" };
+    return { name: "/" };
   }
   // Otherwise, do nothing and they'll go to their next destination
 });
