@@ -1,5 +1,7 @@
 <template>
   <div class="d-flex justify-center align-center">
+   
+
     <v-form v-on:submit.prevent="submitForm" :rules="dateRules">
       <v-container>
         <v-row>
@@ -32,13 +34,39 @@
         </v-row>
       </v-container>
     </v-form>
+
+
+
+    <!-- <v-snackbar
+      v-model="snackbar.display"
+      :timeout="snackbar.timeout"
+    >
+      {{ snackbar.text }}
+
+      <template v-slot:actions>
+        <v-btn
+          color="blue"
+          variant="text"
+          @click="snackbar.display = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar> -->
+    
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   data() {
     return {
+      snackbar: {
+        display:false,
+        text: "Snackbar message",
+        timeout:2000
+      },
       coverReq: {
         requestId: null,
         employeeId: this.$store.state.loggedInEmployee.employeeId,
@@ -60,12 +88,14 @@ export default {
   },
   methods: {
     submitForm() {
+      console.log("Setting snackbar to true");
+      this.snackbar = true;
       console.log("this.coverReq prior to dispatch is ", this.coverReq);
       this.$store
         .dispatch("createNewRequest", this.coverReq)
         .then((response) => {
           console.log("this is the .then after the dispatch")
-          this.$router.push({ name: "dashboard" });
+          this.$router.push({ name: "dashboardMyrequests" });
         })
         .catch((error) => {
           console.error("Failed to submit", error);
@@ -88,6 +118,9 @@ export default {
       };
     },
   },
+  computed:{
+    ...mapState(['snackbar'])
+  }
 };
 </script>
 

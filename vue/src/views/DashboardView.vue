@@ -36,8 +36,8 @@
     <v-tabs v-model="tab" bg-color="light-blue-lighten-4">
       <v-tab v-if="!isUser" value="allrequests">All Requests</v-tab>
       <v-tab value="shifts">Shifts to Cover</v-tab>
-      <v-tab v-if="isUser" value="myshifts">My Shifts</v-tab>
-      <v-tab v-if="isUser" value="myrequests">My Requests</v-tab>
+      <v-tab value="myshifts">{{isUser? 'My Shifts' : 'All Shifts'}}</v-tab>
+      <v-tab v-if="isUser" value="myrequests" >My Requests</v-tab>
     </v-tabs>
     <v-card-text>
       <v-window v-model="tab">
@@ -97,6 +97,14 @@ export default {
       return this.$store.state.user.authorities[0].name === "ROLE_USER";
     },
   },
+  mounted(){
+
+  },
+  watch:{
+
+  },
+  methods:{
+  }
 };
 </script>
 <style>
