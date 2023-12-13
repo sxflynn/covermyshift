@@ -24,6 +24,7 @@ export function createStore(currentToken, currentUser, currentEmployee) {
     mutations: {
       SET_ALL_CURRENT_SHIFTS_ARR(state, allShifts){
         state.listAllShiftArr = allShifts;
+        console.log(state.listAllShiftArr)
       },
       SET_UNCOVERED_SHIFTS_ARR(state, uncoveredShifts) {
         state.listUncoveredShiftsArr = uncoveredShifts;
