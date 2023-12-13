@@ -12,7 +12,8 @@
           <v-card-text
             class="text-h3 mt-4"
             style="display: flex; align-items: center; justify-content: center"
-            >{{ this.$store.state.listReqArr.length }}</v-card-text
+          >
+            {{ calcEmergencies }}</v-card-text
           >
         </v-card>
       </v-col>
@@ -26,16 +27,22 @@
           <v-card-text
             class="text-h3 mt-4"
             style="display: flex; align-items: center; justify-content: center"
-            >0</v-card-text
+          >
+            {{ calcUnclaimedShifts }}</v-card-text
           >
         </v-card>
       </v-col>
       <v-col elevation="3" cols="12" sm="3">
-        <v-card class="text-center" height="8rem" title="Percent called off">
+        <v-card
+          class="text-center"
+          height="8rem"
+          title="Shifts Covered"
+          color="green"
+        >
           <v-card-text
             class="text-h3 mt-4"
             style="display: flex; align-items: center; justify-content: center"
-            >12%</v-card-text
+            >{{ calcPercentOfTotalShiftsHaveVolunteer }}%</v-card-text
           >
         </v-card>
       </v-col>
@@ -49,7 +56,7 @@
           <v-card-text
             class="text-h3 mt-4"
             style="display: flex; align-items: center; justify-content: center"
-            >2</v-card-text
+            >{{ calcRejected }}</v-card-text
           >
         </v-card>
       </v-col>
@@ -106,6 +113,9 @@ export default {
 
   data() {
     return {
+      unclaimedShifts: null,
+      emergencyReqs: null,
+      rejectedReqs: null,
       tab: null,
       showShifts: true,
       showForm: false,
@@ -127,10 +137,45 @@ export default {
     isUser() {
       return this.$store.state.user.authorities[0].name === "ROLE_USER";
     },
+    calcEmergencies() {
+      let reqArr = this.$store.state.listReqArr;
+      let emergencyCounter = 0;
+      reqArr.forEach((req) => {
+        if (req.emergency === true) {
+          emergencyCounter++;
+        }
+      });
+      return emergencyCounter;
+    },
+    calcUnclaimedShifts() {
+      return this.$store.state.listUncoveredShiftsArr.length;
+    },
+    calcPercentOfTotalShiftsHaveVolunteer() {
+      return (
+        100 -
+        (
+          this.$store.state.listUncoveredShiftsArr.length /
+          this.$store.state.listAllShiftArr.length
+        ).toPrecision(1) *
+          100
+      );
+    },
+    calcRejected() {
+      let reqArr = this.$store.state.listReqArr;
+      let emergencyCounter = 0;
+      reqArr.forEach((req) => {
+        if (req.approved === false && req.pending === false) {
+          emergencyCounter++;
+        }
+      });
+      return emergencyCounter;
+    },
   },
-  mounted() {},
+  mounted() {
+    this.$store.dispatch("fetchAllUncoveredShifts");
+    this.$store.dispatch("fetchCurrentListShiftArr");
+  },
   watch: {},
-  methods: {},
 };
 </script>
 <style>

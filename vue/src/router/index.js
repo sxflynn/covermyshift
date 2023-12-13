@@ -77,14 +77,6 @@ const routes = [
     }
   },
   {
-    path: "/dashboard#myrequests",
-    name: "dashboardMyrequests",
-    component: DashboardView,
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
     path: "/form",
     name: "form",
     component: FormView,
