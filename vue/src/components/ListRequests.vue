@@ -219,7 +219,11 @@ export default {
       headers: [
         // { title: "Request ID", key: "requestId", align: "start" },
         // { title: "Employee ID", key: "employeeId", align: "start" },
-        { title: "Employee Name", key: "employeeName", align: "center" },
+        {
+          title: "Employee Name",
+          key: "employeeName",
+          align: "center",
+        },
         { title: "Date", key: "date", align: "center" },
         { title: "Message", key: "employeeMessage", align: "start" },
         { title: "Manager's Message", key: "managerMessage", align: "start" },
@@ -297,4 +301,13 @@ export default {
   },
 };
 </script>
-<style></style>
+<style scoped>
+.custom-header {
+  font-family: "Your-Desired-Font", sans-serif; /* Replace 'Your-Desired-Font' with the actual font name */
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+}
+</style>
