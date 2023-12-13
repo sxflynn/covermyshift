@@ -71,14 +71,20 @@ public class RequestController {
 
 
     @RequestMapping(path = API_BASE_REQUEST_URL + "/delete/{requestId}", method = RequestMethod.DELETE)
-    public ResponseEntity <Integer> deleteRequestById(@PathVariable("requestId") int requestId){
+    public ResponseEntity<?> deleteRequestById(@PathVariable("requestId") int requestId, Principal principal) {
         int numberOfRows = 0;
 
+        if (principalHasRole(principal, "ROLE_USER") && !requestBelongsToPrincipal(principal, requestId)) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("You do not have authority to delete the request");
+        }
+
         numberOfRows = requestDao.deleteRequestById(requestId);
-        if (numberOfRows == 1){
+        if (numberOfRows == 1) {
             return ResponseEntity.ok(numberOfRows);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(0); // Return 404 Not Found if nothing was deleted
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found"); // Return 404 Not Found if nothing was deleted
     }
 
     @RequestMapping(path = API_BASE_REQUEST_URL, method = RequestMethod.PUT)
@@ -117,5 +123,23 @@ public class RequestController {
         }
         return false;
     }
+
+    public boolean requestBelongsToPrincipal(Principal principal, int requestId) {
+        Request request = requestDao.getRequestByRequestId(requestId);
+        if (request == null) {
+            return false;
+        }
+
+        Employee employee = employeeDao.getEmployeeFromUsername(principal.getName());
+        if (employee == null) {
+            return false;
+        }
+
+        int principalEmployeeId = employee.getEmployeeId();
+        int requestEmployeeId = request.getEmployeeId();
+
+        return principalEmployeeId == requestEmployeeId;
+    }
+
 
 }
