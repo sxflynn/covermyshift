@@ -62,6 +62,7 @@
       <v-tab value="shifts">Shifts to Cover</v-tab>
       <v-tab value="myshifts">{{ isUser ? "My Shifts" : "All Shifts" }}</v-tab>
       <v-tab v-if="isUser" value="myrequests">My Requests</v-tab>
+      <v-tab v-if="!isUser" value="datapoints">Data</v-tab>
     </v-tabs>
     <v-card-text>
       <v-window v-model="tab">
@@ -79,6 +80,9 @@
         <v-window-item value="myrequests">
           <my-requests />
         </v-window-item>
+        <v-window-item value="datapoints">
+          <data-points />
+        </v-window-item>
       </v-window>
     </v-card-text>
   </v-card>
@@ -88,6 +92,8 @@ import ListShifts from "../components/ListShifts.vue";
 import ListRequests from "../components/ListRequests.vue";
 import ListShiftsToCover from "../components/ListShiftsToCover.vue";
 import MyRequests from "../components/MyRequests.vue";
+import DataPoints from "../components/DataPoints.vue";
+
 
 export default {
   components: {
@@ -95,6 +101,7 @@ export default {
     ListRequests,
     ListShiftsToCover,
     MyRequests,
+    DataPoints
   },
 
   data() {
