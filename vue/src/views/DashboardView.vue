@@ -9,14 +9,14 @@
       </v-col>
       <v-col elevation="3" cols="12" sm="3">
         <v-card class="text-center" height="8rem" color="red" title="Unclaimed Shifts">
-          <v-card-text class="text-h3 mt-4" style="display: flex; align-items: center; justify-content: center">{{
-            calcUnclaimedShifts }}</v-card-text>
+          <v-card-text class="text-h3 mt-4" style="display: flex; align-items: center; justify-content: center">
+          {{ calcUnclaimedShifts }}</v-card-text>
         </v-card>
       </v-col>
       <v-col elevation="3" cols="12" sm="3">
         <v-card class="text-center" height="8rem" title="Percent called off">
           <v-card-text class="text-h3 mt-4"
-            style="display: flex; align-items: center; justify-content: center">12%</v-card-text>
+            style="display: flex; align-items: center; justify-content: center">{{ calcPercentOfTotalShiftsHaveVolunteer }}%</v-card-text>
         </v-card>
       </v-col>
       <v-col elevation="3" cols="12" sm="3">
