@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id = "barcontainer">
     <div id="graphTitle"> TOTAL REQUESTS OFF </div>
     
     <Bar
@@ -88,7 +88,6 @@ export default {
   },
   methods:{
     updateChartData() {
-      console.log("updateChartData() fired")
       const uniqueNames = Array.from(new Set(this.$store.state.listReqArr.map(req => req.employeeName)));
       const nameCounts = uniqueNames.map(name => 
         this.$store.state.listReqArr.filter(req => req.employeeName === name).length
