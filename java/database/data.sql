@@ -4,6 +4,7 @@ INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULi
 INSERT INTO users (username,password_hash,role) VALUES ('rauh','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('john','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('laura','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('brian','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
 INSERT INTO employee (employee_name, username, email)
@@ -11,6 +12,7 @@ VALUES ('Steve C.', 'user', 'stephenxflynn+steve@gmail.com'),
 ('Rachelle R.', 'rauh', 'stephenxflynn+rauh@gmail.com'),
 ('John F.', 'john','stephenxflynn+john@gmail.com'),
 ('Laura C.', 'laura','stephenxflynn+laura@gmail.com'),
+('Bryan L.', 'brian', 'brybry@gmail.com'),
 ('Kevin G.', 'admin', 'stephenxflynn+admin@gmail.com');
 
 INSERT INTO request (employee_id, date, is_emergency, is_pending, is_covered, is_approved, message, workplace_id)
@@ -24,6 +26,7 @@ VALUES
 (3, '2023-12-20', false, true, false, false, 'Requesting off for event', 1),
 
 (4, '2023-12-19', true, true, false, false, 'Urgent: Childcare issue', 1),
+(5, '2023-12-25', false, false, true, false, 'Need day off for rest', 1),
 (4, '2023-12-20', false, false, false, true, 'Day off for relaxation', 1);
 
 
@@ -102,9 +105,10 @@ VALUES
   (TRUE, 4, '2023-12-06 08:00:00', '2023-12-06 12:00:00', null), -- Wednesday
   (TRUE, 4, '2023-12-08 08:00:00', '2023-12-08 12:00:00', null), -- Friday
   (TRUE, 4, '2023-12-13 08:00:00', '2023-12-13 12:00:00', null), -- Wednesday
-  (TRUE, 4, '2023-12-15 08:00:00', '2023-12-15 12:00:00', null); -- Friday
+  (TRUE, 4, '2023-12-15 08:00:00', '2023-12-15 12:00:00', null), -- Friday
 
-
+  (TRUE, 5, '2023-12-25 10:00:00', '2023-12-25 14:00:00', null),
+  (TRUE, 5, '2023-12-31 09:00:00', '2023-12-31 13:00:00', null);
 
 
 

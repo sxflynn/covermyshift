@@ -19,13 +19,32 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 export default {
   name: "BarChart",
   components: { Bar },
+  computed:{
+    computedLabels() {
+      // Extract unique employee names
+      console.log("computedLabels just got fired")
+      const uniqueNames = Array.from(new Set(this.$store.state.listReqArr.map(req => req.employeeName)));
+      console.log("computedLabels is ", uniqueNames);
+      return uniqueNames;
+  },
+  computedData() {
+      // Count occurrences of each unique employee name
+      const nameCounts = this.computedLabels.map(name => 
+        this.$store.state.listReqArr.filter(req => req.employeeName === name).length
+      );
+      console.log("computedData is ", nameCounts);
+      return nameCounts;
+    }
+},created() {
+  this.updateChartData();
+},
   data() {
     return {
       chartData: {
-        labels: ['RACHELLE', 'JOHN', 'LAURA', 'BRIAN', 'STEVE'],
+        labels: [],
         datasets: [
           {
-            data: [4, 3, 8, 5, 7],
+            data: [],
             backgroundColor: [
             '#FFF1D7', // Light Green
               '#C4D7F2', // Sky Blue
@@ -67,6 +86,18 @@ export default {
       },
     };
   },
+  methods:{
+    updateChartData() {
+      console.log("updateChartData() fired")
+      const uniqueNames = Array.from(new Set(this.$store.state.listReqArr.map(req => req.employeeName)));
+      const nameCounts = uniqueNames.map(name => 
+        this.$store.state.listReqArr.filter(req => req.employeeName === name).length
+      );
+
+      this.chartData.labels = uniqueNames;
+      this.chartData.datasets[0].data = nameCounts;
+    }
+  }
 };
 </script>
 
