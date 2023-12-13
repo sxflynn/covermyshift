@@ -43,7 +43,7 @@
 
 
     </v-container>
-    <v-footer color="primary" id="footer">
+    <v-footer color="white" id="footer">
       <ul class="footer-list">
         <li>Copyright</li>
       <li>Information</li>
@@ -111,6 +111,7 @@ export default {
 };
 </script>
 <style>
+
 #logo {
 
   font-family: "Changa One", sans-serif;
@@ -125,6 +126,7 @@ export default {
 }
 
 .router-view-container {
+  flex-grow: 1;;
   margin-top: 64px;
 
   max-width: 1350px;
@@ -145,14 +147,14 @@ export default {
 
 #footer {
   font-family: "League Spartan";
-  
-  color: rgb(40, 56, 61);
+    text-transform: uppercase;
   cursor: pointer;
   display: flex;
   justify-content: space-evenly;
   word-spacing: 5px;
   padding: 20px;
   font-size: 1rem;
+  align-items: end; /* Aligns items vertically */
 }
 
   /* Additional styles for the horizontal list */
@@ -160,7 +162,7 @@ export default {
     list-style: none; /* Removes bullet points */
     display: flex; /* Enables flexbox */
     justify-content: center; /* Centers the list items */
-    align-items: center; /* Aligns items vertically */
+    
     padding: 0; /* Removes default padding */
     margin: 0; /* Removes default margin */
   }

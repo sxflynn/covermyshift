@@ -92,8 +92,6 @@ export function createStore(currentToken, currentUser, currentEmployee) {
       fetchListReqArr({ commit }) {
         return RequestService.list()
           .then(response => {
-
-
             commit('SET_LIST_REQ_ARR', response.data);
           })
           .catch(error => {
@@ -141,14 +139,10 @@ export function createStore(currentToken, currentUser, currentEmployee) {
           .then(response => {
             const index = state.listReqArr.findIndex(req => req.requestId === requestData.requestId);
             if (index !== -1) {
-              // Replace the request at the found index with the updated data
               let updatedRequests = [...state.listReqArr];
               updatedRequests[index] = response.data;
-
-              // Commit a mutation to update listReqArr with the updated list of requests
               commit('SET_LIST_REQ_ARR', updatedRequests);
             } else {
-              // Optionally handle the case where the request is not found
               console.error('Request not found in listReqArr');
             }
             return response;
