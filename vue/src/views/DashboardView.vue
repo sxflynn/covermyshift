@@ -5,7 +5,7 @@
       <v-tab value="shifts">Shifts to Cover</v-tab>
       <v-tab v-if="isUser" value="myshifts">My Shifts</v-tab>
       <v-tab v-if="isUser" value="myrequests">My Requests</v-tab>
-      <v-tab v-else value="myrequests">All Requests</v-tab>
+      <v-tab v-else value="allrequests">All Requests</v-tab>
     </v-tabs>
     <v-card-text>
       <v-window v-model="tab">
@@ -17,6 +17,10 @@
         <v-window-item value="myshifts">
           <list-shifts />
           
+        </v-window-item>
+
+        <v-window-item value="allrequests">
+          <list-requests/>
         </v-window-item>
 
         <v-window-item value="myrequests">
