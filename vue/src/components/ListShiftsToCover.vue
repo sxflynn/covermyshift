@@ -141,6 +141,9 @@ export default {
   computed: {
 },
   methods: {
+    getRowClass(item) {
+    return item.shiftVolunteerName ? 'custom-row-style' : '';
+  },
         formatDateTime(startTime, endTime) {
           const start = new Date(startTime);
           const end = new Date(endTime);
@@ -169,4 +172,5 @@ export default {
 
 
 </script>
-<style></style>
+<style>
+</style>
