@@ -1,4 +1,5 @@
 <template>
+   <div class="text-h4">Data Dashboard</div>
   <v-container v-if="!isUser" id="data">
     <v-row justify="center">
       <v-col cols="12" sm="3">
@@ -151,6 +152,9 @@ export default {
       return this.$store.state.listUncoveredShiftsArr.length;
     },
     calcPercentOfTotalShiftsHaveVolunteer() {
+      if (this.$store.state.listUncoveredShiftsArr.length === 0) {
+          return 0;
+      }
       return (
         100 -
         (
