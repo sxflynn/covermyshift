@@ -45,16 +45,16 @@
 
 
       <template v-slot:item.action="{ item }">
-        <v-dialog width="1100">
+        <v-dialog width="1000" height="1100">
           <template v-slot:activator="{ props }">
-            <v-btn v-bind="props" text="Edit">
+            <v-btn v-if="item.pending" v-bind="props" text="Edit">
             </v-btn>
           </template>
 
           <template v-slot:default="{ isActive }">
   <v-card class="ma-2">
     <v-card-title class="headline">Edit Time Off Request</v-card-title>
-    <v-card-title subtitle="Edit"></v-card-title>
+   
     
     <v-row>
       <!-- Left side content -->
@@ -65,14 +65,14 @@
           <v-col style="display: inline-block;">
             <v-radio
               label="Emergency"
-              value="true"
+              :value="true"
               color="red"
             ></v-radio>
           </v-col>
           <v-col style="display: inline-block;">
             <v-radio
               label="Vacation"
-              value="false"
+              :value="false"
               color="blue"
             ></v-radio>
           </v-col>
