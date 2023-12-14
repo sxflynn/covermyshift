@@ -15,7 +15,7 @@
           <v-img class="mx-auto pa-12 pb-8" max-width="450" max-height="1000"
             src="../src/assets/slogancropped.png"></v-img>
 
-          <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
+          <v-card v-if="!isLoggedIn" class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
             <div class="text-subtitle-1 text-medium-emphasis">Account</div>
 
             <v-text-field v-model="user.username" density="compact" placeholder="Username"
@@ -48,6 +48,9 @@
               
       
             </router-link>
+          </v-card>
+          <v-card v-else class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
+            Niko
           </v-card>
         </v-form>
         </div>
@@ -114,6 +117,11 @@ export default {
           }
         });
     }
+  },
+  computed:{
+    isLoggedIn() {
+      return this.$store.state.user.username !== undefined;
+    },
   }
 };
 </script>

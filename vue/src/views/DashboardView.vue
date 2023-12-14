@@ -63,6 +63,69 @@
       </v-col>
     </v-row>
   </v-container>
+  <v-container v-else id="data">
+    <v-row justify="center">
+      <v-col cols="12" sm="3">
+        <v-card
+          height="8rem"
+          elevation="3"
+          color="red-lighten-1"
+          class="text-h3 text-center"
+          title="Emergency Requests"
+        >
+          <v-card-text
+            class="text-h3 mt-4"
+            style="display: flex; align-items: center; justify-content: center"
+          >
+            {{ calcEmergencies }}</v-card-text
+          >
+        </v-card>
+      </v-col>
+      <v-col elevation="3" cols="12" sm="3">
+        <v-card
+          class="text-center"
+          height="8rem"
+          color="blue-lighten-4"
+          title="Unclaimed Shifts"
+        >
+          <v-card-text
+            class="text-h3 mt-4"
+            style="display: flex; align-items: center; justify-content: center"
+          >
+            {{ calcUnclaimedShifts }}</v-card-text
+          >
+        </v-card>
+      </v-col>
+      <v-col elevation="3" cols="12" sm="3">
+        <v-card
+          class="text-center"
+          height="8rem"
+          title="Vacation Days"
+          color="grey-lighten-4"
+        >
+          <v-card-text
+            class="text-h3 mt-4"
+            style="display: flex; align-items: center; justify-content: center"
+            >12</v-card-text
+          >
+        </v-card>
+      </v-col>
+      <v-col elevation="3" cols="12" sm="3">
+        <v-card
+          class="text-center"
+          height="8rem"
+          color="blue-grey-lighten-3"
+          title="Shifts claimed"
+        >
+          <v-card-text
+            class="text-h3 mt-4"
+            style="display: flex; align-items: center; justify-content: center"
+            >2</v-card-text
+          >
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 
   <v-card color="light-blue-lighten-5">
     <v-tabs v-model="tab" bg-color="light-blue-lighten-4">
@@ -135,6 +198,9 @@ export default {
     };
   },
   computed: {
+    isLoggedIn() {
+      return this.$store.state.user.username !== undefined;
+    },
     isUser() {
       return this.$store.state.user.authorities[0].name === "ROLE_USER";
     },
