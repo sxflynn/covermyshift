@@ -14,32 +14,32 @@
         <v-container>
           <v-card elevation="6" rounded="xl" class="ml-12">
             <v-card-title class="mx-auto pa-12 pb-5 text-center text-h4">
-              Mission Statement
+              <v-text class="allText">Mission Statement</v-text>
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text class="text-body-1 text-large-emphasis pa-12 pb-8">
-              <p>
+              <p class="allText">
                 <strong> Cover My Shift </strong> was borne out of a passion for
-                helping teachers curtail unnecessary tedium in order to focus on
-                what is truly meaningful for teachers: engaging and mentoring
+                helping teachers save time finding someone to cover their shift in order to focus on
+                what is truly meaningful: engaging and mentoring
                 their students.
               </p>
             </v-card-text>
             <v-divider></v-divider>
-            <v-card-text class="mt-1" align="center"> <strong class="text-h5">Developer Team</strong></v-card-text>
+            <v-card-text class="mt-1" align="center"> <strong class="text-h5"><v-text class="allText">Developer Team</v-text></strong></v-card-text>
             
             <v-card-text class="mb-2" align="center">
               <a href="https://www.linkedin.com/in/anisa-mohamud/" target="_blank">
-                <v-chip color="light-blue" class="mx-1 hover-effect">Anisa M.</v-chip>
+                <v-chip color="light-blue" class="mx-1 hover-effect allText">Anisa M.</v-chip>
               </a>
               <a href="https://www.linkedin.com/in/gregg-sanders-developer/" target="_blank">
-                <v-chip color="light-blue" class="mx-1 hover-effect">Gregg S.</v-chip>
+                <v-chip color="light-blue" class="mx-1 hover-effect allText">Gregg S.</v-chip>
               </a>
               <a href="https://www.linkedin.com/in/nikotatakis/" target="_blank">
-                <v-chip color="light-blue" class="mx-1 hover-effect">Niko T.</v-chip>
+                <v-chip color="light-blue" class="mx-1 hover-effect allText">Niko T.</v-chip>
               </a>
               <a href="https://www.linkedin.com/in/sxflynn/">
-                <v-chip color="light-blue" class="mx-1 hover-effect">Stephen F.</v-chip>
+                <v-chip color="light-blue" class="mx-1 hover-effect allText">Stephen F.</v-chip>
               </a>
             </v-card-text>
           </v-card>
