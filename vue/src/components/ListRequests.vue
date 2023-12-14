@@ -110,11 +110,11 @@
           <template v-slot:activator="{ props }">
             <span v-if="isUser"></span>
             <span v-else></span>
-            <v-btn v-bind="props" :text="isUser ? 'Edit' : 'Open'"> </v-btn>
+            <v-btn color="light-blue-lighten-4" class="sameFont" v-bind="props" :text="isUser ? 'Edit' : 'Open'"> </v-btn>
           </template>
 
           <template v-slot:default="{ isActive }">
-            <v-card class="ma-2">
+            <v-card class="sameFont">
               <v-card-title class="headline">Time Off Request</v-card-title>
               <v-container fluid>
                 <v-row>

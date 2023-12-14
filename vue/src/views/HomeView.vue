@@ -16,17 +16,17 @@
             src="../src/assets/slogancropped.png"></v-img>
 
           <v-card v-if="!isLoggedIn" class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
-            <div class="text-subtitle-1 text-medium-emphasis">Account</div>
+            <div class="allText">Account</div>
 
-            <v-text-field v-model="user.username" density="compact" placeholder="Username"
+            <v-text-field class="allText" v-model="user.username" density="compact" placeholder="Username"
               prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
 
-            <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+            <div class="allText">
               Password
 
             </div>
 
-            <v-text-field v-model="user.password" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+            <v-text-field class="allText" v-model="user.password" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
               :type="visible ? 'text' : 'password'" density="compact" placeholder="Enter your password"
               prepend-inner-icon="mdi-lock-outline" variant="outlined"
               @click:append-inner="visible = !visible"  @input="invalidCredentials = false"></v-text-field>

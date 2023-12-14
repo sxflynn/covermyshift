@@ -49,19 +49,19 @@
       <template v-slot:item.action="{ item }">
         <v-dialog width="1000" height="1100">
           <template v-slot:activator="{ props }">
-            <v-btn v-if="item.pending" v-bind="props" text="Edit">
+            <v-btn class="sameFont" color="light-blue-lighten-4" v-if="item.pending" v-bind="props" text="Edit">
             </v-btn>
           </template>
 
           <template v-slot:default="{ isActive }">
-  <v-card class="ma-2">
-    <v-card-title class="headline">Edit Time Off Request</v-card-title>
+  <v-card class="sameFont">
+    <v-card-title class="headline" id="editHeader">Edit Time Off Request</v-card-title>
    
     
     <v-row>
       <!-- Left side content -->
       <v-col>
-    <v-container fluid class="mt-10">
+    <v-container fluid class="sameFont">
       <v-row>
         <v-radio-group v-model="item.emergency">
           <v-col style="display: inline-block;">
@@ -91,6 +91,7 @@
 <!-- {{ item.date }} (Type: {{ typeof item.date }}) -->
 <v-date-picker
               elevation="5"
+              class="sameFont"
               show-adjacent-months
               color="light-blue-lighten-4"
               :bind="item.date"
@@ -103,7 +104,7 @@
 
 
   
-    <v-card-actions>
+    <v-card-actions >
       <v-btn v-if="isUser" variant="tonal" color="green"
         @click="editRequest(item, isActive)" class="ma-1">
         Update & Save
@@ -114,8 +115,8 @@
   </template>
 
   <template v-slot:default="{ isActive }">
-    <v-card title="Confirmation">
-      <v-card-text>
+    <v-card title="Confirmation" class="sameFont">
+      <v-card-text class="sameFont">
         ARE YOU SURE YOU WANT TO DELETE THIS REQUEST?
       </v-card-text>
 
@@ -246,6 +247,9 @@ export default {
 }
 #headerText{
   font-size: x-large;
+}
+#editHeader{
+  font-size: xx-large;
 }
 
 
