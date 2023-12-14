@@ -11,14 +11,36 @@
         ></v-img>
 
         <!-- Left column with images -->
-        <v-img
+        <!-- <v-img
           :width="900"
           src="../src/assets/classroom-optimized.jpg"
           id="classroom"
           label="rounded-xl"
           >></v-img
+        > -->
+
+        <v-window
+    v-model="window"
+    show-arrows
+  >
+    <v-window-item v-for="image in images" :key="image">
+      <v-card :width="900" class="d-flex justify-center align-center">
+        <span class="text-h2">     <v-img
+          :width="900"
+          :src=image
+          id="classroom"
+          label="rounded-xl"
+          ></v-img
         >
+</span>
+      </v-card>
+    </v-window-item>
+  </v-window>
+
+
+
       </v-col>
+      
       <v-col id="rightSideAbout" md="5" align-self="center" class="">
         <v-container>
           <v-card elevation="6" rounded="xl" class="ml-12">
@@ -42,70 +64,21 @@
             </v-card-text>
           </v-card>
         </v-container>
+        
       </v-col>
     </v-row>
   </div>
 </template>
   
   <script>
-import authService from "../services/AuthService";
-
 export default {
-  components: {},
-  data() {
-    return {
-      visible: false,
-      user: {
-        username: "",
-        password: "",
-      },
-      invalidCredentials: false,
-    };
-  },
-  methods: {
-    login() {
-      console.log("clicked submit");
-      authService
-        .login(this.user)
-        .then((response) => {
-          if (response.status == 200) {
-            this.$store.commit("SET_AUTH_TOKEN", response.data.token);
-            this.$store.commit("SET_USER", response.data.user);
-
-            authService
-              .whoami()
-              .then((employeeResponse) => {
-                if (employeeResponse.status === 200) {
-                  this.$store.commit(
-                    "SET_EMPLOYEE_INFO",
-                    employeeResponse.data
-                  );
-                }
-              })
-              .catch((employeeError) => {
-                console.error("Error fetching employee info:", employeeError);
-                // Handle error (e.g., show notification or log error)
-              });
-
-            const authority = this.$store.state.user.authorities[0].name;
-            if (authority === "ROLE_USER") {
-              this.$router.push("/dashboard");
-            } else if (authority === "ROLE_ADMIN") {
-              this.$router.push("/dashboard#allrequests");
-            }
-          }
-        })
-        .catch((error) => {
-          const response = error.response;
-
-          if (response.status === 401) {
-            this.invalidCredentials = true;
-            // I want to
-          }
-        });
-    },
-  },
-};
+    data(){
+        return{
+            images:['../src/assets/classroom-optimized.jpg','../src/assets/screenshot.png'],
+            window: 0
+        }
+    }
+}
 </script>
   
   <style scoped>
