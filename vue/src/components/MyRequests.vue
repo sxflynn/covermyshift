@@ -87,7 +87,14 @@
       <!-- Right side with date picker -->
       <v-col cols="auto">
 <!-- {{ item.date }} (Type: {{ typeof item.date }}) -->
-          <v-date-picker/>
+<v-date-picker
+              elevation="5"
+              show-adjacent-months
+              color="light-blue-lighten-4"
+              :rules="dateRules"
+              v-model="requests.date"
+            >
+            </v-date-picker>
    
       </v-col>
     </v-row>
@@ -166,7 +173,7 @@ export default {
           requestId: null,
           employeeId: null,
           employeeName: "",
-          date: null,
+          date: new Date(Date.now()),
           employeeMessage: "",
           emergency: false,
           covered: false,
@@ -194,6 +201,7 @@ export default {
   },
   methods: {
     editRequest(item, isActive) {
+      item.date = new Date(this.requests.date).toISOString().slice(0, 10);
       this.$store
         .dispatch("updateRequest", item)
         .then((response) => {
@@ -206,8 +214,6 @@ export default {
     declineRequest(item, isActive) {
       item.approved = false;
       item.pending = false;
-      console.log("RequestID is", item.requestId);
-      console.log("Manager message is", item.managerMessage);
       this.$store.dispatch("updateRequest", item)
         .then((response) => {
           isActive.value = false;
