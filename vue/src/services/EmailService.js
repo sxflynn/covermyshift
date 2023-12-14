@@ -2,7 +2,7 @@ import emailjs from '@emailjs/browser';
 
 export default {
 
-  sendNewRequestEmail(loggedInEmployee, response) {
+  sendNewRequestEmail(loggedInEmployee, response, sendEmail) {
     const email = {
       fromName: loggedInEmployee.employeeName,
       message: `The employee, ${loggedInEmployee.employeeName} has requested time off for the day of ${response.data.date}. They have included the following message: ${response.data.employeeMessage}` + (response.data.emergency ? " This is an emergency request!" : ""),
@@ -18,7 +18,8 @@ export default {
     const publicKey = 'VZnKmVeJRMukHAUH0';
     const templateId = 'template_r7geovx';
     const serviceId = 'service_xsowi2y';
-    if (1 === 1) { //use this to later have an email flag
+    console.log("Email will fire now")
+    if (1 === 1) { //manual flag used to disable emails during testing.
       return emailjs.send(serviceId, templateId, templateParams, publicKey)
         .then(function (response) {
           // Fire notification that email was sent
@@ -26,11 +27,13 @@ export default {
         }, function (error) {
           console.error('Email failed to send', error);
         });
+    } else {
+    // Return a resolved promise when not sending an email
+    return Promise.resolve();
+
+      } 
+    
     }
-
-
-
-  }
 
 
 

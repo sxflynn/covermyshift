@@ -12,6 +12,7 @@
                 <v-textarea label="Reason for request (optional)" v-model="coverReq.employeeMessage" outlined
                   dense></v-textarea>
                 <v-checkbox label="Is this an emergency?" v-model="coverReq.emergency"></v-checkbox>
+                <v-checkbox label="Send email notification?" v-model="sendEmail"></v-checkbox>
                 
 
               </v-col>
@@ -45,6 +46,7 @@
 export default {
   data() {
     return {
+      sendEmail: false,
       coverReq: {
         requestId: null,
         employeeId: this.$store.state.loggedInEmployee.employeeId,
@@ -66,7 +68,13 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$store.dispatch("createNewRequest", this.coverReq)
+
+      const payload = {
+      requestData: this.coverReq,
+      sendEmail: this.sendEmail
+    };
+
+      this.$store.dispatch("createNewRequest", payload)
         .then((response) => {
           this.$router.push({ name: "dashboard" });
           return this.$store.dispatch("fetchListReqArr");

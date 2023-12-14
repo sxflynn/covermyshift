@@ -11,7 +11,7 @@ export function createStore(currentToken, currentUser, currentEmployee) {
   let store = _createStore({
     state: {
       listReqArr: [],
-      listAllShiftArr:[],
+      listAllShiftArr: [],
       listShiftArr: [],
       listUncoveredShiftsArr: [],
       token: currentToken || '',
@@ -19,7 +19,7 @@ export function createStore(currentToken, currentUser, currentEmployee) {
       loggedInEmployee: currentEmployee || {}
     },
     mutations: {
-      SET_ALL_CURRENT_SHIFTS_ARR(state, allShifts){
+      SET_ALL_CURRENT_SHIFTS_ARR(state, allShifts) {
         state.listAllShiftArr = allShifts;
         console.log("state.listAllShiftArr is ", state.listAllShiftArr)
       },
@@ -50,9 +50,9 @@ export function createStore(currentToken, currentUser, currentEmployee) {
         console.error('Shift update failed:', error);
       },
       DELETE_REQUEST(state, requestId) {
-    
+
         const index = state.listReqArr.findIndex(req => req.requestId === requestId);
-   
+
         if (index !== -1) {
           state.listReqArr.splice(index, 1);
         } else {
@@ -124,17 +124,18 @@ export function createStore(currentToken, currentUser, currentEmployee) {
             throw error;
           })
       },
-      createNewRequest({ commit }, requestData) {
+      createNewRequest({ commit }, { requestData, sendEmail }) {
         console.log("create new request requestData is ", requestData)
         return RequestService.create(requestData)
           .then(response => {
-              EmailService.sendNewRequestEmail(this.state.loggedInEmployee,response)
-              .then(function (response) {
-                // Fire notification that email was sent
-              }, function (error) {
-                console.error('Email failed to send', error);
-              });
-
+            if (sendEmail) {
+              EmailService.sendNewRequestEmail(this.state.loggedInEmployee, response, sendEmail)
+                .then(function (response) {
+                  // Fire notification that email was sent
+                }, function (error) {
+                  console.error('Email failed to send', error);
+                });
+            }
             commit('UPDATE_REQUEST_SUCCESS', response.data);
             return response;
           })
@@ -204,7 +205,7 @@ export function createStore(currentToken, currentUser, currentEmployee) {
 
       fetchCurrentAndFutureRequests({ commit }) {
         console.log("fetchCurrentAndFutureRequests - Starting to fetch requests");
-      
+
         return RequestService.getCurrentAndFutureRequests()
           .then(response => {
             if (response.status === 204) {
@@ -218,7 +219,7 @@ export function createStore(currentToken, currentUser, currentEmployee) {
             throw error;
           });
       },
-      
+
 
     },
   });
