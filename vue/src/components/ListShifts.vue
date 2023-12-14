@@ -35,7 +35,6 @@
             variant="text"
             :text="item.shiftOwnerName"
             label
-            size="large"
           ></v-chip>
         </div>
       </template>
@@ -46,7 +45,6 @@
             variant="text"
             :text="item.shiftVolunteerName"
             label
-            size="large"
           ></v-chip>
         </div>
       </template>
@@ -64,7 +62,6 @@
             :text="item.covered ? 'Covered' : 'Uncovered'"
             class="text-uppercase"
             label
-            :size="chipSize"
           ></v-chip>
         </div>
       </template>

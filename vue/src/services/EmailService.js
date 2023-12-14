@@ -1,8 +1,4 @@
-
-
-
 export default {
-
 
     sendNewRequestEmail(loggedInEmployee, response){
         const email = {

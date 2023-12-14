@@ -5,7 +5,7 @@
         <v-img :width="700" aspect-ratio="16/9" cover src="../src/assets/coverlogosmall-cropped.png" id="logo"></v-img>
        
         <!-- Left column with images -->
-        <v-img :width="900" aspect-ratio="16/9" cover src="../src/assets/classroomrounded.png" id="classroom" rounded="lg"></v-img>
+        <v-img :width="900" src="../src/assets/classroom-optimized.jpg" id="classroom" label="rounded-xl">></v-img>
       </v-col>
       <v-col cols="12" md="5">
         <!-- Right column with form and content -->
@@ -136,9 +136,9 @@ label {
 }
 
 #classroom{
-  margin-top: -100px;
+  margin-top:2.5rem;
   margin-left: 25px;
-  
+  border-radius: 10%;
 
 }
 #coverMessage{

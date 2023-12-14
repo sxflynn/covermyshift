@@ -19,7 +19,7 @@
             <router-link v-bind:to="{ name: 'dashboard' }">
               <v-btn color="black" class="navBtn" size="large">Dashboard</v-btn>
               <v-badge v-if="numberOfUncoveredShifts > 0" :content="numberOfUncoveredShifts" offset-y="-20" offset-x="10"
-                bordered="true" color="red">
+                bordered=true color="red">
               </v-badge>
             </router-link>
 

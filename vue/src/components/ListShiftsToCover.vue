@@ -18,14 +18,14 @@
 
       <template v-slot:item.shiftOwnerName="{ item }">
         <div class="text-center">
-          <v-chip variant="text" :text="item.shiftOwnerName" label size="large"></v-chip>
+          <v-chip variant="text" :text="item.shiftOwnerName"></v-chip>
         </div>
       </template>
 
 
       <template v-slot:item.shiftVolunteerName="{ item }">
         <div class="text-center">
-          <v-chip variant="text" :text="item.shiftVolunteerName" label size="large"></v-chip>
+          <v-chip variant="text" :text="item.shiftVolunteerName"></v-chip>
         </div>
       </template>
 
@@ -39,7 +39,7 @@
       <template v-slot:item.covered="{ item }">
         <div class="text-center">
           <v-chip :color="item.covered ? 'green' : 'red'" :text="item.covered ? 'Covered' : 'Uncovered'"
-            class="text-uppercase" label :size="chipSize"></v-chip>
+            class="text-uppercase" label></v-chip>
         </div>
       </template>
 
@@ -74,7 +74,7 @@
                 <v-row>
                   <v-col cols="6" class="text-end"><strong>Covered yet?:</strong></v-col>
                   <v-col cols="6" class="text-start">
-                    <v-chip small :color="item.covered ? 'blue' : 'red'">
+                    <v-chip :color="item.covered ? 'blue' : 'red'">
                       {{ item.covered ? "Covered" : "Uncovered" }}
                     </v-chip>
                   </v-col>
