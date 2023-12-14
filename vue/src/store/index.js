@@ -30,7 +30,9 @@ export function createStore(currentToken, currentUser, currentEmployee) {
         console.log("listReqArr is now size ", state.listReqArr.length)
       },
       UPDATE_REQUEST_SUCCESS(state, responseData) {
+        console.log("listReqArr before list in UPDATE_REQUEST_SUCCESS is ", state.listReqArr);
         state.listReqArr.push(responseData);
+        console.log("listReqArr after list in UPDATE_REQUEST_SUCCESS is ", state.listReqArr);
       },
       UPDATE_REQUEST_FAILURE(state, error) {
         console.error('Request failed:', error);
@@ -50,9 +52,14 @@ export function createStore(currentToken, currentUser, currentEmployee) {
         console.error('Shift update failed:', error);
       },
       DELETE_REQUEST(state, requestId) {
+        console.log("Now entering the DELETE_REQUEST mutation");
         const index = state.listReqArr.findIndex(req => req.requestId === requestId);
+        console.log("DELETE_REQUEST method: index is ", index);
         if (index !== -1) {
+          console.log("DELETE_REQUEST method: index is !==-1. The index before the splice is ", index);
+          console.log("listReqArr before the splice is: ", state.listReqArr)
           state.listReqArr.splice(index, 1);
+          console.log("state.listReqArr.splice(index, 1) happened. listReqArr[] is now ", state.listReqArr);
         } else {
           console.error('Request not found: ', requestId);
         }
@@ -83,8 +90,10 @@ export function createStore(currentToken, currentUser, currentEmployee) {
     },
     actions: {
       deleteRequestById({ commit }, requestId) {
+        console.log("action: deleteRequestById() ", requestId);
         return RequestService.deleteRequestById(requestId)
           .then(response => {
+            console.log("action: committing DELETE_REQUEST");
             commit('DELETE_REQUEST', requestId);
           })
           .catch(error => {
@@ -210,15 +219,28 @@ export function createStore(currentToken, currentUser, currentEmployee) {
       },
 
       fetchCurrentAndFutureRequests({ commit }) {
+        console.log("fetchCurrentAndFutureRequests - Starting to fetch requests");
+      
         return RequestService.getCurrentAndFutureRequests()
           .then(response => {
-            commit('SET_LIST_REQ_ARR', response.data);
+            console.log("fetchCurrentAndFutureRequests - Received response:", response);
+            
+            if (response && response.data) {
+              console.log("fetchCurrentAndFutureRequests - Committing data to store:", response.data);
+              commit('SET_LIST_REQ_ARR', response.data);
+            } else {
+              console.warn("fetchCurrentAndFutureRequests - Response or response.data is undefined");
+            }
           })
           .catch(error => {
             console.error('Error fetching current and future requests:', error);
             throw error;
+          })
+          .finally(() => {
+            console.log("fetchCurrentAndFutureRequests - Fetch operation completed");
           });
       },
+      
 
     },
   });

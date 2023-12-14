@@ -2,7 +2,7 @@
   <v-card flat>
     <v-card-title class="d-flex align-center pe-2">
       <v-icon icon="mdi-video-input-component"></v-icon> &nbsp;
-      List of Requests
+      My Requests
       <v-spacer></v-spacer>
 
       <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" density="compact" label="Search" single-line flat
@@ -180,7 +180,7 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("fetchListReqArr");
+    // this.$store.dispatch("fetchListReqArr"); // this caused a fatal sitewide bug
   },
   computed: {
     displayRequests() {
@@ -218,7 +218,7 @@ export default {
         });
     },
     deleteRequest(requestId, isActive){
-      console.log("Request Id in delete method is ", requestId);
+      console.log("deleteRequest() Request Id in delete method is ", requestId);
       this.$store.dispatch("deleteRequestById",requestId)
       .then((response)=>{
         isActive.value = false;

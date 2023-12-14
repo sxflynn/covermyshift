@@ -148,7 +148,6 @@ export default {
           let formattedStart = new Intl.DateTimeFormat('en-US', dateOptions).format(start);
           const timeOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
           let formattedEnd = new Intl.DateTimeFormat('en-US', timeOptions).format(end);
-          console.log(`${formattedStart} - ${formattedEnd}`)
           return `${formattedStart} - ${formattedEnd}`;
         },
         updateShift(item, isActive){
@@ -159,7 +158,6 @@ export default {
           .dispatch("updateShift", item)
           .then((response) =>{
             isActive.value = false;
-            console.log("response is ", response);
             this.$store.dispatch("fetchAllUncoveredShifts");
           })
           .catch((error) => {

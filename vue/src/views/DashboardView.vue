@@ -173,8 +173,8 @@ export default {
   },
   mounted() {
     this.$store.dispatch("fetchAllUncoveredShifts");
-    this.$store.dispatch("fetchCurrentListShiftArr");
-    this.$store.dispatch("fetchCurrentAndFutureRequests");
+    this.$store.dispatch("fetchCurrentListShiftArr"); //ok
+    this.$store.dispatch("fetchCurrentAndFutureRequests"); //ok
   },
   watch: {},
 };
