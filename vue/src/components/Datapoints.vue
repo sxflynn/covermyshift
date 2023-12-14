@@ -22,9 +22,7 @@ export default {
   computed:{
     computedLabels() {
       // Extract unique employee names
-      console.log("computedLabels just got fired")
       const uniqueNames = Array.from(new Set(this.$store.state.listReqArr.map(req => req.employeeName)));
-      console.log("computedLabels is ", uniqueNames);
       return uniqueNames;
   },
   computedData() {
