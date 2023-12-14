@@ -10,8 +10,6 @@
     </v-card-title>
 
     <v-divider></v-divider>
-    <!-- TODO: Add custom headers using the headers prop -->
-    <!-- TODO: Customize the items-per-page -->
     <v-data-table v-model:search="search" :items="this.$store.state.listReqArr" :headers="headers" :items-per-page="1000"
       :sort-by="sortBy" :sort-desc="sortDesc" class="elevation-1">
 
@@ -61,7 +59,7 @@
     <v-row>
       <!-- Left side content -->
       <v-col>
-    <v-container fluid>
+    <v-container fluid class="mt-10">
       <v-row>
         <v-radio-group v-model="item.emergency">
           <v-col style="display: inline-block;">
@@ -81,15 +79,15 @@
         </v-radio-group>
       </v-row>
       <v-row>
-        <v-text-field label="Message" outlined dense v-model="item.employeeMessage"></v-text-field>
+        <v-textarea label="Message" outlined dense v-model="item.employeeMessage"></v-textarea>
       </v-row>
     </v-container>
     <v-text-field v-if="!isUser" label="Message to employee" outlined dense v-model="item.managerMessage"></v-text-field>
   </v-col>
       <!-- Right side with date picker -->
       <v-col cols="auto">
-     // TODO fix the Type bug when you try to edit the date
-          <!-- <v-date-picker v-model="item.date" /> -->
+<!-- {{ item.date }} (Type: {{ typeof item.date }}) -->
+          <v-date-picker/>
    
       </v-col>
     </v-row>
@@ -144,7 +142,6 @@
 </template>
   
 <script>
-import RequestService from '../services/RequestService';
 
 export default {
   data() {
@@ -169,7 +166,7 @@ export default {
           requestId: null,
           employeeId: null,
           employeeName: "",
-          date: "",
+          date: null,
           employeeMessage: "",
           emergency: false,
           covered: false,
@@ -183,6 +180,9 @@ export default {
     this.$store.dispatch("fetchListReqArr");
   },
   computed: {
+    displayDate(item){
+      return item.date;
+    },
     displayRequests() {
       let requestList = this.$store.state.listReqArr;
       return requestList;
