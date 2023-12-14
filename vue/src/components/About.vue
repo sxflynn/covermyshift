@@ -27,16 +27,16 @@
             <v-card-text>
               <strong>Developers:</strong>
               <a href="https://www.linkedin.com/in/anisa-mohamud/" target="_blank">
-                <v-chip class="mx-1">Anisa M.</v-chip>
+                <v-chip color="light-blue" class="mx-1 hover-effect">Anisa M.</v-chip>
               </a>
               <a href="https://www.linkedin.com/in/gregg-sanders-developer/" target="_blank">
-                <v-chip class="mx-1">Gregg S.</v-chip>
+                <v-chip color="light-blue" class="mx-1 hover-effect">Gregg S.</v-chip>
               </a>
               <a href="https://www.linkedin.com/in/nikotatakis/" target="_blank">
-                <v-chip class="mx-1">Niko T.</v-chip>
+                <v-chip color="light-blue" class="mx-1 hover-effect">Niko T.</v-chip>
               </a>
               <a href="https://www.linkedin.com/in/sxflynn/">
-                <v-chip class="mx-0.9 hover-effect">Stephen F.</v-chip>
+                <v-chip color="light-blue" class="mx-0.9 hover-effect">Stephen F.</v-chip>
               </a>
             </v-card-text>
           </v-card>
