@@ -91,7 +91,7 @@
               elevation="5"
               show-adjacent-months
               color="light-blue-lighten-4"
-              :rules="dateRules"
+              :bind="item.date"
               v-model="requests.date"
             >
             </v-date-picker>
