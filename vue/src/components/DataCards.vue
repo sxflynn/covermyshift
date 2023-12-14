@@ -8,9 +8,9 @@
            height="8rem"
            elevation="3"
            color="red-lighten-1"
-           class="text-h3 text-center"
+           class="cardTop"
            title="Emergency Requests"
-         >
+         id="cardTop">
            <v-card-text
              class="text-h3 mt-4"
              style="display: flex; align-items: center; justify-content: center"
@@ -21,7 +21,7 @@
        </v-col>
        <v-col elevation="3" cols="12" sm="3">
          <v-card
-           class="text-center"
+           class="cardTop"
            height="8rem"
            color="blue-lighten-4"
            title="Unclaimed Shifts"
@@ -36,7 +36,7 @@
        </v-col>
        <v-col elevation="3" cols="12" sm="3">
          <v-card
-           class="text-center"
+           class="cardTop"
            height="8rem"
            title="Shifts Covered"
            color="grey-lighten-4"
@@ -50,7 +50,7 @@
        </v-col>
        <v-col elevation="3" cols="12" sm="3">
          <v-card
-           class="text-center"
+           class="cardTop"
            height="8rem"
            color="blue-grey-lighten-3"
            title="Rejected Requests"
@@ -64,6 +64,7 @@
        </v-col>
      </v-row>
    </v-container>
+   
       <!-- Teacher v-container -->
    <v-container v-else id="data">
      <v-row justify="center">
@@ -72,8 +73,9 @@
            height="8rem"
            elevation="3"
            color="red-lighten-1"
-           class="text-h3 text-center"
+           class="cardTop"
            title="Emergency Requests"
+          
          >
            <v-card-text
              class="text-h3 mt-4"
@@ -85,10 +87,11 @@
        </v-col>
        <v-col elevation="3" cols="12" sm="3">
          <v-card
-           class="text-center"
+           class="cardTop"
            height="8rem"
            color="blue-lighten-4"
            title="Unclaimed Shifts"
+           
          >
            <v-card-text
              class="text-h3 mt-4"
@@ -100,7 +103,7 @@
        </v-col>
        <v-col elevation="3" cols="12" sm="3">
          <v-card
-           class="text-center"
+           class="cardTop"
            height="8rem"
            title="Vacation Days"
            color="grey-lighten-4"
@@ -115,7 +118,7 @@
        </v-col>
        <v-col elevation="3" cols="12" sm="3">
          <v-card
-           class="text-center"
+           class="cardTop"
            height="8rem"
            color="blue-grey-lighten-3"
            title="Shifts covered this year"
@@ -233,5 +236,10 @@
  .v-sheet--offset {
    top: -24px;
    position: relative;
+ }
+ .cardTop{
+  font-family: "League Spartan";
+  text-align: center;
+  
  }
  </style>

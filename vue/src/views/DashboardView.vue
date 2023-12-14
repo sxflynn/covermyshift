@@ -1,13 +1,14 @@
 <template>
-   <div class="text-h4">Data Dashboard</div>  
+  <div id="header">
+   Dashboard</div>
      <data-cards/>
   <v-card color="light-blue-lighten-5">
-    <v-tabs v-model="tab" bg-color="light-blue-lighten-4">
-      <v-tab v-if="!isUser" value="allrequests">All Requests</v-tab>
-      <v-tab value="shifts">Shifts to Cover</v-tab>
-      <v-tab value="myshifts">{{ isUser ? "My Shifts" : "All Shifts" }}</v-tab>
-      <v-tab v-if="isUser" value="myrequests">My Requests</v-tab>
-      <v-tab v-if="!isUser" value="datapoints">Data</v-tab>
+    <v-tabs v-model="tab" bg-color="light-blue-lighten-4" class="tabTitle">
+      <v-tab size="x-large" v-if="!isUser" value="allrequests">All Requests</v-tab>
+      <v-tab size="x-large" value="shifts">Shifts to Cover</v-tab>
+      <v-tab size="x-large" value="myshifts">{{ isUser ? "My Shifts" : "All Shifts" }}</v-tab>
+      <v-tab size="x-large" v-if="isUser" value="myrequests">My Requests</v-tab>
+      <v-tab size="x-large" v-if="!isUser" value="datapoints">Data</v-tab>
     </v-tabs>
     <v-card-text>
       <v-window v-model="tab">
@@ -140,5 +141,13 @@ export default {
 .v-sheet--offset {
   top: -24px;
   position: relative;
+}
+#header{
+  font-family:"League Spartan";
+  font-size: 50px;
+ 
+}
+.tabTitle{
+  font-family:"League Spartan";
 }
 </style>
