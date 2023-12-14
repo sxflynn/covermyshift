@@ -112,7 +112,7 @@ export default {
         // { title: 'Shift Owner ID', key: 'shiftOwnerId', align: 'start' },
         { title: 'Shift Owner', key: 'shiftOwnerName', align: 'center' },
         // { title: 'Shift Volunteer ID', key: 'shiftVolunteerId', align: 'start' },
-        { title: 'Shift Volunteer', key: 'shiftVolunteerName', align: 'center' },
+        // { title: 'Shift Volunteer', key: 'shiftVolunteerName', align: 'center' },
         { title: 'Date/Time', key: 'startTime', align: 'center' },
         // { title: 'End Time', key: 'endTime', align: 'center' },
         { title: 'Covered', key: 'covered', align: 'center' },
