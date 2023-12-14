@@ -11,34 +11,15 @@
         ></v-img>
 
         <!-- Left column with images -->
-        <!-- <v-img
+        <v-img
           :width="900"
           src="../src/assets/classroom-optimized.jpg"
           id="classroom"
           label="rounded-xl"
           >></v-img
-        > -->
-
-        <v-window
-    v-model="window"
-    show-arrows
-  >
-    <v-window-item v-for="image in images" :key="image">
-      <v-card :width="900" class="d-flex justify-center align-center">
-        <span class="text-h2">     <v-img
-          :width="900"
-          :src=image
-          id="classroom"
-          label="rounded-xl"
-          ></v-img
         >
-</span>
-      </v-card>
-    </v-window-item>
-  </v-window>
 
-
-
+        
       </v-col>
       
       <v-col id="rightSideAbout" md="5" align-self="center" class="">
