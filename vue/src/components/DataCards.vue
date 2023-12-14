@@ -120,10 +120,11 @@
            color="blue-grey-lighten-3"
            title="Shifts covered this year"
          >
+         <!-- Hard coded data for capstone demo -->
            <v-card-text
              class="text-h3 mt-4"
              style="display: flex; align-items: center; justify-content: center"
-             >5</v-card-text
+             >{{5 + calcShiftVolunteers}}</v-card-text
            >
          </v-card>
        </v-col>
@@ -172,6 +173,16 @@
          }
        });
        return emergencyCounter;
+     },
+     calcShiftVolunteers() {
+       const shiftArr = this.$store.state.listShiftArr;
+       let volunteerCounter = 0;
+       shiftArr.forEach((shift) => {
+         if (shift.shiftVolunteerId) {
+            volunteerCounter++;
+         }
+       });
+       return volunteerCounter;
      },
      calcApprovedRequests() {
        let reqArr = this.$store.state.listReqArr;
