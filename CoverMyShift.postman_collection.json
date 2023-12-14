@@ -9,6 +9,16 @@
 		{
 			"name": "Get All Requests",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token-user}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -26,8 +36,113 @@
 			"response": []
 		},
 		{
+			"name": "Get Current Requests",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/request",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginSteve",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//get token from login",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"token-user\", jsonData.token);",
+							"",
+							"",
+							"// Test to check if a token is present in the response",
+							"pm.test(\"Token is present\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('token');",
+							"    pm.expect(jsonData.token).to.not.be.empty;",
+							"});",
+							"",
+							"// Test to check if the username in the response matches the one in the request",
+							"pm.test(\"Username matches the request\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.user).to.have.property('username');",
+							"    pm.expect(jsonData.user.username).to.eql('user');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "New Request",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token-user}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -56,11 +171,59 @@
 		{
 			"name": "Update Request",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token-user}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "  {\r\n        \"requestId\": 1,\r\n        \"employeeId\": 1,\r\n        \"employeeName\": \"Steve C.\",\r\n        \"date\": \"2023-12-01\",\r\n        \"employeeMessage\": \"My message has changed\",\r\n        \"workPlaceId\": 1,\r\n        \"emergency\": false,\r\n        \"pending\": true,\r\n        \"covered\": false,\r\n        \"approved\": false\r\n    }",
+					"raw": "  {\r\n        \"requestId\": 1,\r\n        \"employeeId\": 1,\r\n        \"employeeName\": \"Steve C.\",\r\n        \"date\": \"2023-12-01\",\r\n        \"employeeMessage\": \"My message has changed\",\r\n        \"workPlaceId\": 1,\r\n        \"emergency\": false,\r\n        \"pending\": false,\r\n        \"covered\": false,\r\n        \"approved\": true\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/request",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n        \"requestId\": 1,\r\n        \"employeeId\": 1,\r\n        \"employeeName\": \"Steve C.\",\r\n        \"date\": \"2023-12-01\",\r\n        \"employeeMessage\": \"My message has changed\",\r\n        \"workPlaceId\": 1,\r\n        \"emergency\": false,\r\n        \"pending\": false,\r\n        \"covered\": false,\r\n        \"approved\": true\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -84,6 +247,16 @@
 		{
 			"name": "Get All Shifts",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token-user}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -104,6 +277,16 @@
 		{
 			"name": "Update Shift",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token-user}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
@@ -132,6 +315,16 @@
 		{
 			"name": "Get Current Shifts",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token-user}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -152,6 +345,16 @@
 		{
 			"name": "Get All Uncovered Shifts",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token-user}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -172,10 +375,20 @@
 		{
 			"name": "Get Shift by Employee ID",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token-user}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9000/shift/employee/2",
+					"raw": "http://localhost:9000/shift/employee/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -184,7 +397,7 @@
 					"path": [
 						"shift",
 						"employee",
-						"2"
+						"1"
 					]
 				}
 			},
@@ -214,10 +427,20 @@
 		{
 			"name": "Get Shift by RequestId",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token-user}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9000/shift/request/4",
+					"raw": "http://localhost:9000/shift/request/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -226,7 +449,36 @@
 					"path": [
 						"shift",
 						"request",
-						"4"
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employee From Principal",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/employee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"employee"
 					]
 				}
 			},

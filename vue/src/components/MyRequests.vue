@@ -248,6 +248,21 @@ export default {
 #headerText{
   font-size: x-large;
 }
+
+
+
+.v-chip__content{
+  font-size:large;
+}
+
+.v-data-table-header__content{
+  font-size:large;
+}
+
+.v-data-table__td{
+  font-size:large;
+}
+
 #editHeader{
   font-size: xx-large;
 }
