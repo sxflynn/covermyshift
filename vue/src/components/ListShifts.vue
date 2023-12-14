@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
     <v-card-title class="d-flex align-center pe-2">
-      <v-icon icon="mdi-video-input-component"></v-icon> &nbsp; My Shifts
+      <v-icon icon="mdi-video-input-component"></v-icon> &nbsp; <div class="sameFont" id="headerText">My Shifts </div>
 
       <v-spacer></v-spacer>
 
@@ -27,7 +27,7 @@
       :items-per-page="1000"
       :sort-by="sortBy"
       :sort-desc="sortDesc"
-      class="elevation-1"
+      class="sameFont"
     >
       <template v-slot:item.shiftOwnerName="{ item }">
         <div class="text-center">
@@ -232,4 +232,11 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.sameFont{
+  font-family: "League Spartan";
+}
+#headerText{
+  font-size: x-large;
+}
+</style>

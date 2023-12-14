@@ -2,7 +2,9 @@
   <v-card flat>
     <v-card-title class="d-flex align-center pe-2">
       <v-icon icon="mdi-video-input-component"></v-icon> &nbsp;
+      <div class="sameFont" id="headerText">
       List of Uncovered Shifts
+    </div>
 
       <v-spacer></v-spacer>
 
@@ -14,10 +16,10 @@
     <!-- TODO: Add custom headers using the headers prop -->
     <!-- TODO: Customize the items-per-page -->
     <v-data-table v-model:search="search" :headers="headers" :items="this.$store.state.listUncoveredShiftsArr" :items-per-page="1000" :sort-by="sortBy" :sort-desc="sortDesc"
-      class="elevation-1">
+      class="sameFont">
 
       <template v-slot:item.shiftOwnerName="{ item }">
-        <div class="text-center">
+        <div class="sameFont" id="headerText">
           <v-chip variant="text" :text="item.shiftOwnerName"></v-chip>
         </div>
       </template>
@@ -173,4 +175,10 @@ export default {
 
 </script>
 <style>
+.sameFont{
+  font-family: "League Spartan";
+}
+#headerText{
+  font-size: x-large;
+}
 </style>

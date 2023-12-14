@@ -2,7 +2,9 @@
   <v-card flat>
     <v-card-title class="d-flex align-center pe-2">
       <v-icon icon="mdi-video-input-component"></v-icon> &nbsp;
+      <div class="sameFont" id="headerText">
       My Requests
+    </div>
       <v-spacer></v-spacer>
 
       <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" density="compact" label="Search" single-line flat
@@ -11,7 +13,7 @@
 
     <v-divider></v-divider>
     <v-data-table v-model:search="search" :items="this.$store.state.listReqArr" :headers="headers" :items-per-page="1000"
-      :sort-by="sortBy" :sort-desc="sortDesc" class="elevation-1">
+      :sort-by="sortBy" :sort-desc="sortDesc" class="sameFont">
 
       <template v-show="!isUser" v-slot:item.employeeName="{ item }">
         <v-chip variant="text" :text="item.employeeName" label size="large"></v-chip>
@@ -40,26 +42,26 @@
 
       <template v-slot:item.pending="{ item }">
         <v-chip :color="item.pending ? 'red' : 'green'" :text="item.pending ? 'Pending' : 'Finalized'"
-          class="text-uppercase" label size="large"></v-chip>
+          class="sameFont" label size="large"></v-chip>
       </template>
 
 
       <template v-slot:item.action="{ item }">
         <v-dialog width="1000" height="1100">
           <template v-slot:activator="{ props }">
-            <v-btn v-if="item.pending" v-bind="props" text="Edit">
+            <v-btn class="sameFont" color="light-blue-lighten-4" v-if="item.pending" v-bind="props" text="Edit">
             </v-btn>
           </template>
 
           <template v-slot:default="{ isActive }">
-  <v-card class="ma-2">
-    <v-card-title class="headline">Edit Time Off Request</v-card-title>
+  <v-card class="sameFont">
+    <v-card-title class="headline" id="editHeader">Edit Time Off Request</v-card-title>
    
     
     <v-row>
       <!-- Left side content -->
       <v-col>
-    <v-container fluid class="mt-10">
+    <v-container fluid class="sameFont">
       <v-row>
         <v-radio-group v-model="item.emergency">
           <v-col style="display: inline-block;">
@@ -89,6 +91,7 @@
 <!-- {{ item.date }} (Type: {{ typeof item.date }}) -->
 <v-date-picker
               elevation="5"
+              class="sameFont"
               show-adjacent-months
               color="light-blue-lighten-4"
               :bind="item.date"
@@ -101,7 +104,7 @@
 
 
   
-    <v-card-actions>
+    <v-card-actions >
       <v-btn v-if="isUser" variant="tonal" color="green"
         @click="editRequest(item, isActive)" class="ma-1">
         Update & Save
@@ -112,8 +115,8 @@
   </template>
 
   <template v-slot:default="{ isActive }">
-    <v-card title="Confirmation">
-      <v-card-text>
+    <v-card title="Confirmation" class="sameFont">
+      <v-card-text class="sameFont">
         ARE YOU SURE YOU WANT TO DELETE THIS REQUEST?
       </v-card-text>
 
@@ -239,6 +242,15 @@ export default {
 };
 </script>
 <style>
+.sameFont{
+  font-family: "League Spartan";
+}
+#headerText{
+  font-size: x-large;
+}
+#editHeader{
+  font-size: xx-large;
+}
 
 
 
