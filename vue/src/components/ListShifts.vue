@@ -27,7 +27,9 @@
       :items-per-page="1000"
       :sort-by="sortBy"
       :sort-desc="sortDesc"
-      class="sameFont"
+      class="sameFontData"
+      
+      
     >
       <template v-slot:item.shiftOwnerName="{ item }">
         <div class="text-center">
@@ -235,6 +237,10 @@ export default {
 <style>
 .sameFont{
   font-family: "League Spartan";
+}
+.sameFontData{
+  font-family: "League Spartan" !important;
+  font-size: x-large;
 }
 #headerText{
   font-size: x-large;
