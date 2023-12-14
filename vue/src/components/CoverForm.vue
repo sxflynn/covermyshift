@@ -1,7 +1,8 @@
 <template>
-  <div class="d-flex justify-center align-center">
+  <div class="d-flex flex-column justify-center align-center">
    
-
+    <div class="text-h3">Request Time Off</div>
+    <v-container>
     <v-form v-on:submit.prevent="submitForm" :rules="dateRules">
       <v-container>
         <v-row>
@@ -34,7 +35,7 @@
         </v-row>
       </v-container>
     </v-form>
-    
+  </v-container>
   </div>
 </template>
 
