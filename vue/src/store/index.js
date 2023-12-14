@@ -80,6 +80,11 @@ export function createStore(currentToken, currentUser, currentEmployee) {
         state.user = {};
         state.loggedInEmployee = {};
         axios.defaults.headers.common = {};
+        state.listReqArr = [],
+        state.listAllShiftArr = [],
+        state.listShiftArr = [],
+        state.listUncoveredShiftsArr = [],
+        state.loggedInEmployee = {}
       },
 
     },
