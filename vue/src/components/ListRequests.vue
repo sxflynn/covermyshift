@@ -26,7 +26,7 @@
       :items-per-page="1000"
       :sort-by="sortBy"
       :sort-desc="sortDesc"
-      class="elevation-1"
+      class="sameFont"
     >
       <template v-show="!isUser" v-slot:item.employeeName="{ item }">
         <v-chip
@@ -309,5 +309,8 @@ export default {
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #f5f5f5;
+}
+.sameFont{
+  font-family: "League Spartan";
 }
 </style>

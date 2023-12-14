@@ -2,7 +2,9 @@
   <v-card flat>
     <v-card-title class="d-flex align-center pe-2">
       <v-icon icon="mdi-video-input-component"></v-icon> &nbsp;
+      <div class="sameFont" id="headerText">
       My Requests
+    </div>
       <v-spacer></v-spacer>
 
       <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" density="compact" label="Search" single-line flat
@@ -11,7 +13,7 @@
 
     <v-divider></v-divider>
     <v-data-table v-model:search="search" :items="this.$store.state.listReqArr" :headers="headers" :items-per-page="1000"
-      :sort-by="sortBy" :sort-desc="sortDesc" class="elevation-1">
+      :sort-by="sortBy" :sort-desc="sortDesc" class="sameFont">
 
       <template v-show="!isUser" v-slot:item.employeeName="{ item }">
         <v-chip variant="text" :text="item.employeeName" label size="large"></v-chip>
@@ -40,7 +42,7 @@
 
       <template v-slot:item.pending="{ item }">
         <v-chip :color="item.pending ? 'red' : 'green'" :text="item.pending ? 'Pending' : 'Finalized'"
-          class="text-uppercase" label size="large"></v-chip>
+          class="sameFont" label size="large"></v-chip>
       </template>
 
 
@@ -239,6 +241,12 @@ export default {
 };
 </script>
 <style>
+.sameFont{
+  font-family: "League Spartan";
+}
+#headerText{
+  font-size: x-large;
+}
 
 
 
