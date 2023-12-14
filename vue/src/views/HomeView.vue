@@ -48,10 +48,10 @@
               
       
             </router-link>
+
           </v-card>
-          <v-card v-else class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
-            Niko
-          </v-card>
+          <v-img v-else :width="500" src="../src/assets/logEyes.png" id="loggedIn" label="rounded-xl"></v-img>
+          
         </v-form>
         </div>
       </v-col>
@@ -147,7 +147,7 @@ label {
 
 #classroom{
   margin-top:2.5rem;
-  margin-left: 25px;
+  margin-left: 10px;
   border-radius: 10%;
 
 }
@@ -159,8 +159,11 @@ label {
 
 #formWithLogo {
   margin-top: 45px;
+  
 }
-#logo{
+#loggedIn{
+  margin-left: 25px;
+
   
 }
 </style>

@@ -12,7 +12,7 @@ VALUES ('Steve C.', 'user', 'stephenxflynn+steve@gmail.com'),
 ('Rachelle R.', 'rauh', 'stephenxflynn+rauh@gmail.com'),
 ('John F.', 'john','stephenxflynn+john@gmail.com'),
 ('Laura C.', 'laura','stephenxflynn+laura@gmail.com'),
-('Brian L.', 'brian', 'brybry@gmail.com'),
+('Brian L.', 'brian', 'stephenxflynn+brian@gmail.com'),
 ('Kevin G.', 'admin', 'stephenxflynn+admin@gmail.com');
 
 INSERT INTO request (employee_id, date, is_emergency, is_pending, is_covered, is_approved, message, workplace_id)

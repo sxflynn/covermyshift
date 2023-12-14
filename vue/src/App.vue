@@ -7,7 +7,7 @@
           <router-link class="no-link-style" v-bind:to="{ name: 'home' }">
             <v-img :width="350" aspect-ratio="16/9" cover src="../src/assets/coverlogosmall.png"></v-img>
           </router-link>
-          <router-link v-if="isLoggedIn" v-bind:to="{ name: 'about' }">
+          <router-link v-bind:to="{ name: 'about' }">
               <v-btn color="black" class="navBtn" size="large">About Us</v-btn>
             </router-link>
           <v-spacer></v-spacer>
