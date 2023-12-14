@@ -212,7 +212,7 @@ export default {
       let formattedEnd = new Intl.DateTimeFormat("en-US", timeOptions).format(
         end
       );
-      console.log(`${formattedStart} - ${formattedEnd}`);
+   
       return `${formattedStart} - ${formattedEnd}`;
     },
     updateShift(item, isActive) {

@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column justify-center align-center">
    
-    <div class="text-h3">Request Time Off</div>
+    <div class="text-h4" id="title">Request Time Off</div>
     <v-container>
     <v-form v-on:submit.prevent="submitForm" :rules="dateRules">
       <v-container>
@@ -12,6 +12,8 @@
                 <v-textarea label="Reason for request (optional)" v-model="coverReq.employeeMessage" outlined
                   dense></v-textarea>
                 <v-checkbox label="Is this an emergency?" v-model="coverReq.emergency"></v-checkbox>
+                
+
               </v-col>
               <v-col cols="12">
                 <v-btn variant="tonal" class="mr-4" color="green" type="submit">Submit</v-btn>
@@ -64,10 +66,10 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$store
-        .dispatch("createNewRequest", this.coverReq)
+      this.$store.dispatch("createNewRequest", this.coverReq)
         .then((response) => {
           this.$router.push({ name: "dashboard" });
+          return this.$store.dispatch("fetchListReqArr");
         })
         .catch((error) => {
           console.error("Failed to submit", error);
@@ -97,4 +99,6 @@ export default {
   opacity: 1 !important;
   /* checkbox hack do not change */
 }
+
+
 </style>

@@ -3,7 +3,8 @@ import axios from 'axios';
 import RequestService from '../services/RequestService';
 import ShiftService from '../services/ShiftService';
 import AuthService from '../services/AuthService';
-import EmailService from '../services/EmailService'
+import EmailService from '../services/EmailService';
+
 
 export function createStore(currentToken, currentUser, currentEmployee) {
 
@@ -20,19 +21,16 @@ export function createStore(currentToken, currentUser, currentEmployee) {
     mutations: {
       SET_ALL_CURRENT_SHIFTS_ARR(state, allShifts){
         state.listAllShiftArr = allShifts;
-        console.log(state.listAllShiftArr)
+        console.log("state.listAllShiftArr is ", state.listAllShiftArr)
       },
       SET_UNCOVERED_SHIFTS_ARR(state, uncoveredShifts) {
         state.listUncoveredShiftsArr = uncoveredShifts;
       },
       SET_LIST_REQ_ARR(state, list) {
         state.listReqArr = list;
-        console.log("listReqArr is now size ", state.listReqArr.length)
       },
       UPDATE_REQUEST_SUCCESS(state, responseData) {
-        console.log("listReqArr before list in UPDATE_REQUEST_SUCCESS is ", state.listReqArr);
         state.listReqArr.push(responseData);
-        console.log("listReqArr after list in UPDATE_REQUEST_SUCCESS is ", state.listReqArr);
       },
       UPDATE_REQUEST_FAILURE(state, error) {
         console.error('Request failed:', error);
@@ -52,14 +50,11 @@ export function createStore(currentToken, currentUser, currentEmployee) {
         console.error('Shift update failed:', error);
       },
       DELETE_REQUEST(state, requestId) {
-        console.log("Now entering the DELETE_REQUEST mutation");
+    
         const index = state.listReqArr.findIndex(req => req.requestId === requestId);
-        console.log("DELETE_REQUEST method: index is ", index);
+   
         if (index !== -1) {
-          console.log("DELETE_REQUEST method: index is !==-1. The index before the splice is ", index);
-          console.log("listReqArr before the splice is: ", state.listReqArr)
           state.listReqArr.splice(index, 1);
-          console.log("state.listReqArr.splice(index, 1) happened. listReqArr[] is now ", state.listReqArr);
         } else {
           console.error('Request not found: ', requestId);
         }
@@ -90,10 +85,8 @@ export function createStore(currentToken, currentUser, currentEmployee) {
     },
     actions: {
       deleteRequestById({ commit }, requestId) {
-        console.log("action: deleteRequestById() ", requestId);
         return RequestService.deleteRequestById(requestId)
           .then(response => {
-            console.log("action: committing DELETE_REQUEST");
             commit('DELETE_REQUEST', requestId);
           })
           .catch(error => {
@@ -114,7 +107,6 @@ export function createStore(currentToken, currentUser, currentEmployee) {
       fetchMyIdentity({ commit }) {
         return AuthService.whoami()
           .then(response => {
-
             commit('SET_EMPLOYEE_INFO', response.data);
           })
           .catch(error => {
@@ -133,31 +125,15 @@ export function createStore(currentToken, currentUser, currentEmployee) {
           })
       },
       createNewRequest({ commit }, requestData) {
+        console.log("create new request requestData is ", requestData)
         return RequestService.create(requestData)
           .then(response => {
-
-
-            const email = {
-              fromName: this.state.loggedInEmployee.employeeName,
-              message: `The employee, ${this.state.loggedInEmployee.employeeName} has requested time off for the day of ${response.data.date}. They have included the following message: ${response.data.employeeMessage}` + (response.data.emergency ? " This is an emergency request!" : ""),
-              replyTo: this.state.loggedInEmployee.email
-            }
-
-            const templateParams = {
-              from_name: email.fromName,
-              message: email.message,
-              reply_to: email.replyTo
-            };
-
-            const publicKey = 'VZnKmVeJRMukHAUH0';
-            const templateId = 'template_r7geovx';
-            const serviceId = 'service_xsowi2y';
-            // emailjs.send(serviceId, templateId, templateParams,publicKey)
-            //   .then(function (response) {
-            //     // Fire notification that email was sent
-            //   }, function (error) {
-            //     console.error('Email failed to send', error);
-            //   });
+              EmailService.sendNewRequestEmail(this.state.loggedInEmployee,response)
+              .then(function (response) {
+                // Fire notification that email was sent
+              }, function (error) {
+                console.error('Email failed to send', error);
+              });
 
             commit('UPDATE_REQUEST_SUCCESS', response.data);
             return response;
@@ -188,7 +164,11 @@ export function createStore(currentToken, currentUser, currentEmployee) {
       fetchListShiftArr({ commit }) {
         return ShiftService.getAllShifts()
           .then(response => {
-            commit('SET_LIST_SHIFT_ARR', response.data);
+            if (response.status === 204) {
+              commit('SET_LIST_SHIFT_ARR', []);
+            } else if (response.status === 200) {
+              commit('SET_LIST_SHIFT_ARR', response.data);
+            }
           })
           .catch(error => {
             console.error('Error fetching shifts:', error);
@@ -198,7 +178,11 @@ export function createStore(currentToken, currentUser, currentEmployee) {
       fetchCurrentListShiftArr({ commit }) {
         return ShiftService.getAllCurrentShifts()
           .then(response => {
-            commit('SET_ALL_CURRENT_SHIFTS_ARR', response.data);
+            if (response.status === 204) {
+              commit('SET_ALL_CURRENT_SHIFTS_ARR', []);
+            } else if (response.status === 200) {
+              commit('SET_ALL_CURRENT_SHIFTS_ARR', response.data);
+            }
           })
           .catch(error => {
             console.error('Error fetching shifts:', error);
@@ -223,21 +207,15 @@ export function createStore(currentToken, currentUser, currentEmployee) {
       
         return RequestService.getCurrentAndFutureRequests()
           .then(response => {
-            console.log("fetchCurrentAndFutureRequests - Received response:", response);
-            
-            if (response && response.data) {
-              console.log("fetchCurrentAndFutureRequests - Committing data to store:", response.data);
-              commit('SET_LIST_REQ_ARR', response.data);
-            } else {
-              console.warn("fetchCurrentAndFutureRequests - Response or response.data is undefined");
+            if (response.status === 204) {
+              commit('SET_ALL_CURRENT_SHIFTS_ARR', []);
+            } else if (response.status === 200) {
+              commit('SET_ALL_CURRENT_SHIFTS_ARR', response.data);
             }
           })
           .catch(error => {
             console.error('Error fetching current and future requests:', error);
             throw error;
-          })
-          .finally(() => {
-            console.log("fetchCurrentAndFutureRequests - Fetch operation completed");
           });
       },
       

@@ -180,7 +180,7 @@ export default {
     };
   },
   mounted() {
-    // this.$store.dispatch("fetchListReqArr"); // this caused a fatal sitewide bug
+    this.$store.dispatch("fetchListReqArr");
   },
   computed: {
     displayRequests() {

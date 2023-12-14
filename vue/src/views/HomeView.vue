@@ -29,23 +29,24 @@
             <v-text-field v-model="user.password" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
               :type="visible ? 'text' : 'password'" density="compact" placeholder="Enter your password"
               prepend-inner-icon="mdi-lock-outline" variant="outlined"
-              @click:append-inner="visible = !visible"></v-text-field>
+              @click:append-inner="visible = !visible"  @input="invalidCredentials = false"></v-text-field>
 
-            <v-card class="mb-12" color="surface-variant" variant="tonal">
-              <v-card-text class="text-subtitle-2">
-                Warning: After 3 consecutive failed login attempts, you account will
-                be temporarily locked out for three hours
-              </v-card-text>
-            </v-card>
-
-            <v-btn @click="login" block="" color="green" size="large" variant="tonal" type="submit" class="allText">
+          
+              <v-alert v-if="invalidCredentials" icon="mdi-firework" type="error" closable title="Wrong username or password"></v-alert>
+           
+  
+            <v-btn @click="login" :block=true color="green" size="large" variant="tonal" type="submit" class="allText mb-2" >
+           
               Log In
             </v-btn>
-            <router-link v-bind:to="{ name: 'register' }">
-            <v-card-text class="text-center">
-                Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+       
+            <router-link class="text-decoration-none" v-bind:to="{ name: 'register' }">
+              <v-btn :block=true color="blue" size="large" variant="tonal" type="submit" class="allText">
+           
+           Sign Up Now
+         </v-btn>
               
-            </v-card-text>
+      
             </router-link>
           </v-card>
         </v-form>
@@ -109,6 +110,7 @@ export default {
 
           if (response.status === 401) {
             this.invalidCredentials = true;
+            // I want to 
           }
         });
     }
