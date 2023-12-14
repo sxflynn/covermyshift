@@ -187,7 +187,7 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("fetchListReqArr");
+ 
   },
   computed: {
     displayDate(item){
