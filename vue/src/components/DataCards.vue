@@ -202,7 +202,7 @@
      },
      calcPercentOfTotalShiftsHaveVolunteer() {
        if (this.$store.state.listUncoveredShiftsArr.length === 0) {
-           return 0;
+           return 100;
        }
        return (
          100 -
