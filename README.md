@@ -18,12 +18,12 @@ docker compose up
 
 ## Authors
 
-| Github          | LinkedIn                                             |
+| Name / Github          | LinkedIn                                             |
 |---------------|------------------------------------------------------|
-| [Stephen Flynn / @sxflynn](https://github.com/sxflynn) | https://www.linkedin.com/in/sxflynn/                 |
-| [Anisa Mohamud / @Anisa-Mohamud](https://github.com/Anisa-Mohamud)  | https://www.linkedin.com/in/anisa-mohamud/           |
-| [Gregg Sanders / @takosuper1](https://github.com/takosuper1)| https://www.linkedin.com/in/gregg-sanders-developer/ |
-| [Niko Tatakis / @nikotatakis](https://github.com/nikotatakis)  | https://www.linkedin.com/in/nikotatakis/             |
+| Stephen Flynn / [@sxflynn](https://github.com/sxflynn) | https://www.linkedin.com/in/sxflynn/                 |
+| Anisa Mohamud / [@Anisa-Mohamud](https://github.com/Anisa-Mohamud)  | https://www.linkedin.com/in/anisa-mohamud/           |
+| Gregg Sanders / [@takosuper1](https://github.com/takosuper1)| https://www.linkedin.com/in/gregg-sanders-developer/ |
+| Niko Tatakis / [@nikotatakis](https://github.com/nikotatakis)  | https://www.linkedin.com/in/nikotatakis/             |
 
 
 # Screenshots
@@ -33,3 +33,33 @@ docker compose up
 
 ### Teacher leaving a message to Request time off
 ![Another one](</screenshots/Edit Time Off Request Message.jpeg>)
+
+### Homepage Login
+![Homepage Login](</screenshots/Homepage login.jpeg>)
+
+### Manager Dashboard
+![Manager Dashboard](</screenshots/Manager dashboard.jpeg>)
+
+### Teacher Dashboard - Claim Shift 2
+![Teacher Dashboard Claim Shift 2](</screenshots/Teacher dashboard claim shift 2.jpeg>)
+
+### Manager Approving Time Off
+![Manager Approving Time Off](</screenshots/Manager Approving Time Off.jpeg>)
+
+### Request Off Confirmation
+![Request Off Confirmation](</screenshots/Request Off confirmation.jpeg>)
+
+### Teacher Dashboard - Claim Shift
+![Teacher Dashboard Claim Shift](</screenshots/Teacher dashboard claim shift.jpeg>)
+
+### Homepage Logged In
+![Homepage Logged In](</screenshots/Homepage logged in.jpeg>)
+
+### Manager Data Dashboard
+![Manager Data Dashboard](</screenshots/Manager Data Dashboard.jpeg>)
+
+### Submit Request Off Form
+![Submit Request Off Form](</screenshots/Submit Request Off Form.jpeg>)
+
+### Teacher Dashboard Schedule
+![Teacher Dashboard Schedule](</screenshots/Teacher dashboard schedule.jpeg>)
