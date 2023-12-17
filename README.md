@@ -1,4 +1,4 @@
-# Final Capstone
+# Tech Elevator Final Capstone Project - Cover My Shift
 Cover My Shift is the Tech Elevator final capstone project completed over a 2 week period in December 2023. It is a full stack application that makes the process of calling off and finding someone to cover your shift work more efficient.
 
 ## Technology Stack
