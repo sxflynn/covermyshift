@@ -31,8 +31,14 @@ docker compose up
 ### About Us page
 ![About page](/screenshots/About.jpeg)
 
+### Submit Request Off Form
+![Submit Request Off Form](</screenshots/Submit Request Off Form.jpeg>)
+
 ### Teacher leaving a message to Request time off
-![Another one](</screenshots/Edit Time Off Request Message.jpeg>)
+![Teacher leaving a message to Request time off](</screenshots/Edit Time Off Request Message.jpeg>)
+
+### Request Off Confirmation
+![Request Off Confirmation](</screenshots/Request Off confirmation.jpeg>)
 
 ### Homepage Login
 ![Homepage Login](</screenshots/Homepage login.jpeg>)
@@ -40,26 +46,17 @@ docker compose up
 ### Manager Dashboard
 ![Manager Dashboard](</screenshots/Manager dashboard.jpeg>)
 
-### Teacher Dashboard - Claim Shift 2
-![Teacher Dashboard Claim Shift 2](</screenshots/Teacher dashboard claim shift 2.jpeg>)
+### Manager Data Dashboard
+![Manager Data Dashboard](</screenshots/Manager Data Dashboard.jpeg>)
 
 ### Manager Approving Time Off
 ![Manager Approving Time Off](</screenshots/Manager Approving Time Off.jpeg>)
 
-### Request Off Confirmation
-![Request Off Confirmation](</screenshots/Request Off confirmation.jpeg>)
-
 ### Teacher Dashboard - Claim Shift
 ![Teacher Dashboard Claim Shift](</screenshots/Teacher dashboard claim shift.jpeg>)
 
-### Homepage Logged In
-![Homepage Logged In](</screenshots/Homepage logged in.jpeg>)
-
-### Manager Data Dashboard
-![Manager Data Dashboard](</screenshots/Manager Data Dashboard.jpeg>)
-
-### Submit Request Off Form
-![Submit Request Off Form](</screenshots/Submit Request Off Form.jpeg>)
-
 ### Teacher Dashboard Schedule
 ![Teacher Dashboard Schedule](</screenshots/Teacher dashboard schedule.jpeg>)
+
+### Homepage Logged In
+![Homepage Logged In](</screenshots/Homepage logged in.jpeg>)
